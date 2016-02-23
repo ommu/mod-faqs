@@ -1,0 +1,15 @@
+code			: 11000
+name			: FAQ
+description		: FAQ
+folder_name		: faq
+global_model	: Faqs
+version			: 1.0.1_20131214
+created_date	: 2012-08-30 14:03
+author			: Putra Sudaryanto
+
+db_table_name	: 
+ - ommu_faq_category
+ - ommu_faq_setting
+ - ommu_faqs
+ 
+db_sql_filename	: 
