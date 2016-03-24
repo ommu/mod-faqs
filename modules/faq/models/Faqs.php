@@ -367,17 +367,17 @@ class Faqs extends CActiveRecord
 	 */
 	protected function beforeSave() {
 		if(parent::beforeSave()) {
-			$currentAction = strtolower(Yii::app()->controller->module->id.'/'.Yii::app()->controller->id);
 			if($this->isNewRecord) {
+				$location = strtolower(Yii::app()->controller->module->id.'/'.Yii::app()->controller->id);
 				$question=new OmmuSystemPhrase;
-				$question->location = $currentAction;
+				$question->location = $location.'_questions';
 				$question->en = $this->questions;
 				if($question->save()) {
 					$this->question = $question->phrase_id;
 				}
 				
 				$answer=new OmmuSystemPhrase;
-				$answer->location = $currentAction;
+				$answer->location = $location.'_answers';
 				$answer->en = $this->answers;
 				if($answer->save()) {
 					$this->answer = $answer->phrase_id;

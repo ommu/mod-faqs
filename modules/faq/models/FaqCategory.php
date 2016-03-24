@@ -472,10 +472,10 @@ class FaqCategory extends CActiveRecord
 	protected function beforeSave() 
 	{
 		if(parent::beforeSave()) {
-			$currentAction = strtolower(Yii::app()->controller->module->id.'/'.Yii::app()->controller->id);
+			$location = strtolower(Yii::app()->controller->module->id.'/'.Yii::app()->controller->id);
 			if($this->isNewRecord) {
 				$cat=new OmmuSystemPhrase;
-				$cat->location = $currentAction;
+				$cat->location = $location.'_category';
 				$cat->en = $this->category;
 				if($cat->save()) {
 					$this->name = $cat->phrase_id;
@@ -483,7 +483,7 @@ class FaqCategory extends CActiveRecord
 				
 				if($this->description != '') {
 					$desc=new OmmuSystemPhrase;
-					$desc->location = $currentAction;
+					$desc->location = $location.'_description';
 					$desc->en = $this->description;
 					if($desc->save()) {
 						$this->desc = $desc->phrase_id;
@@ -500,7 +500,7 @@ class FaqCategory extends CActiveRecord
 					$desc->update();
 				} else {
 					$desc=new OmmuSystemPhrase;
-					$desc->location = $currentAction;
+					$desc->location = $location.'_description';
 					$desc->en = $this->description;
 					if($desc->save()) {
 						$this->desc = $desc->phrase_id;
