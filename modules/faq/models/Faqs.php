@@ -371,24 +371,24 @@ class Faqs extends CActiveRecord
 				$location = strtolower(Yii::app()->controller->module->id.'/'.Yii::app()->controller->id);
 				$question=new OmmuSystemPhrase;
 				$question->location = $location.'_questions';
-				$question->en = $this->questions;
+				$question->en_us = $this->questions;
 				if($question->save()) {
 					$this->question = $question->phrase_id;
 				}
 				
 				$answer=new OmmuSystemPhrase;
 				$answer->location = $location.'_answers';
-				$answer->en = $this->answers;
+				$answer->en_us = $this->answers;
 				if($answer->save()) {
 					$this->answer = $answer->phrase_id;
 				}
 			} else {
 				$question = OmmuSystemPhrase::model()->findByPk($this->question);
-				$question->en = $this->questions;
+				$question->en_us = $this->questions;
 				$question->save();
 				
 				$answer = OmmuSystemPhrase::model()->findByPk($this->answer);
-				$answer->en = $this->answers;
+				$answer->en_us = $this->answers;
 				$answer->save();
 			}
 		}

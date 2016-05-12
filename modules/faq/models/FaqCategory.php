@@ -476,7 +476,7 @@ class FaqCategory extends CActiveRecord
 			if($this->isNewRecord) {
 				$cat=new OmmuSystemPhrase;
 				$cat->location = $location.'_category';
-				$cat->en = $this->category;
+				$cat->en_us = $this->category;
 				if($cat->save()) {
 					$this->name = $cat->phrase_id;
 				}
@@ -484,24 +484,24 @@ class FaqCategory extends CActiveRecord
 				if($this->description != '') {
 					$desc=new OmmuSystemPhrase;
 					$desc->location = $location.'_description';
-					$desc->en = $this->description;
+					$desc->en_us = $this->description;
 					if($desc->save()) {
 						$this->desc = $desc->phrase_id;
 					}
 				}
 			} else {
 				$cat = OmmuSystemPhrase::model()->findByPk($this->name);
-				$cat->en = $this->category;
+				$cat->en_us = $this->category;
 				$cat->update();
 				
 				if($this->desc != 0) {
 					$desc = OmmuSystemPhrase::model()->findByPk($this->desc);
-					$desc->en = $this->description;
+					$desc->en_us = $this->description;
 					$desc->update();
 				} else {
 					$desc=new OmmuSystemPhrase;
 					$desc->location = $location.'_description';
-					$desc->en = $this->description;
+					$desc->en_us = $this->description;
 					if($desc->save()) {
 						$this->desc = $desc->phrase_id;
 					}
