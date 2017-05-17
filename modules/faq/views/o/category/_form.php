@@ -46,7 +46,8 @@
 			<?php echo $form->labelEx($model,'category'); ?>
 			<div class="desc">
 				<?php 
-				$model->category = Phrase::trans($model->name, 2);
+				if(!$model->getErrors())
+					$model->category = Phrase::trans($model->name, 2);
 				echo $form->textArea($model,'category',array('maxlength'=>64,'class'=>'span-11 smaller')); ?>
 				<?php echo $form->error($model,'category'); ?>
 			</div>
@@ -56,7 +57,8 @@
 			<?php echo $form->labelEx($model,'description'); ?>
 			<div class="desc">
 				<?php 
-				$model->description = Phrase::trans($model->desc, 2);
+				if(!$model->getErrors())
+					$model->description = Phrase::trans($model->desc, 2);
 				echo $form->textArea($model,'description',array('maxlength'=>256,'class'=>'span-11 smaller')); ?>
 				<?php echo $form->error($model,'description'); ?>
 			</div>

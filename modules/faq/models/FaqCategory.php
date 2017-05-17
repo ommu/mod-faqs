@@ -69,7 +69,7 @@ class FaqCategory extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('
-				category', 'required'),
+				category, description', 'required'),
 			array('publish, dependency, orders', 'numerical', 'integerOnly'=>true),
 			array('user_id, modified_id, name, desc', 'length', 'max'=>11),
 			array('
@@ -473,41 +473,34 @@ class FaqCategory extends CActiveRecord
 	 */
 	protected function beforeSave() 
 	{
+		$currentAction = strtolower(Yii::app()->controller->id.'/'.Yii::app()->controller->action->id);
+		$location = Utility::getUrlTitle($currentAction);
+		
 		if(parent::beforeSave()) {
-			$location = strtolower(Yii::app()->controller->module->id.'/'.Yii::app()->controller->id);
-			if($this->isNewRecord) {
+			if($this->isNewRecord || (!$this->isNewRecord && $this->name == 0)) {
 				$cat=new OmmuSystemPhrase;
-				$cat->location = $location.'_category';
+				$cat->location = $location.'_title';
 				$cat->en_us = $this->category;
-				if($cat->save()) {
+				if($cat->save())
 					$this->name = $cat->phrase_id;
-				}
 				
-				if($this->description != '') {
-					$desc=new OmmuSystemPhrase;
-					$desc->location = $location.'_description';
-					$desc->en_us = $this->description;
-					if($desc->save()) {
-						$this->desc = $desc->phrase_id;
-					}
-				}
 			} else {
 				$cat = OmmuSystemPhrase::model()->findByPk($this->name);
 				$cat->en_us = $this->category;
 				$cat->update();
+			}
+			
+			if($this->isNewRecord || (!$this->isNewRecord && $this->desc == 0)) {
+				$desc=new OmmuSystemPhrase;
+				$desc->location = $location.'_description';
+				$desc->en_us = $this->description;
+				if($desc->save())
+					$this->desc = $desc->phrase_id;
 				
-				if($this->desc != 0) {
-					$desc = OmmuSystemPhrase::model()->findByPk($this->desc);
-					$desc->en_us = $this->description;
-					$desc->update();
-				} else {
-					$desc=new OmmuSystemPhrase;
-					$desc->location = $location.'_description';
-					$desc->en_us = $this->description;
-					if($desc->save()) {
-						$this->desc = $desc->phrase_id;
-					}
-				}
+			} else {
+				$desc = OmmuSystemPhrase::model()->findByPk($this->desc);
+				$desc->en_us = $this->description;
+				$desc->update();
 			}
 		}
 		return true;

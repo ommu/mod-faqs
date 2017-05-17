@@ -367,28 +367,33 @@ class Faqs extends CActiveRecord
 	/**
 	 * before save attributes
 	 */
-	protected function beforeSave() {
+	protected function beforeSave() 
+	{
+		$currentAction = strtolower(Yii::app()->controller->id.'/'.Yii::app()->controller->action->id);
+		$location = Utility::getUrlTitle($currentAction);
+				
 		if(parent::beforeSave()) {
-			if($this->isNewRecord) {
-				$location = strtolower(Yii::app()->controller->module->id.'/'.Yii::app()->controller->id);
+			if($this->isNewRecord || (!$this->isNewRecord && $this->question == 0)) {
 				$question=new OmmuSystemPhrase;
 				$question->location = $location.'_questions';
 				$question->en_us = $this->questions;
-				if($question->save()) {
+				if($question->save())
 					$this->question = $question->phrase_id;
-				}
 				
-				$answer=new OmmuSystemPhrase;
-				$answer->location = $location.'_answers';
-				$answer->en_us = $this->answers;
-				if($answer->save()) {
-					$this->answer = $answer->phrase_id;
-				}
 			} else {
 				$question = OmmuSystemPhrase::model()->findByPk($this->question);
 				$question->en_us = $this->questions;
 				$question->save();
+			}
+			
+			if($this->isNewRecord || (!$this->isNewRecord && $this->answer == 0)) {				
+				$answer=new OmmuSystemPhrase;
+				$answer->location = $location.'_answers';
+				$answer->en_us = $this->answers;
+				if($answer->save())
+					$this->answer = $answer->phrase_id;
 				
+			} else {				
 				$answer = OmmuSystemPhrase::model()->findByPk($this->answer);
 				$answer->en_us = $this->answers;
 				$answer->save();

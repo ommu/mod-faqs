@@ -102,10 +102,10 @@ class FaqStatisticTotal extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('t.statistic_key',$this->statistic_key,true);
-		$criteria->compare('t.total',$this->total);
-		$criteria->compare('t.flag',$this->flag);
-		$criteria->compare('t.note',$this->note,true);
+		$criteria->compare('statistic_key',$this->statistic_key,true);
+		$criteria->compare('total',$this->total);
+		$criteria->compare('flag',$this->flag);
+		$criteria->compare('note',$this->note,true);
 
 		if(!isset($_GET['FaqStatisticTotal_sort']))
 			$criteria->order = 'flag ASC';
