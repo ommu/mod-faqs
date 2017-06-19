@@ -473,8 +473,8 @@ class FaqCategory extends CActiveRecord
 	 */
 	protected function beforeSave() 
 	{
-		$currentAction = strtolower(Yii::app()->controller->id.'/'.Yii::app()->controller->action->id);
-		$location = Utility::getUrlTitle($currentAction);
+		$currentModule = strtolower(Yii::app()->controller->module->id.'/'.Yii::app()->controller->id);
+		$location = Utility::getUrlTitle($currentModule);
 		
 		if(parent::beforeSave()) {
 			if($this->isNewRecord || (!$this->isNewRecord && $this->name == 0)) {
