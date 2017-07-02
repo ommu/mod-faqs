@@ -29,7 +29,7 @@
  * @property string $likes_ip
  *
  * The followings are the available model relations:
- * @property OmmuFaqs $faq
+ * @property Faqs $faq
  */
 class FaqLikes extends CActiveRecord
 {

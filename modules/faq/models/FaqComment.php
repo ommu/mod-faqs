@@ -30,7 +30,7 @@
  * @property string $creation_date
  *
  * The followings are the available model relations:
- * @property OmmuFaqs $faq
+ * @property Faqs $faq
  */
 class FaqComment extends CActiveRecord
 {

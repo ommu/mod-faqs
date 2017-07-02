@@ -37,7 +37,7 @@
  * @property string $modified_date
  *
  * The followings are the available model relations:
- * @property OmmuFaqCategory $cat
+ * @property FaqCategory $cat
  */
 class Faqs extends CActiveRecord
 {
