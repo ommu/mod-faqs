@@ -4,9 +4,8 @@
  * @var $this SettingController
  * @var $model FaqSetting
  * @var $form CActiveForm
- * version: 0.0.1
- * Reference start
  *
+ * Reference start
  * TOC :
  *	Index
  *
@@ -14,9 +13,9 @@
  *	performAjaxValidation
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
+ * @contact (+62)856-299-4114
  * @copyright Copyright (c) 2012 Ommu Platform (opensource.ommu.co)
  * @link https://github.com/ommu/ommu-faqs
- * @contact (+62)856-299-4114
  *
  *----------------------------------------------------------------------------------------------------------
  */
