@@ -29,44 +29,44 @@
 		</div>
 		<?php //begin.Messages ?>
 		
-		<div class="clearfix">
-			<?php echo $form->labelEx($model,'cat_id'); ?>
-			<div class="desc">
+		<div class="form-group row">
+			<?php echo $form->labelEx($model,'cat_id', array('class'=>'col-form-label col-lg-12 col-md-3 col-sm-12')); ?>
+			<div class="col-lg-8 col-md-9 col-sm-12">
 				<?php if(FaqCategory::getCategory('group') != null) {
-					echo $form->dropDownList($model,'cat_id', FaqCategory::getCategory('group'));
+					echo $form->dropDownList($model,'cat_id', FaqCategory::getCategory('group'), array('class'=>'form-control'));
 				} else {
-					echo $form->dropDownList($model,'cat_id', array('prompt'=>Phrase::trans(11019,1)));
+					echo $form->dropDownList($model,'cat_id', array('prompt'=>Yii::t('phrase', 'No Parent'), 'class'=>'form-control'));
 				}?>
 				<?php echo $form->error($model,'cat_id'); ?>
 			</div>
 		</div>
 
-		<div class="clearfix">
-			<?php echo $form->labelEx($model,'questions'); ?>
-			<div class="desc">
+		<div class="form-group row">
+			<?php echo $form->labelEx($model,'questions', array('class'=>'col-form-label col-lg-12 col-md-3 col-sm-12')); ?>
+			<div class="col-lg-8 col-md-9 col-sm-12">
 				<?php
 				if(!$model->getErrors())
-					$model->questions = Phrase::trans($model->question, 2);
-				echo $form->textArea($model,'questions',array('maxlength'=>128,'class'=>'span-11 smaller')); ?>
+					$model->questions = Phrase::trans($model->question);
+				echo $form->textArea($model,'questions',array('maxlength'=>128,'class'=>'form-control')); ?>
 				<?php echo $form->error($model,'questions'); ?>
 			</div>
 		</div>
 
-		<div class="clearfix">
-			<?php echo $form->labelEx($model,'answers'); ?>
-			<div class="desc">
+		<div class="form-group row">
+			<?php echo $form->labelEx($model,'answers', array('class'=>'col-form-label col-lg-12 col-md-3 col-sm-12')); ?>
+			<div class="col-lg-8 col-md-9 col-sm-12">
 				<?php
 				if(!$model->getErrors())
-					$model->answers = Phrase::trans($model->answer, 2);
-				echo $form->textArea($model,'answers',array('class'=>'span-11 medium')); ?>
+					$model->answers = Phrase::trans($model->answer);
+				echo $form->textArea($model,'answers',array('class'=>'form-control')); ?>
 				<?php echo $form->error($model,'answers'); ?>
 			</div>
 		</div>
 
-		<div class="clearfix publish">
-			<?php echo $form->labelEx($model,'publish'); ?>
-			<div class="desc">
-				<?php echo $form->checkBox($model,'publish'); ?>
+		<div class="form-group row publish">
+			<?php echo $form->labelEx($model,'publish', array('class'=>'col-form-label col-lg-12 col-md-3 col-sm-12')); ?>
+			<div class="col-lg-8 col-md-9 col-sm-12">
+				<?php echo $form->checkBox($model,'publish', array('class'=>'form-control')); ?>
 				<?php echo $form->labelEx($model,'publish'); ?>
 				<?php echo $form->error($model,'publish'); ?>
 			</div>

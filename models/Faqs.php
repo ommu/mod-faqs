@@ -110,23 +110,23 @@ class Faqs extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'faq_id' => Phrase::trans(11000,1),
-			'publish' => Phrase::trans(11020,1),
-			'cat_id' => Phrase::trans(11023,1),
-			'user_id' => Phrase::trans(11033,1),
-			'modified_id' => Phrase::trans(11039,1),
-			'question' => Phrase::trans(11034,1),
-			'answer' => Phrase::trans(11035,1),
-			'orders' => Phrase::trans(11022,1),
-			'view' => Phrase::trans(11036,1),
-			'likes' => Phrase::trans(11037,1),
-			'comment' => Phrase::trans(11040,1),
-			'creation_date' => Phrase::trans(11024,1),
-			'modified_date' => Phrase::trans(11025,1),
-			'questions' => Phrase::trans(11034,1),
-			'answers' => Phrase::trans(11035,1),
-			'cat_search' => Phrase::trans(11023,1),
-			'user_search' => Phrase::trans(11033,1),
+			'faq_id' => Yii::t('phrase', 'FAQs'),
+			'publish' => Yii::t('phrase', 'Publish'),
+			'cat_id' => Yii::t('phrase', 'Category'),
+			'user_id' => Yii::t('phrase', 'User'),
+			'modified_id' => Yii::t('phrase', 'Modified'),
+			'question' => Yii::t('phrase', 'Question'),
+			'answer' => Yii::t('phrase', 'Answer'),
+			'orders' => Yii::t('phrase', 'Orders'),
+			'view' => Yii::t('phrase', 'View'),
+			'likes' => Yii::t('phrase', 'Likes'),
+			'comment' => Yii::t('phrase', 'Comment'),
+			'creation_date' => Yii::t('phrase', 'Creation Date'),
+			'modified_date' => Yii::t('phrase', 'Modified Date'),
+			'questions' => Yii::t('phrase', 'Question'),
+			'answers' => Yii::t('phrase', 'Answer'),
+			'cat_search' => Yii::t('phrase', 'Category'),
+			'user_search' => Yii::t('phrase', 'User'),
 		);
 	}
 	
@@ -264,7 +264,7 @@ class Faqs extends CActiveRecord
 			);
 			$this->defaultColumns[] = array(
 				'name' => 'questions',
-				'value' => '"<div>".FaqCategory::getAdminCategory($data->cat_id,"select")."</div>".Phrase::trans($data->question, 2)."<br/><span>".Utility::shortText(Utility::hardDecode(Phrase::trans($data->answer, 2)),200)."</span>"',
+				'value' => '"<div>".FaqCategory::getAdminCategory($data->cat_id,"select")."</div>".Phrase::trans($data->question)."<br/><span>".Utility::shortText(Utility::hardDecode(Phrase::trans($data->answer)),200)."</span>"',
 				'htmlOptions' => array(
 					'class' => 'bold',
 				),
@@ -273,7 +273,7 @@ class Faqs extends CActiveRecord
 			if(!isset($_GET['category'])) {
 				$this->defaultColumns[] = array(
 					'name' => 'cat_search',
-					'value' => 'CHtml::link(Phrase::trans($data->category->name, 2), Yii::app()->controller->createUrl(\'manage\', array(\'category\' => $data->cat_id)))',
+					'value' => 'CHtml::link(Phrase::trans($data->category->name), Yii::app()->controller->createUrl(\'manage\', array(\'category\' => $data->cat_id)))',
 					'type' => 'raw',
 				);
 			}

@@ -124,7 +124,7 @@ class CategoryController extends Controller
 		}
 		$columns = $model->getGridColumn($columnTemp);
 
-		$this->pageTitle = Phrase::trans(11012,1);
+		$this->pageTitle = Yii::t('phrase', 'Faq Categories');
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_manage',array(
@@ -158,7 +158,7 @@ class CategoryController extends Controller
 							'type' => 5,
 							'get' => Yii::app()->controller->createUrl('manage'),
 							'id' => 'partial-faq-category',
-							'msg' => '<div class="errorSummary success"><strong>'.Phrase::trans(11014,1).'</strong></div>',
+							'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Faq Category success created.').'</strong></div>',
 						));
 					} else {
 						print_r($model->getErrors());
@@ -172,7 +172,7 @@ class CategoryController extends Controller
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 			$this->dialogWidth = 550;
 
-			$this->pageTitle = Phrase::trans(11013,1);
+			$this->pageTitle = Yii::t('phrase', 'Create Category');
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_add',array(
@@ -207,7 +207,7 @@ class CategoryController extends Controller
 							'type' => 5,
 							'get' => Yii::app()->controller->createUrl('manage'),
 							'id' => 'partial-faq-category',
-							'msg' => '<div class="errorSummary success"><strong>'.Phrase::trans(11016,1).'</strong></div>',
+							'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Faq Category success updated.').'</strong></div>',
 						));
 					} else {
 						print_r($model->getErrors());
@@ -221,7 +221,7 @@ class CategoryController extends Controller
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 			$this->dialogWidth = 550;
 
-			$this->pageTitle = Phrase::trans(11015,1);
+			$this->pageTitle = Yii::t('phrase', 'Update Category');
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_edit',array(
@@ -282,7 +282,7 @@ class CategoryController extends Controller
 					'type' => 5,
 					'get' => Yii::app()->controller->createUrl('manage'),
 					'id' => 'partial-faq-category',
-					'msg' => '<div class="errorSummary success"><strong>'.Phrase::trans(11018,1).'</strong></div>',
+					'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Faq Category success deleted.').'</strong></div>',
 				));
 			}
 
@@ -291,7 +291,7 @@ class CategoryController extends Controller
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 			$this->dialogWidth = 350;
 
-			$this->pageTitle = Phrase::trans(11017,1);
+			$this->pageTitle = Yii::t('phrase', 'Delete Category');
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_delete');
@@ -325,7 +325,7 @@ class CategoryController extends Controller
 						'type' => 5,
 						'get' => Yii::app()->controller->createUrl('manage'),
 						'id' => 'partial-faq-category',
-						'msg' => '<div class="errorSummary success"><strong>'.Phrase::trans(11016,1).'</strong></div>',
+						'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Faq Category success updated.').'</strong></div>',
 					));
 				}
 			}

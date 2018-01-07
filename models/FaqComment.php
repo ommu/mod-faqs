@@ -89,12 +89,12 @@ class FaqComment extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'comment_id' => Phrase::trans(11040,1),
-			'read' => Phrase::trans(11042,1),
-			'faq_id' => Phrase::trans(11000,1),
-			'user_id' => Phrase::trans(11033,1),
-			'comment' => Phrase::trans(11040,1),
-			'creation_date' => Phrase::trans(11024,1),
+			'comment_id' => Yii::t('phrase', 'Comment'),
+			'read' => Yii::t('phrase', 'Read'),
+			'faq_id' => Yii::t('phrase', 'FAQs'),
+			'user_id' => Yii::t('phrase', 'User'),
+			'comment' => Yii::t('phrase', 'Comment'),
+			'creation_date' => Yii::t('phrase', 'Creation Date'),
 		);
 	}
 	

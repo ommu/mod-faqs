@@ -84,10 +84,10 @@ class FaqSetting extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'license' => Phrase::trans(11002,1),
-			'permission' => Phrase::trans(11005,1),
-			'meta_keyword' => Phrase::trans(11009,1),
-			'meta_description' => Phrase::trans(11010,1),
+			'license' => Yii::t('phrase', 'License Key'),
+			'permission' => Yii::t('phrase', 'Public Permission Defaults'),
+			'meta_keyword' => Yii::t('phrase', 'Meta Keyword'),
+			'meta_description' => Yii::t('phrase', 'Meta Description'),
 		);
 	}
 	

@@ -86,11 +86,11 @@ class FaqStatisticData extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'user_id' => Phrase::trans(11033,1),
-			'cat_id' => Phrase::trans(11023,1),
-			'faq_id' => Phrase::trans(11000,1),
+			'user_id' => Yii::t('phrase', 'User'),
+			'cat_id' => Yii::t('phrase', 'Category'),
+			'faq_id' => Yii::t('phrase', 'FAQs'),
 			'flag' => 'Flag',
-			'creation_date' => Phrase::trans(11024,1),
+			'creation_date' => Yii::t('phrase', 'Creation Date'),
 		);
 	}
 	

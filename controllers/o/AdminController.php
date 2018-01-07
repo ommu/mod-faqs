@@ -126,12 +126,12 @@ class AdminController extends Controller
 		
 		if(isset($_GET['category'])) {
 			$category = FaqCategory::model()->findByPk($_GET['category']);
-			$title = ': '.Phrase::trans($category->name, 2);
+			$title = ': '.Phrase::trans($category->name);
 		} else {
 			$title = '';
 		}
 
-		$this->pageTitle = Phrase::trans(11026,1).$title;
+		$this->pageTitle = Yii::t('phrase', 'View Faqs').$title;
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_manage',array(
@@ -165,7 +165,7 @@ class AdminController extends Controller
 							'type' => 5,
 							'get' => Yii::app()->controller->createUrl('manage'),
 							'id' => 'partial-faqs',
-							'msg' => '<div class="errorSummary success"><strong>'.Phrase::trans(11028,1).'</strong></div>',
+							'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Faq success created.').'</strong></div>',
 						));
 					} else {
 						print_r($model->getErrors());
@@ -179,7 +179,7 @@ class AdminController extends Controller
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 			$this->dialogWidth = 600;
 
-			$this->pageTitle = Phrase::trans(11027,1);
+			$this->pageTitle = Yii::t('phrase', 'Create Faq');
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_add',array(
@@ -214,7 +214,7 @@ class AdminController extends Controller
 							'type' => 5,
 							'get' => Yii::app()->controller->createUrl('manage'),
 							'id' => 'partial-faqs',
-							'msg' => '<div class="errorSummary success"><strong>'.Phrase::trans(11030,1).'</strong></div>',
+							'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Faq success updated.').'</strong></div>',
 						));
 					} else {
 						print_r($model->getErrors());
@@ -228,7 +228,7 @@ class AdminController extends Controller
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 			$this->dialogWidth = 600;
 
-			$this->pageTitle = Phrase::trans(11029,1);
+			$this->pageTitle = Yii::t('phrase', 'Update Faq');
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_edit',array(
@@ -290,7 +290,7 @@ class AdminController extends Controller
 					'type' => 5,
 					'get' => Yii::app()->controller->createUrl('manage'),
 					'id' => 'partial-faqs',
-					'msg' => '<div class="errorSummary success"><strong>'.Phrase::trans(11032,1).'</strong></div>',
+					'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Faq success deleted.').'</strong></div>',
 				));
 			}
 
@@ -299,7 +299,7 @@ class AdminController extends Controller
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 			$this->dialogWidth = 350;
 
-			$this->pageTitle = Phrase::trans(11031,1);
+			$this->pageTitle = Yii::t('phrase', 'Delete Faq');
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_delete');
@@ -333,7 +333,7 @@ class AdminController extends Controller
 						'type' => 5,
 						'get' => Yii::app()->controller->createUrl('manage'),
 						'id' => 'partial-faqs',
-						'msg' => '<div class="errorSummary success"><strong>'.Phrase::trans(11030,1).'</strong></div>',
+						'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Faq success updated.').'</strong></div>',
 					));
 				}
 			}

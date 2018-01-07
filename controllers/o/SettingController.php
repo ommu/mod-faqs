@@ -122,7 +122,7 @@ class SettingController extends Controller
 					if($model->save()) {
 						echo CJSON::encode(array(
 							'type' => 0,
-							'msg' => '<div class="errorSummary success"><strong>'.Phrase::trans(11011,1).'</strong></div>',
+							'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Faq Setting success updated.').'</strong></div>',
 						));
 					} else {
 						print_r($model->getErrors());
@@ -132,7 +132,7 @@ class SettingController extends Controller
 			Yii::app()->end();
 		}
 
-		$this->pageTitle = Phrase::trans(11001,1);
+		$this->pageTitle = Yii::t('phrase', 'Faq Settings');
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_index',array(

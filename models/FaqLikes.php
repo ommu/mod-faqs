@@ -88,11 +88,11 @@ class FaqLikes extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'like_id' => Phrase::trans(11037,1),
-			'faq_id' => Phrase::trans(11000,1),
-			'user_id' => Phrase::trans(11033,1),
-			'likes_date' => Phrase::trans(11044,1),
-			'likes_ip' => Phrase::trans(11045,1),
+			'like_id' => Yii::t('phrase', 'Likes'),
+			'faq_id' => Yii::t('phrase', 'FAQs'),
+			'user_id' => Yii::t('phrase', 'User'),
+			'likes_date' => Yii::t('phrase', 'Like Date'),
+			'likes_ip' => Yii::t('phrase', 'Like IP Address'),
 		);
 	}
 	

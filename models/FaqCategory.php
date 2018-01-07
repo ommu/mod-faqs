@@ -104,18 +104,18 @@ class FaqCategory extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'cat_id' => Phrase::trans(11023,1),
-			'publish' => Phrase::trans(11020,1),
-			'user_id' => Phrase::trans(11033,1),
-			'modified_id' => Phrase::trans(11039,1),
-			'dependency' => Phrase::trans(11021,1),
-			'orders' => Phrase::trans(11022,1),
-			'name' => Phrase::trans(11023,1),
-			'desc' => Phrase::trans(11038,1),
-			'creation_date' => Phrase::trans(11024,1),
-			'modified_date' => Phrase::trans(11025,1),
-			'category' => Phrase::trans(11023,1),
-			'description' => Phrase::trans(11038,1),
+			'cat_id' => Yii::t('phrase', 'Category'),
+			'publish' => Yii::t('phrase', 'Publish'),
+			'user_id' => Yii::t('phrase', 'User'),
+			'modified_id' => Yii::t('phrase', 'Modified'),
+			'dependency' => Yii::t('phrase', 'Parent'),
+			'orders' => Yii::t('phrase', 'Orders'),
+			'name' => Yii::t('phrase', 'Category'),
+			'desc' => Yii::t('phrase', 'Description'),
+			'creation_date' => Yii::t('phrase', 'Creation Date'),
+			'modified_date' => Yii::t('phrase', 'Modified Date'),
+			'category' => Yii::t('phrase', 'Category'),
+			'description' => Yii::t('phrase', 'Description'),
 		);
 	}
 	
@@ -230,7 +230,7 @@ class FaqCategory extends CActiveRecord
 			);
 			$this->defaultColumns[] = array(
 				'name' => 'category',
-				'value' => '"<div>".FaqCategory::getAdminCategory($data->cat_id,"select")."</div>".Phrase::trans($data->name, 2)."<br/><span>".Utility::shortText(Utility::hardDecode(Phrase::trans($data->desc, 2)),200)."</span>"',
+				'value' => '"<div>".FaqCategory::getAdminCategory($data->cat_id,"select")."</div>".Phrase::trans($data->name)."<br/><span>".Utility::shortText(Utility::hardDecode(Phrase::trans($data->desc)),200)."</span>"',
 				'htmlOptions' => array(
 					'class' => 'bold',
 				),
@@ -239,7 +239,7 @@ class FaqCategory extends CActiveRecord
 			/*
 			$this->defaultColumns[] = array(
 				'name' => 'dependency',
-				'value' => '$data->dependency != 0 ? Phrase::trans(FaqCategory::model()->findByPk($data->dependency)->name, 2) : "-"',
+				'value' => '$data->dependency != 0 ? Phrase::trans(FaqCategory::model()->findByPk($data->dependency)->name) : "-"',
 			);
 			*/
 			$this->defaultColumns[] = array(
@@ -337,15 +337,15 @@ class FaqCategory extends CActiveRecord
 			foreach($model as $key => $val) {
 				if($type == 'group') {
 					if($dependency == 0)
-						$items[$val->cat_id] = Phrase::trans($val->name, 2);
+						$items[$val->cat_id] = Phrase::trans($val->name);
 					else 
-						$items[$val->cat_id] = '- '.Phrase::trans($val->name, 2);
+						$items[$val->cat_id] = '- '.Phrase::trans($val->name);
 					if(self::getCategory($type, $val->cat_id, $publish) != null) {
 						$data = self::getCategory($type, $val->cat_id, $publish);
 						$items = $items + $data;
 					}
 				} else {
-					$items[$val->cat_id] = Phrase::trans($val->name, 2);
+					$items[$val->cat_id] = Phrase::trans($val->name);
 				}
 			}
 		} else
@@ -385,13 +385,13 @@ class FaqCategory extends CActiveRecord
 			foreach($model as $key => $val) {
 				if($type == 'ul') {
 					$data .= '<li>';
-					$data .= '<a href="'.$val->cat_id.'" title="'.Phrase::trans($val->name, 2).'">'.Phrase::trans($val->name, 2).'</a>';
+					$data .= '<a href="'.$val->cat_id.'" title="'.Phrase::trans($val->name).'">'.Phrase::trans($val->name).'</a>';
 					if(self::getGroupCategory($type, $val->cat_id, $publish) != null) {
 						$data .= self::getGroupCategory($type, $val->cat_id, $publish);
 					}
 					$data .= '</li>';
 				} else {
-					$data .= '<option value="'.$val->cat_id.'">'.Phrase::trans($val->name, 2).'</option>';
+					$data .= '<option value="'.$val->cat_id.'">'.Phrase::trans($val->name).'</option>';
 					if(self::getGroupCategory($type, $val->cat_id, $publish) != null)
 						$data .= self::getGroupCategory($type, $val->cat_id, $publish);
 				}
@@ -413,7 +413,7 @@ class FaqCategory extends CActiveRecord
 		
 		$items = array();
 		if($model != null) {
-			$items[$model->cat_id] = Phrase::trans($model->name, 2);
+			$items[$model->cat_id] = Phrase::trans($model->name);
 			if($model->dependency != 0) {
 				$data = FaqCategory::getArrayParentCategory($model->dependency);
 				$items = $items + $data;
