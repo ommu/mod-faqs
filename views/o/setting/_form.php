@@ -40,7 +40,7 @@
 	</div>
 
 	<div class="form-group row">
-		<?php echo $form->labelEx($model,'permission', array('class'=>'col-form-label col-lg-12 col-md-3 col-sm-12')); ?>
+		<?php echo $form->labelEx($model,'permission', array('class'=>'col-form-label col-lg-4 col-md-3 col-sm-12')); ?>
 		<div class="col-lg-8 col-md-9 col-sm-12">
 			<span class="small-px"><?php echo Yii::t('phrase', 'Select whether or not you want to let the public (visitors that are not logged-in) to view the following sections of your social network. In some cases (such as Profiles, Blogs, and Albums), if you have given them the option, your users will be able to make their pages private even though you have made them publically viewable here. For more permissions settings, please visit the General Settings page.');?></span>
 			<?php echo $form->radioButtonList($model, 'permission', array(
@@ -52,7 +52,7 @@
 	</div>
 
 	<div class="form-group row">
-		<?php echo $form->labelEx($model,'meta_description', array('class'=>'col-form-label col-lg-12 col-md-3 col-sm-12')); ?>
+		<?php echo $form->labelEx($model,'meta_description', array('class'=>'col-form-label col-lg-4 col-md-3 col-sm-12')); ?>
 		<div class="col-lg-8 col-md-9 col-sm-12">
 			<?php echo $form->textArea($model,'meta_description',array('rows'=>6, 'cols'=>50, 'class'=>'form-control')); ?>
 			<?php echo $form->error($model,'meta_description'); ?>
@@ -60,7 +60,7 @@
 	</div>
 
 	<div class="form-group row">
-		<?php echo $form->labelEx($model,'meta_keyword', array('class'=>'col-form-label col-lg-12 col-md-3 col-sm-12')); ?>
+		<?php echo $form->labelEx($model,'meta_keyword', array('class'=>'col-form-label col-lg-4 col-md-3 col-sm-12')); ?>
 		<div class="col-lg-8 col-md-9 col-sm-12">
 			<?php echo $form->textArea($model,'meta_keyword',array('rows'=>6, 'cols'=>50, 'class'=>'form-control')); ?>
 			<?php echo $form->error($model,'meta_keyword'); ?>
