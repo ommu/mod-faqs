@@ -35,7 +35,7 @@
 				<?php if(FaqCategory::getCategory('group') != null) {
 					echo $form->dropDownList($model,'cat_id', FaqCategory::getCategory('group'), array('class'=>'form-control'));
 				} else {
-					echo $form->dropDownList($model,'cat_id', array('prompt'=>Yii::t('phrase', 'No Parent'), 'class'=>'form-control'));
+					echo $form->dropDownList($model,'cat_id', array('prompt'=>Yii::t('phrase', 'No Parent')), array('class'=>'form-control'));
 				}?>
 				<?php echo $form->error($model,'cat_id'); ?>
 			</div>
