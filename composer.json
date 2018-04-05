@@ -1,25 +1,24 @@
 {
 	"name": "ommu/faq",
-	"description": "Frequency Asked Question Module for Ommu Platform",
+	"description": "Frequency Asked Question Module from Ommu Platform",
 	"keywords": [
 		"module",
-		"faq",
 		"frequency-asked-question",
+		"faq",
 		"ommu",
-		"platform",
 		"ommu platform"
 	],
-	"homepage": "https://github.com/ommu/ommu-faqs",
+	"homepage": "https://github.com/ommu/mod-faqs",
 	"type": "ommu-module",
 	"license": "Apache-2.0",
 	"support": {
-		"issues": "https://github.com/ommu/ommu-faqs/issues",
-		"wiki": "https://github.com/ommu/ommu-faqs/wiki",
-		"source": "https://github.com/ommu/ommu-faqs"
+		"issues": "https://github.com/ommu/mod-faqs/issues",
+		"wiki": "https://github.com/ommu/mod-faqs/wiki",
+		"source": "https://github.com/ommu/mod-faqs"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/ommu/ommu-faqs.git"
+		"url": "https://github.com/ommu/mod-faqs.git"
 	},
 	"authors": [
 		{
