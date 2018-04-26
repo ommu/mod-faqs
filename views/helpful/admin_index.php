@@ -3,7 +3,7 @@
  * Helpfuls (helpful)
  * @var $this yii\web\View
  * @var $this app\modules\faq\controllers\HelpfulController
- * @var $model app\modules\faq\models\Helpful
+ * @var $model app\modules\faq\models\FaqHelpful
  * version: 0.0.1
  *
  * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
@@ -75,12 +75,12 @@ $this->params['menu']['option'] = [
 				'buttons' => [
 					'view' => function ($url, $model, $key) {
 						$url = Url::to(['view', 'id' => $model->primaryKey]);
-						return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, ['title' => Yii::t('app', 'View Helpful')]);
+						return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, ['title' => Yii::t('app', 'View FaqHelpful')]);
 					},
 					'delete' => function ($url, $model, $key) {
 						$url = Url::to(['delete', 'id' => $model->primaryKey]);
 						return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
-							'title' => Yii::t('app', 'Delete Helpful'),
+							'title' => Yii::t('app', 'Delete FaqHelpful'),
 							'data-confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
 							'data-method'  => 'post',
 						]);

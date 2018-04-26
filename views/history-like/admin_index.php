@@ -1,15 +1,15 @@
 <?php
 /**
- * Faq View Histories (faq-view-history)
+ * Like Histories (like-history)
  * @var $this yii\web\View
- * @var $this app\modules\faq\controllers\ViewHistoriController
- * @var $model app\modules\faq\models\FaqViewHistory
+ * @var $this app\modules\faq\controllers\HistoryLikeController
+ * @var $model app\modules\faq\models\FaqLikeHistory
  * version: 0.0.1
  *
  * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
  * @link http://ecc.ft.ugm.ac.id
  * @author Eko Hariyanto <haryeko29@gmail.com>
- * @created date 8 January 2018, 15:19 WIB
+ * @created date 9 January 2018, 08:22 WIB
  * @contact (+62)857-4381-4273
  *
  */
@@ -74,10 +74,11 @@ $this->params['menu']['option'] = [
 					'class'=>'action-column',
 				],
 				'buttons' => [
+	
 					'delete' => function ($url, $model, $key) {
 						$url = Url::to(['delete', 'id' => $model->primaryKey]);
 						return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
-							'title' => Yii::t('app', 'Delete Faq View History'),
+							'title' => Yii::t('app', 'Delete Like History'),
 							'data-confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
 							'data-method'  => 'post',
 						]);

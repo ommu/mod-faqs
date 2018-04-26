@@ -1,9 +1,9 @@
 <?php
 /**
- * LikeHistory
+ * FaqLikeHistory
  * version: 0.0.1
  *
- * LikeHistory represents the model behind the search form about `app\modules\faq\models\LikeHistory`.
+ * FaqLikeHistory represents the model behind the search form about `app\modules\faq\models\FaqLikeHistory`.
  *
  * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
  * @link http://ecc.ft.ugm.ac.id
@@ -18,10 +18,10 @@ namespace app\modules\faq\models\search;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\modules\faq\models\LikeHistory as LikeHistoryModel;
+use app\modules\faq\models\FaqLikeHistory as FaqLikeHistoryModel;
 //use app\modules\faq\models\FaqLikes;
 
-class LikeHistory extends LikeHistoryModel
+class FaqLikeHistory extends FaqLikeHistoryModel
 {
     /**
      * @inheritdoc
@@ -61,7 +61,7 @@ class LikeHistory extends LikeHistoryModel
      */
     public function search($params)
     {
-        $query = LikeHistoryModel::find()->alias('t');
+        $query = FaqLikeHistoryModel::find()->alias('t');
 		$query->joinWith(['like like']);
 
         // add conditions that should always apply here

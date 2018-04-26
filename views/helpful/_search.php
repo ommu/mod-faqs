@@ -3,7 +3,7 @@
  * Helpfuls (helpful)
  * @var $this yii\web\View
  * @var $this app\modules\faq\controllers\HelpfulController
- * @var $model app\modules\faq\models\search\Helpful
+ * @var $model app\modules\faq\models\search\FaqHelpful
  * @var $form yii\widgets\ActiveForm
  * version: 0.0.1
  *

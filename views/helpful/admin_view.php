@@ -3,7 +3,7 @@
  * Helpfuls (helpful)
  * @var $this yii\web\View
  * @var $this app\modules\faq\controllers\HelpfulController
- * @var $model app\modules\faq\models\Helpful
+ * @var $model app\modules\faq\models\FaqHelpful
  * version: 0.0.1
  *
  * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)

@@ -2,10 +2,10 @@
 /**
  * HelpfulController
  * @var $this yii\web\View
- * @var $model app\modules\faq\models\Helpful
+ * @var $model app\modules\faq\models\FaqHelpful
  * version: 0.0.1
  *
- * HelpfulController implements the CRUD actions for Helpful model.
+ * HelpfulController implements the CRUD actions for FaqHelpful model.
  * Reference start
  * TOC :
  *  Index
@@ -25,8 +25,8 @@
 namespace app\modules\faq\controllers;
 
 use Yii;
-use app\modules\faq\models\Helpful;
-use app\modules\faq\models\search\Helpful as HelpfulSearch;
+use app\modules\faq\models\FaqHelpful;
+use app\modules\faq\models\search\FaqHelpful as HelpfulSearch;
 use app\components\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -53,7 +53,7 @@ class HelpfulController extends Controller
     }
 
     /**
-     * Lists all Helpful models.
+     * Lists all FaqHelpful models.
      * @return mixed
      */
     public function actionIndex()
@@ -82,7 +82,7 @@ class HelpfulController extends Controller
     }
 
     /**
-     * Displays a single Helpful model.
+     * Displays a single FaqHelpful model.
      * @param string $id
      * @return mixed
      */
@@ -90,7 +90,7 @@ class HelpfulController extends Controller
     {
         $model = $this->findModel($id);
 
-        $this->view->title = Yii::t('app', 'View {modelClass}: {id}', ['modelClass' => 'Helpful', 'id' => $model->id]);
+        $this->view->title = Yii::t('app', 'View {modelClass}: {id}', ['modelClass' => 'FaqHelpful', 'id' => $model->id]);
         $this->view->description = '';
         $this->view->keywords = '';
         return $this->render('admin_view', [
@@ -99,7 +99,7 @@ class HelpfulController extends Controller
     }
 
     /**
-     * Deletes an existing Helpful model.
+     * Deletes an existing FaqHelpful model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param string $id
      * @return mixed
@@ -108,20 +108,20 @@ class HelpfulController extends Controller
     {
         $this->findModel($id)->delete();
         
-        Yii::$app->session->setFlash('success', Yii::t('app', 'Helpful success deleted.'));
+        Yii::$app->session->setFlash('success', Yii::t('app', 'FaqHelpful success deleted.'));
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Helpful model based on its primary key value.
+     * Finds the FaqHelpful model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $id
-     * @return Helpful the loaded model
+     * @return FaqHelpful the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if(($model = Helpful::findOne($id)) !== null) 
+        if(($model = FaqHelpful::findOne($id)) !== null) 
             return $model;
         else
             throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));

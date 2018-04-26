@@ -1,6 +1,6 @@
 <?php
 /**
- * Helpful
+ * FaqHelpful
  * version: 0.0.1
  *
  * This is the model class for table "ommu_faq_helpful".
@@ -34,7 +34,7 @@ use yii\helpers\Url;
 use app\coremodules\user\models\Users;
 use app\libraries\grid\GridView;
 
-class Helpful extends \app\components\ActiveRecord
+class FaqHelpful extends \app\components\ActiveRecord
 {
     public $gridForbiddenColumn = ['modified_date', 'modified_id'];
 

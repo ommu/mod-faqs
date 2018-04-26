@@ -2,7 +2,7 @@
 /**
  * Faqs (faqs)
  * @var $this yii\web\View
- * @var $this app\modules\faq\controllers\FaqsController
+ * @var $this app\modules\faq\controllers\AdminController
  * @var $model app\modules\faq\models\Faqs
  * version: 0.0.1
  *

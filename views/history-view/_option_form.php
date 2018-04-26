@@ -2,7 +2,7 @@
 /**
  * Faq View Histories (faq-view-history)
  * @var $this yii\web\View
- * @var $this app\modules\faq\controllers\ViewHistoriController
+ * @var $this app\modules\faq\controllers\HistoryViewController
  * @var $model app\modules\faq\models\search\FaqViewHistory
  * @var $form yii\widgets\ActiveForm
  * version: 0.0.1

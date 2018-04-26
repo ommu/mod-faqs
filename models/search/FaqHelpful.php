@@ -1,9 +1,9 @@
 <?php
 /**
- * Helpful
+ * FaqHelpful
  * version: 0.0.1
  *
- * Helpful represents the model behind the search form about `app\modules\faq\models\Helpful`.
+ * FaqHelpful represents the model behind the search form about `app\modules\faq\models\FaqHelpful`.
  *
  * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
  * @link http://ecc.ft.ugm.ac.id
@@ -18,11 +18,11 @@ namespace app\modules\faq\models\search;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\modules\faq\models\Helpful as HelpfulModel;
+use app\modules\faq\models\FaqHelpful as FaqHelpfulModel;
 //use app\modules\faq\models\Faqs;
 //use app\coremodules\user\models\Users;
 
-class Helpful extends HelpfulModel
+class FaqHelpful extends FaqHelpfulModel
 {
     /**
      * @inheritdoc
@@ -62,7 +62,7 @@ class Helpful extends HelpfulModel
      */
     public function search($params)
     {
-        $query = HelpfulModel::find()->alias('t');
+        $query = FaqHelpfulModel::find()->alias('t');
 		$query->joinWith(['faq faq', 'user user', 'modified modified']);
 
         // add conditions that should always apply here

@@ -1,11 +1,11 @@
 <?php
 /**
- * FaqsController
+ * AdminController
  * @var $this yii\web\View
  * @var $model app\modules\faq\models\Faqs
  * version: 0.0.1
  *
- * FaqsController implements the CRUD actions for Faqs model.
+ * AdminController implements the CRUD actions for Faqs model.
  * Reference start
  * TOC :
  *  Index
@@ -36,7 +36,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use mdm\admin\components\AccessControl;
 
-class FaqsController extends Controller
+class AdminController extends Controller
 {
     /**
      * @inheritdoc

@@ -2,7 +2,7 @@
 /**
  * Faqs (faqs)
  * @var $this yii\web\View
- * @var $this app\modules\faq\controllers\FaqsController
+ * @var $this app\modules\faq\controllers\AdminController
  * @var $model app\modules\faq\models\Faqs
  * @var $form yii\widgets\ActiveForm
  * version: 0.0.1
@@ -20,10 +20,13 @@ use yii\helpers\Url;
 use app\libraries\MenuContent;
 
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Faqs'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => $model->faq_id, 'url' => ['view', 'id' => $model->faq_id]];
+$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
 $this->params['menu']['content'] = [
 	['label' => Yii::t('app', 'Back To Manage'), 'url' => Url::to(['index']), 'icon' => 'table'],
+	['label' => Yii::t('app', 'View'), 'url' => Url::to(['view', 'id' => $model->faq_id]), 'icon' => 'eye'],
+	['label' => Yii::t('app', 'Delete'), 'url' => Url::to(['delete', 'id' => $model->faq_id]), 'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'), 'method' => 'post', 'icon' => 'trash'],
 ];
 ?>
 

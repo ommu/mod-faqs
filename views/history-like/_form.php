@@ -2,8 +2,8 @@
 /**
  * Like Histories (like-history)
  * @var $this yii\web\View
- * @var $this app\modules\faq\controllers\LikeHistoryController
- * @var $model app\modules\faq\models\LikeHistory
+ * @var $this app\modules\faq\controllers\HistoryLikeController
+ * @var $model app\modules\faq\models\FaqLikeHistory
  * @var $form yii\widgets\ActiveForm
  * version: 0.0.1
  *

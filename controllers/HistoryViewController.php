@@ -1,11 +1,11 @@
 <?php
 /**
- * ViewHistoriController
+ * HistoryViewController
  * @var $this yii\web\View
  * @var $model app\modules\faq\models\FaqViewHistory
  * version: 0.0.1
  *
- * ViewHistoriController implements the CRUD actions for FaqViewHistory model.
+ * HistoryViewController implements the CRUD actions for FaqViewHistory model.
  * Reference start
  * TOC :
  *  Index
@@ -31,7 +31,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use mdm\admin\components\AccessControl;
 
-class ViewHistoriController extends Controller
+class HistoryViewController extends Controller
 {
     /**
      * @inheritdoc

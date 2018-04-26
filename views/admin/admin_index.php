@@ -1,15 +1,15 @@
 <?php
 /**
- * Like Histories (like-history)
+ * Faqs (faqs)
  * @var $this yii\web\View
- * @var $this app\modules\faq\controllers\LikeHistoryController
- * @var $model app\modules\faq\models\LikeHistory
+ * @var $this app\modules\faq\controllers\AdminController
+ * @var $model app\modules\faq\models\Faqs
  * version: 0.0.1
  *
  * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
  * @link http://ecc.ft.ugm.ac.id
  * @author Eko Hariyanto <haryeko29@gmail.com>
- * @created date 9 January 2018, 08:22 WIB
+ * @created date 5 January 2018, 17:01 WIB
  * @contact (+62)857-4381-4273
  *
  */
@@ -25,7 +25,7 @@ use yii\widgets\Pjax;
 $this->params['breadcrumbs'][] = $this->title;
 
 $this->params['menu']['content'] = [
-	
+	['label' => Yii::t('app', 'Add Faqs'), 'url' => Url::to(['create']), 'icon' => 'plus-square'],
 ];
 $this->params['menu']['option'] = [
 	// ['label' => Yii::t('app', 'Search'), 'url' => 'javascript:void(0);'],
@@ -74,17 +74,24 @@ $this->params['menu']['option'] = [
 					'class'=>'action-column',
 				],
 				'buttons' => [
-	
+					'view' => function ($url, $model, $key) {
+						$url = Url::to(['view', 'id' => $model->primaryKey]);
+						return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, ['title' => Yii::t('app', 'View Faqs')]);
+					},
+					'update' => function ($url, $model, $key) {
+						$url = Url::to(['update', 'id' => $model->primaryKey]);
+						return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, ['title' => Yii::t('app', 'Update Faqs')]);
+					},
 					'delete' => function ($url, $model, $key) {
 						$url = Url::to(['delete', 'id' => $model->primaryKey]);
 						return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
-							'title' => Yii::t('app', 'Delete Like History'),
+							'title' => Yii::t('app', 'Delete Faqs'),
 							'data-confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
 							'data-method'  => 'post',
 						]);
 					},
 				],
-				'template' => '{delete}',
+				'template' => '{view}{update}{delete}',
 			]);
 			
 			echo GridView::widget([

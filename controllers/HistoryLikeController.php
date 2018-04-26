@@ -1,11 +1,11 @@
 <?php
 /**
- * LikeHistoryController
+ * HistoryLikeController
  * @var $this yii\web\View
- * @var $model app\modules\faq\models\LikeHistory
+ * @var $model app\modules\faq\models\FaqLikeHistory
  * version: 0.0.1
  *
- * LikeHistoryController implements the CRUD actions for LikeHistory model.
+ * HistoryLikeController implements the CRUD actions for FaqLikeHistory model.
  * Reference start
  * TOC :
  *  Index
@@ -25,14 +25,14 @@
 namespace app\modules\faq\controllers;
 
 use Yii;
-use app\modules\faq\models\LikeHistory;
-use app\modules\faq\models\search\LikeHistory as LikeHistorySearch;
+use app\modules\faq\models\FaqLikeHistory;
+use app\modules\faq\models\search\FaqLikeHistory as LikeHistorySearch;
 use app\components\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use mdm\admin\components\AccessControl;
 
-class LikeHistoryController extends Controller
+class HistoryLikeController extends Controller
 {
     /**
      * @inheritdoc
@@ -54,7 +54,7 @@ class LikeHistoryController extends Controller
     }
 
     /**
-     * Lists all LikeHistory models.
+     * Lists all FaqLikeHistory models.
      * @return mixed
      */
     public function actionIndex()
@@ -83,7 +83,7 @@ class LikeHistoryController extends Controller
     }
 
     /**
-     * Creates a new LikeHistory model.
+     * Creates a new FaqLikeHistory model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
@@ -101,15 +101,15 @@ class LikeHistoryController extends Controller
     }
   
     /**
-     * Finds the LikeHistory model based on its primary key value.
+     * Finds the FaqLikeHistory model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $id
-     * @return LikeHistory the loaded model
+     * @return FaqLikeHistory the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if(($model = LikeHistory::findOne($id)) !== null) 
+        if(($model = FaqLikeHistory::findOne($id)) !== null) 
             return $model;
         else
             throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));

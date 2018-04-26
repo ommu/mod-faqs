@@ -1,6 +1,6 @@
 <?php
 /**
- * LikeHistory
+ * FaqLikeHistory
  * version: 0.0.1
  *
  * This is the model class for table "ommu_faq_like_history".
@@ -29,7 +29,7 @@ use Yii;
 use yii\helpers\Url;
 use app\libraries\grid\GridView;
 
-class LikeHistory extends \app\components\ActiveRecord
+class FaqLikeHistory extends \app\components\ActiveRecord
 {
     public $gridForbiddenColumn = ['publish'];
 
