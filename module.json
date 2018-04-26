@@ -1,0 +1,9 @@
+{
+	"id": "faq",
+	"name": "Faq",
+	"description": "faq",
+	"keywords": [
+		"faq, help"
+	],
+	"version": "1.0"
+}
