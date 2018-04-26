@@ -20,13 +20,13 @@ use yii\widgets\ActiveForm;
 ?>
 
 <?php $form = ActiveForm::begin([
-    'options' => [
-        'class' => 'form-horizontal form-label-left',
-        //'enctype' => 'multipart/form-data',
-    ],
-    'enableClientValidation' => true,
-    'enableAjaxValidation'   => false,
-    //'enableClientScript'     => true,
+	'options' => [
+		'class' => 'form-horizontal form-label-left',
+		//'enctype' => 'multipart/form-data',
+	],
+	'enableClientValidation' => true,
+	'enableAjaxValidation'   => false,
+	//'enableClientScript'	 => true,
 ]); ?>
 
 <?php //echo $form->errorSummary($model);?>
@@ -49,9 +49,9 @@ use yii\widgets\ActiveForm;
 
 <div class="ln_solid"></div>
 <div class="form-group">
-    <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+	<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
 		<?php echo Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']); ?>
-    </div>
+	</div>
 </div>
 
 <?php ActiveForm::end(); ?>

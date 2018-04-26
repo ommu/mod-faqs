@@ -23,88 +23,88 @@ use app\modules\faq\models\FaqCategory as FaqCategoryModel;
 
 class FaqCategory extends FaqCategoryModel
 {
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
+	/**
+	 * @inheritdoc
+	 */
+	public function rules()
+	{
+		return [
 			[['cat_id', 'publish', 'parent', 'cat_name', 'cat_desc', 'orders', 'creation_id', 'modified_id'], 'integer'],
 			[['creation_date', 'modified_date', 'parent_i','updated_date', 'slug', 'creation_search', 'modified_search', 'cat_name_i', 'cat_desc_i'], 'safe'],
-        ];
-    }
+		];
+	}
 
-    /**
-     * @inheritdoc
-     */
-    public function scenarios()
-    {
-        // bypass scenarios() implementation in the parent class
-        return Model::scenarios();
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public function scenarios()
+	{
+		// bypass scenarios() implementation in the parent class
+		return Model::scenarios();
+	}
 
-    /**
-     * Tambahkan fungsi beforeValidate ini pada model search untuk menumpuk validasi pd model induk. 
-     * dan "jangan" tambahkan parent::beforeValidate, cukup "return true" saja.
-     * maka validasi yg akan dipakai hanya pd model ini, semua script yg ditaruh di beforeValidate pada model induk
-     * tidak akan dijalankan.
-     */
-    public function beforeValidate() {
-        return true;
-    }
+	/**
+	 * Tambahkan fungsi beforeValidate ini pada model search untuk menumpuk validasi pd model induk. 
+	 * dan "jangan" tambahkan parent::beforeValidate, cukup "return true" saja.
+	 * maka validasi yg akan dipakai hanya pd model ini, semua script yg ditaruh di beforeValidate pada model induk
+	 * tidak akan dijalankan.
+	 */
+	public function beforeValidate() {
+		return true;
+	}
 
-    /**
-     * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     * @return ActiveDataProvider
-     */
-    public function search($params)
-    {
-        $query = FaqCategoryModel::find()->alias('t');
+	/**
+	 * Creates data provider instance with search query applied
+	 *
+	 * @param array $params
+	 * @return ActiveDataProvider
+	 */
+	public function search($params)
+	{
+		$query = FaqCategoryModel::find()->alias('t');
 		$query->joinWith(['creation creation', 'modified modified', 'name name', 'parents.name parents', 'description description']);
 
-        // add conditions that should always apply here
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+		// add conditions that should always apply here
+		$dataProvider = new ActiveDataProvider([
+			'query' => $query,
+		]);
 
-        $attributes = array_keys($this->getTableSchema()->columns);
-        $attributes['creation_search'] = [
-            'asc' => ['creation.displayname' => SORT_ASC],
-            'desc' => ['creation.displayname' => SORT_DESC],
-        ];
-        $attributes['parent_i'] = [
-            'asc' => ['parents.message' => SORT_ASC],
-            'desc' => ['parents.message' => SORT_DESC],
-        ];
-        $attributes['modified_search'] = [
-            'asc' => ['modified.displayname' => SORT_ASC],
-            'desc' => ['modified.displayname' => SORT_DESC],
-        ];
-        $attributes['cat_name_i'] = [
-            'asc' => ['name.message' => SORT_ASC],
-            'desc' => ['name.message' => SORT_DESC],
-        ];
-        $attributes['cat_desc_i'] = [
-            'asc' => ['description.message' => SORT_ASC],
-            'desc' => ['description.message' => SORT_DESC],
-        ];
-        $dataProvider->setSort([
-            'attributes' => $attributes,
-            'defaultOrder' => ['cat_id' => SORT_DESC],
-        ]);
+		$attributes = array_keys($this->getTableSchema()->columns);
+		$attributes['creation_search'] = [
+			'asc' => ['creation.displayname' => SORT_ASC],
+			'desc' => ['creation.displayname' => SORT_DESC],
+		];
+		$attributes['parent_i'] = [
+			'asc' => ['parents.message' => SORT_ASC],
+			'desc' => ['parents.message' => SORT_DESC],
+		];
+		$attributes['modified_search'] = [
+			'asc' => ['modified.displayname' => SORT_ASC],
+			'desc' => ['modified.displayname' => SORT_DESC],
+		];
+		$attributes['cat_name_i'] = [
+			'asc' => ['name.message' => SORT_ASC],
+			'desc' => ['name.message' => SORT_DESC],
+		];
+		$attributes['cat_desc_i'] = [
+			'asc' => ['description.message' => SORT_ASC],
+			'desc' => ['description.message' => SORT_DESC],
+		];
+		$dataProvider->setSort([
+			'attributes' => $attributes,
+			'defaultOrder' => ['cat_id' => SORT_DESC],
+		]);
 
-        $this->load($params);
+		$this->load($params);
 
-        if(!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
-            return $dataProvider;
-        }
+		if(!$this->validate()) {
+			// uncomment the following line if you do not want to return any records when validation fails
+			// $query->where('0=1');
+			return $dataProvider;
+		}
 
-        // grid filtering conditions
-        $query->andFilterWhere([
+		// grid filtering conditions
+		$query->andFilterWhere([
 			't.cat_id' => isset($params['id']) ? $params['id'] : $this->cat_id,
 			't.publish' => isset($params['publish']) ? 1 : $this->publish,
 			't.parent' => $this->parent,
@@ -126,10 +126,10 @@ class FaqCategory extends FaqCategoryModel
 		$query->andFilterWhere(['like', 't.slug', $this->slug])
 			->andFilterWhere(['like', 'creation.displayname', $this->creation_search])
 			->andFilterWhere(['like', 'modified.displayname', $this->modified_search])
-            ->andFilterWhere(['like', 'name.message', $this->cat_name_i])
-            ->andFilterWhere(['like', 'description.message', $this->cat_desc_i])
-            ->andFilterWhere(['like', 'parents.message', $this->parent_i]);
+			->andFilterWhere(['like', 'name.message', $this->cat_name_i])
+			->andFilterWhere(['like', 'description.message', $this->cat_desc_i])
+			->andFilterWhere(['like', 'parents.message', $this->parent_i]);
 
-        return $dataProvider;
-    }
+		return $dataProvider;
+	}
 }

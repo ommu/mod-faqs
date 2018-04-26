@@ -33,69 +33,69 @@ use mdm\admin\components\AccessControl;
 
 class SettingController extends Controller
 {
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-            ],
-        ];
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public function behaviors()
+	{
+		return [
+			'access' => [
+				'class' => AccessControl::className(),
+			],
+		];
+	}
 
-    /**
-     * Lists all FaqSetting models.
-     * @return mixed
-     */
-    public function actionIndex()
-    {
-        return $this->redirect(['update']);
-    }
+	/**
+	 * Lists all FaqSetting models.
+	 * @return mixed
+	 */
+	public function actionIndex()
+	{
+		return $this->redirect(['update']);
+	}
 
-    /**
-     * Updates an existing FaqSetting model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionUpdate()
-    {
-        $model = FaqSetting::findOne(1);
-        if($model === null)
-            $model = new FaqSetting();
+	/**
+	 * Updates an existing FaqSetting model.
+	 * If update is successful, the browser will be redirected to the 'view' page.
+	 * @param integer $id
+	 * @return mixed
+	 */
+	public function actionUpdate()
+	{
+		$model = FaqSetting::findOne(1);
+		if($model === null)
+			$model = new FaqSetting();
 
-        if(Yii::$app->request->isPost) {
-            $model->load(Yii::$app->request->post());
+		if(Yii::$app->request->isPost) {
+			$model->load(Yii::$app->request->post());
 
-            if($model->save()) {
-                //return $this->redirect(['view', 'id' => $model->id]);
-                Yii::$app->session->setFlash('success', Yii::t('app', 'Faq Setting success updated.'));
-                return $this->redirect(['update']);
-            }
-        }
+			if($model->save()) {
+				//return $this->redirect(['view', 'id' => $model->id]);
+				Yii::$app->session->setFlash('success', Yii::t('app', 'Faq Setting success updated.'));
+				return $this->redirect(['update']);
+			}
+		}
 
-        $this->view->title = Yii::t('app', 'Update {modelClass}: {id}', ['modelClass' => 'Faq Setting', 'id' => $model->id]);
-        $this->view->description = '';
-        $this->view->keywords = '';
-        return $this->render('admin_update', [
-            'model' => $model,
-        ]);
-    }
+		$this->view->title = Yii::t('app', 'Update {modelClass}: {id}', ['modelClass' => 'Faq Setting', 'id' => $model->id]);
+		$this->view->description = '';
+		$this->view->keywords = '';
+		return $this->render('admin_update', [
+			'model' => $model,
+		]);
+	}
 
-    /**
-     * Finds the FaqSetting model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return FaqSetting the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
-        if(($model = FaqSetting::findOne($id)) !== null) 
-            return $model;
-        else
-            throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
-    }
+	/**
+	 * Finds the FaqSetting model based on its primary key value.
+	 * If the model is not found, a 404 HTTP exception will be thrown.
+	 * @param integer $id
+	 * @return FaqSetting the loaded model
+	 * @throws NotFoundHttpException if the model cannot be found
+	 */
+	protected function findModel($id)
+	{
+		if(($model = FaqSetting::findOne($id)) !== null) 
+			return $model;
+		else
+			throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+	}
 }

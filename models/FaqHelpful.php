@@ -36,74 +36,74 @@ use app\libraries\grid\GridView;
 
 class FaqHelpful extends \app\components\ActiveRecord
 {
-    public $gridForbiddenColumn = ['modified_date', 'modified_id'];
+	public $gridForbiddenColumn = ['modified_date', 'modified_id'];
 
 	// Variable Search
 	public $faq_search;
 	public $user_search;
 	public $modified_search;
 
-    /**
-     * @return string the associated database table name
-     */
-    public static function tableName()
-    {
-        return 'ommu_faq_helpful';
-    }
+	/**
+	 * @return string the associated database table name
+	 */
+	public static function tableName()
+	{
+		return 'ommu_faq_helpful';
+	}
 
-    /**
-     * @return \yii\db\Connection the database connection used by this AR class.
-     */
-    public static function getDb()
-    {
-        return Yii::$app->get('ecc4');
-    }
+	/**
+	 * @return \yii\db\Connection the database connection used by this AR class.
+	 */
+	public static function getDb()
+	{
+		return Yii::$app->get('ecc4');
+	}
 
-    /**
-     * @return array validation rules for model attributes.
-     */
-    public function rules()
-    {
-        return [
-         [['faq_id', 'user_id', 'helpful', 'message', 'helpful_ip', 'modified_id'], 'required'],
-            [['faq_id', 'user_id', 'modified_id'], 'integer'],
-            [['helpful', 'message'], 'string'],
-            [['helpful_date', 'modified_date'], 'safe'],
-            [['helpful_ip'], 'string', 'max' => 20],
-            [['faq_id'], 'exist', 'skipOnError' => true, 'targetClass' => Faqs::className(), 'targetAttribute' => ['faq_id' => 'faq_id']],
-      ];
-    }
+	/**
+	 * @return array validation rules for model attributes.
+	 */
+	public function rules()
+	{
+		return [
+		 [['faq_id', 'user_id', 'helpful', 'message', 'helpful_ip', 'modified_id'], 'required'],
+			[['faq_id', 'user_id', 'modified_id'], 'integer'],
+			[['helpful', 'message'], 'string'],
+			[['helpful_date', 'modified_date'], 'safe'],
+			[['helpful_ip'], 'string', 'max' => 20],
+			[['faq_id'], 'exist', 'skipOnError' => true, 'targetClass' => Faqs::className(), 'targetAttribute' => ['faq_id' => 'faq_id']],
+	  ];
+	}
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getFaq()
-    {
-        return $this->hasOne(Faqs::className(), ['faq_id' => 'faq_id']);
-    }
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getFaq()
+	{
+		return $this->hasOne(Faqs::className(), ['faq_id' => 'faq_id']);
+	}
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUser()
-    {
-        return $this->hasOne(Users::className(), ['user_id' => 'user_id']);
-    }
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getUser()
+	{
+		return $this->hasOne(Users::className(), ['user_id' => 'user_id']);
+	}
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getModified()
-    {
-        return $this->hasOne(Users::className(), ['user_id' => 'modified_id']);
-    }
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getModified()
+	{
+		return $this->hasOne(Users::className(), ['user_id' => 'modified_id']);
+	}
 
-    /**
-     * @return array customized attribute labels (name=>label)
-     */
-    public function attributeLabels()
-    {
-        return [
+	/**
+	 * @return array customized attribute labels (name=>label)
+	 */
+	public function attributeLabels()
+	{
+		return [
 			'id' => Yii::t('app', 'ID'),
 			'faq_id' => Yii::t('app', 'Faq'),
 			'user_id' => Yii::t('app', 'User'),
@@ -116,107 +116,107 @@ class FaqHelpful extends \app\components\ActiveRecord
 			'faq_search' => Yii::t('app', 'Faq'),
 			'user_search' => Yii::t('app', 'User'),
 			'modified_search' => Yii::t('app', 'Modified'),
-        ];
-    }
-    
-    /**
-     * Set default columns to display
-     */
-    public function init() 
-    {
-        parent::init();
+		];
+	}
+	
+	/**
+	 * Set default columns to display
+	 */
+	public function init() 
+	{
+		parent::init();
 
-        $this->templateColumns['_no'] = [
-            'header' => Yii::t('app', 'No'),
-            'class'  => 'yii\grid\SerialColumn',
-            'contentOptions' => ['class'=>'center'],
-        ];
-        if(!Yii::$app->request->get('faq')) {
-            $this->templateColumns['faq_search'] = [
-                'attribute' => 'faq_search',
-                'value' => function($model, $key, $index, $column) {
-                    return $model->faq->faq_id;
-                },
-            ];
-        }
-        if(!Yii::$app->request->get('user')) {
-            $this->templateColumns['user_search'] = [
-                'attribute' => 'user_search',
-                'value' => function($model, $key, $index, $column) {
-                    return isset($model->user->displayname) ? $model->user->displayname : '-';
-                },
-            ];
-        }
-        //$this->templateColumns['helpful'] = 'helpful';
-        $this->templateColumns['helpful'] = [
-            'attribute' => 'helpful',
-            // 'filter'=>array(0=>'Unpaid', 1=>'Paid'),
-            'filter' => GridView::getFilterYesNo(),
-            'value' => function($model, $key, $index, $column) {
-                $url = Url::to(['helpful', 'id' => $model->primaryKey]);
-                // return $model->status ? Html::a(Yii::t('app', 'Paid'), $url, ['data-method' => 'post',]) : Html::a(Yii::t('app', 'Unpaid'), $url, ['data-method' => 'post',]);
-                // return self::getPaid($url, $model->status);
-                return $model->helpful ? Yii::t('app', 'Yes') : Yii::t('app', 'No');
-            },
-            'contentOptions' => ['class'=>'center'],
-            'format'    => 'raw',
-        ];
-        $this->templateColumns['message'] = 'message';
-        $this->templateColumns['helpful_date'] = [
-            'attribute' => 'helpful_date',
-            'filter'    => \yii\jui\DatePicker::widget([
-                'dateFormat' => 'yyyy-MM-dd',
-                'attribute' => 'helpful_date',
-                'model'  => $this,
-            ]),
-            'value' => function($model, $key, $index, $column) {
-                if(!in_array($model->helpful_date, 
+		$this->templateColumns['_no'] = [
+			'header' => Yii::t('app', 'No'),
+			'class'  => 'yii\grid\SerialColumn',
+			'contentOptions' => ['class'=>'center'],
+		];
+		if(!Yii::$app->request->get('faq')) {
+			$this->templateColumns['faq_search'] = [
+				'attribute' => 'faq_search',
+				'value' => function($model, $key, $index, $column) {
+					return $model->faq->faq_id;
+				},
+			];
+		}
+		if(!Yii::$app->request->get('user')) {
+			$this->templateColumns['user_search'] = [
+				'attribute' => 'user_search',
+				'value' => function($model, $key, $index, $column) {
+					return isset($model->user->displayname) ? $model->user->displayname : '-';
+				},
+			];
+		}
+		//$this->templateColumns['helpful'] = 'helpful';
+		$this->templateColumns['helpful'] = [
+			'attribute' => 'helpful',
+			// 'filter'=>array(0=>'Unpaid', 1=>'Paid'),
+			'filter' => GridView::getFilterYesNo(),
+			'value' => function($model, $key, $index, $column) {
+				$url = Url::to(['helpful', 'id' => $model->primaryKey]);
+				// return $model->status ? Html::a(Yii::t('app', 'Paid'), $url, ['data-method' => 'post',]) : Html::a(Yii::t('app', 'Unpaid'), $url, ['data-method' => 'post',]);
+				// return self::getPaid($url, $model->status);
+				return $model->helpful ? Yii::t('app', 'Yes') : Yii::t('app', 'No');
+			},
+			'contentOptions' => ['class'=>'center'],
+			'format'	=> 'raw',
+		];
+		$this->templateColumns['message'] = 'message';
+		$this->templateColumns['helpful_date'] = [
+			'attribute' => 'helpful_date',
+			'filter'	=> \yii\jui\DatePicker::widget([
+				'dateFormat' => 'yyyy-MM-dd',
+				'attribute' => 'helpful_date',
+				'model'  => $this,
+			]),
+			'value' => function($model, $key, $index, $column) {
+				if(!in_array($model->helpful_date, 
 					['0000-00-00 00:00:00','1970-01-01 00:00:00','-0001-11-30 00:00:00'])) {
-                    return Yii::$app->formatter->format($model->helpful_date, 'date'/*datetime*/);
-                }else {
-                    return '-';
-                }
-            },
-            'format'    => 'html',
-        ];
-        $this->templateColumns['helpful_ip'] = 'helpful_ip';
-        $this->templateColumns['modified_date'] = [
-            'attribute' => 'modified_date',
-            'filter'    => \yii\jui\DatePicker::widget([
-                'dateFormat' => 'yyyy-MM-dd',
-                'attribute' => 'modified_date',
-                'model'  => $this,
-            ]),
-            'value' => function($model, $key, $index, $column) {
-                if(!in_array($model->modified_date, 
+					return Yii::$app->formatter->format($model->helpful_date, 'date'/*datetime*/);
+				}else {
+					return '-';
+				}
+			},
+			'format'	=> 'html',
+		];
+		$this->templateColumns['helpful_ip'] = 'helpful_ip';
+		$this->templateColumns['modified_date'] = [
+			'attribute' => 'modified_date',
+			'filter'	=> \yii\jui\DatePicker::widget([
+				'dateFormat' => 'yyyy-MM-dd',
+				'attribute' => 'modified_date',
+				'model'  => $this,
+			]),
+			'value' => function($model, $key, $index, $column) {
+				if(!in_array($model->modified_date, 
 					['0000-00-00 00:00:00','1970-01-01 00:00:00','-0001-11-30 00:00:00'])) {
-                    return Yii::$app->formatter->format($model->modified_date, 'date'/*datetime*/);
-                }else {
-                    return '-';
-                }
-            },
-            'format'    => 'html',
-        ];
-        if(!Yii::$app->request->get('modified')) {
-            $this->templateColumns['modified_search'] = [
-                'attribute' => 'modified_search',
-                'value' => function($model, $key, $index, $column) {
-                    return isset($model->modified->displayname) ? $model->modified->displayname : '-';
-                },
-            ];
-        }
-    }
+					return Yii::$app->formatter->format($model->modified_date, 'date'/*datetime*/);
+				}else {
+					return '-';
+				}
+			},
+			'format'	=> 'html',
+		];
+		if(!Yii::$app->request->get('modified')) {
+			$this->templateColumns['modified_search'] = [
+				'attribute' => 'modified_search',
+				'value' => function($model, $key, $index, $column) {
+					return isset($model->modified->displayname) ? $model->modified->displayname : '-';
+				},
+			];
+		}
+	}
 
-    /**
-     * before validate attributes
-     */
-    public function beforeValidate() 
-    {
-        if(parent::beforeValidate()) {
+	/**
+	 * before validate attributes
+	 */
+	public function beforeValidate() 
+	{
+		if(parent::beforeValidate()) {
 			if(!$this->isNewRecord)
 				$this->modified_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : '0';
-        }
-        return true;
-    }
+		}
+		return true;
+	}
 
 }

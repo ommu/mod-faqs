@@ -20,21 +20,21 @@ use yii\widgets\ActiveForm;
 use yii\redactor\widgets\Redactor;
 
 $redactorOptions = [
-    'imageManagerJson' => ['/redactor/upload/image-json'],
-    'imageUpload'     => ['/redactor/upload/image'],
-    'fileUpload'       => ['/redactor/upload/file'],
-    'plugins'         => ['clips', 'fontcolor','imagemanager']
+	'imageManagerJson' => ['/redactor/upload/image-json'],
+	'imageUpload'	 => ['/redactor/upload/image'],
+	'fileUpload'	   => ['/redactor/upload/file'],
+	'plugins'		 => ['clips', 'fontcolor','imagemanager']
 ];
 ?>
 
 <?php $form = ActiveForm::begin([
-    'options' => [
-        'class' => 'form-horizontal form-label-left',
-        //'enctype' => 'multipart/form-data',
-    ],
-    'enableClientValidation' => true,
-    'enableAjaxValidation'   => false,
-    //'enableClientScript'     => true,
+	'options' => [
+		'class' => 'form-horizontal form-label-left',
+		//'enctype' => 'multipart/form-data',
+	],
+	'enableClientValidation' => true,
+	'enableAjaxValidation'   => false,
+	//'enableClientScript'	 => true,
 ]); ?>
 
 <?php //echo $form->errorSummary($model);?>
@@ -62,9 +62,9 @@ $redactorOptions = [
 
 <div class="ln_solid"></div>
 <div class="form-group">
-    <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+	<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
 		<?php echo Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']); ?>
-    </div>
+	</div>
 </div>
 
 <?php ActiveForm::end(); ?>

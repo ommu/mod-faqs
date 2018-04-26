@@ -23,72 +23,72 @@ use app\modules\faq\models\FaqViewHistory as FaqViewHistoryModel;
 
 class FaqViewHistory extends FaqViewHistoryModel
 {
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
+	/**
+	 * @inheritdoc
+	 */
+	public function rules()
+	{
+		return [
 			[['id', 'view_id'], 'integer'],
 			[['view_date', 'view_ip', 'view_search'], 'safe'],
-        ];
-    }
+		];
+	}
 
-    /**
-     * @inheritdoc
-     */
-    public function scenarios()
-    {
-        // bypass scenarios() implementation in the parent class
-        return Model::scenarios();
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public function scenarios()
+	{
+		// bypass scenarios() implementation in the parent class
+		return Model::scenarios();
+	}
 
-    /**
-     * Tambahkan fungsi beforeValidate ini pada model search untuk menumpuk validasi pd model induk. 
-     * dan "jangan" tambahkan parent::beforeValidate, cukup "return true" saja.
-     * maka validasi yg akan dipakai hanya pd model ini, semua script yg ditaruh di beforeValidate pada model induk
-     * tidak akan dijalankan.
-     */
-    public function beforeValidate() {
-        return true;
-    }
+	/**
+	 * Tambahkan fungsi beforeValidate ini pada model search untuk menumpuk validasi pd model induk. 
+	 * dan "jangan" tambahkan parent::beforeValidate, cukup "return true" saja.
+	 * maka validasi yg akan dipakai hanya pd model ini, semua script yg ditaruh di beforeValidate pada model induk
+	 * tidak akan dijalankan.
+	 */
+	public function beforeValidate() {
+		return true;
+	}
 
-    /**
-     * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     * @return ActiveDataProvider
-     */
-    public function search($params)
-    {
-        $query = FaqViewHistoryModel::find()->alias('t');
+	/**
+	 * Creates data provider instance with search query applied
+	 *
+	 * @param array $params
+	 * @return ActiveDataProvider
+	 */
+	public function search($params)
+	{
+		$query = FaqViewHistoryModel::find()->alias('t');
 		$query->joinWith(['view view']);
 
-        // add conditions that should always apply here
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+		// add conditions that should always apply here
+		$dataProvider = new ActiveDataProvider([
+			'query' => $query,
+		]);
 
-        $attributes = array_keys($this->getTableSchema()->columns);
-        $attributes['view_search'] = [
-            'asc' => ['view.view_id' => SORT_ASC],
-            'desc' => ['view.view_id' => SORT_DESC],
-        ];
-        $dataProvider->setSort([
-            'attributes' => $attributes,
-            'defaultOrder' => ['id' => SORT_DESC],
-        ]);
+		$attributes = array_keys($this->getTableSchema()->columns);
+		$attributes['view_search'] = [
+			'asc' => ['view.view_id' => SORT_ASC],
+			'desc' => ['view.view_id' => SORT_DESC],
+		];
+		$dataProvider->setSort([
+			'attributes' => $attributes,
+			'defaultOrder' => ['id' => SORT_DESC],
+		]);
 
-        $this->load($params);
+		$this->load($params);
 
-        if(!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
-            return $dataProvider;
-        }
+		if(!$this->validate()) {
+			// uncomment the following line if you do not want to return any records when validation fails
+			// $query->where('0=1');
+			return $dataProvider;
+		}
 
-        // grid filtering conditions
-        $query->andFilterWhere([
+		// grid filtering conditions
+		$query->andFilterWhere([
 			't.id' => isset($params['id']) ? $params['id'] : $this->id,
 			't.view_id' => isset($params['view']) ? $params['view'] : $this->view_id,
 			'cast(t.view_date as date)' => $this->view_date,
@@ -97,6 +97,6 @@ class FaqViewHistory extends FaqViewHistoryModel
 		$query->andFilterWhere(['like', 't.view_ip', $this->view_ip])
 			->andFilterWhere(['like', 'view.view_id', $this->view_search]);
 
-        return $dataProvider;
-    }
+		return $dataProvider;
+	}
 }

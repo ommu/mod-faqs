@@ -24,80 +24,80 @@ use app\modules\faq\models\FaqHelpful as FaqHelpfulModel;
 
 class FaqHelpful extends FaqHelpfulModel
 {
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
+	/**
+	 * @inheritdoc
+	 */
+	public function rules()
+	{
+		return [
 			[['id', 'faq_id', 'user_id', 'modified_id'], 'integer'],
 			[['helpful', 'message', 'helpful_date', 'helpful_ip', 'modified_date', 'faq_search', 'user_search', 'modified_search'], 'safe'],
-        ];
-    }
+		];
+	}
 
-    /**
-     * @inheritdoc
-     */
-    public function scenarios()
-    {
-        // bypass scenarios() implementation in the parent class
-        return Model::scenarios();
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public function scenarios()
+	{
+		// bypass scenarios() implementation in the parent class
+		return Model::scenarios();
+	}
 
-    /**
-     * Tambahkan fungsi beforeValidate ini pada model search untuk menumpuk validasi pd model induk. 
-     * dan "jangan" tambahkan parent::beforeValidate, cukup "return true" saja.
-     * maka validasi yg akan dipakai hanya pd model ini, semua script yg ditaruh di beforeValidate pada model induk
-     * tidak akan dijalankan.
-     */
-    public function beforeValidate() {
-        return true;
-    }
+	/**
+	 * Tambahkan fungsi beforeValidate ini pada model search untuk menumpuk validasi pd model induk. 
+	 * dan "jangan" tambahkan parent::beforeValidate, cukup "return true" saja.
+	 * maka validasi yg akan dipakai hanya pd model ini, semua script yg ditaruh di beforeValidate pada model induk
+	 * tidak akan dijalankan.
+	 */
+	public function beforeValidate() {
+		return true;
+	}
 
-    /**
-     * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     * @return ActiveDataProvider
-     */
-    public function search($params)
-    {
-        $query = FaqHelpfulModel::find()->alias('t');
+	/**
+	 * Creates data provider instance with search query applied
+	 *
+	 * @param array $params
+	 * @return ActiveDataProvider
+	 */
+	public function search($params)
+	{
+		$query = FaqHelpfulModel::find()->alias('t');
 		$query->joinWith(['faq faq', 'user user', 'modified modified']);
 
-        // add conditions that should always apply here
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+		// add conditions that should always apply here
+		$dataProvider = new ActiveDataProvider([
+			'query' => $query,
+		]);
 
-        $attributes = array_keys($this->getTableSchema()->columns);
-        $attributes['faq_search'] = [
-            'asc' => ['faq.faq_id' => SORT_ASC],
-            'desc' => ['faq.faq_id' => SORT_DESC],
-        ];
-        $attributes['user_search'] = [
-            'asc' => ['user.displayname' => SORT_ASC],
-            'desc' => ['user.displayname' => SORT_DESC],
-        ];
-        $attributes['modified_search'] = [
-            'asc' => ['modified.displayname' => SORT_ASC],
-            'desc' => ['modified.displayname' => SORT_DESC],
-        ];
-        $dataProvider->setSort([
-            'attributes' => $attributes,
-            'defaultOrder' => ['id' => SORT_DESC],
-        ]);
+		$attributes = array_keys($this->getTableSchema()->columns);
+		$attributes['faq_search'] = [
+			'asc' => ['faq.faq_id' => SORT_ASC],
+			'desc' => ['faq.faq_id' => SORT_DESC],
+		];
+		$attributes['user_search'] = [
+			'asc' => ['user.displayname' => SORT_ASC],
+			'desc' => ['user.displayname' => SORT_DESC],
+		];
+		$attributes['modified_search'] = [
+			'asc' => ['modified.displayname' => SORT_ASC],
+			'desc' => ['modified.displayname' => SORT_DESC],
+		];
+		$dataProvider->setSort([
+			'attributes' => $attributes,
+			'defaultOrder' => ['id' => SORT_DESC],
+		]);
 
-        $this->load($params);
+		$this->load($params);
 
-        if(!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
-            return $dataProvider;
-        }
+		if(!$this->validate()) {
+			// uncomment the following line if you do not want to return any records when validation fails
+			// $query->where('0=1');
+			return $dataProvider;
+		}
 
-        // grid filtering conditions
-        $query->andFilterWhere([
+		// grid filtering conditions
+		$query->andFilterWhere([
 			't.id' => isset($params['id']) ? $params['id'] : $this->id,
 			't.faq_id' => isset($params['faq']) ? $params['faq'] : $this->faq_id,
 			't.user_id' => isset($params['user']) ? $params['user'] : $this->user_id,
@@ -113,6 +113,6 @@ class FaqHelpful extends FaqHelpfulModel
 			->andFilterWhere(['like', 'user.displayname', $this->user_search])
 			->andFilterWhere(['like', 'modified.displayname', $this->modified_search]);
 
-        return $dataProvider;
-    }
+		return $dataProvider;
+	}
 }
