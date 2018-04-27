@@ -1,15 +1,23 @@
 <?php
 /**
  * FaqViews
- * version: 0.0.1
+ * 
+ * @author Eko Hariyanto <haryeko29@gmail.com>
+ * @contact (+62)857-4381-4273
+ * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
+ * @created date 5 January 2018, 15:05 WIB
+ * @modified date 27 April 2018, 00:37 WIB
+ * @modified by Putra Sudaryanto <putra@sudaryanto.id>
+ * @contact (+62)856-299-4114
+ * @link https://ecc.ft.ugm.ac.id
  *
  * This is the model class for table "ommu_faq_views".
  *
  * The followings are the available columns in table "ommu_faq_views":
- * @property string $view_id
+ * @property integer $view_id
  * @property integer $publish
- * @property string $faq_id
- * @property string $user_id
+ * @property integer $faq_id
+ * @property integer $user_id
  * @property integer $views
  * @property string $view_date
  * @property string $view_ip
@@ -18,12 +26,7 @@
  * The followings are the available model relations:
  * @property FaqViewHistory[] $histories
  * @property Faqs $faq
-
- * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
- * @link http://ecc.ft.ugm.ac.id
- * @author Eko Hariyanto <haryeko29@gmail.com>
- * @created date 5 January 2018, 15:05 WIB
- * @contact (+62)857-4381-4273
+ * @property Users $user
  *
  */
 
@@ -31,11 +34,13 @@ namespace app\modules\faq\models;
 
 use Yii;
 use yii\helpers\Url;
+use yii\helpers\Html;
 use app\coremodules\user\models\Users;
-use app\libraries\grid\GridView;
 
 class FaqViews extends \app\components\ActiveRecord
 {
+	use \app\components\traits\GridViewSystem;
+
 	public $gridForbiddenColumn = ['deleted_date'];
 
 	// Variable Search
@@ -64,12 +69,32 @@ class FaqViews extends \app\components\ActiveRecord
 	public function rules()
 	{
 		return [
-		 [['publish', 'faq_id', 'user_id', 'views'], 'integer'],
-			[['faq_id', 'user_id', 'view_ip'], 'required'],
+			[['faq_id', 'view_ip'], 'required'],
+			[['publish', 'faq_id', 'user_id', 'views'], 'integer'],
 			[['view_date', 'deleted_date'], 'safe'],
 			[['view_ip'], 'string', 'max' => 20],
 			[['faq_id'], 'exist', 'skipOnError' => true, 'targetClass' => Faqs::className(), 'targetAttribute' => ['faq_id' => 'faq_id']],
-	  ];
+			[['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'user_id']],
+		];
+	}
+
+	/**
+	 * @return array customized attribute labels (name=>label)
+	 */
+	public function attributeLabels()
+	{
+		return [
+			'view_id' => Yii::t('app', 'View'),
+			'publish' => Yii::t('app', 'Publish'),
+			'faq_id' => Yii::t('app', 'Faq'),
+			'user_id' => Yii::t('app', 'User'),
+			'views' => Yii::t('app', 'Views'),
+			'view_date' => Yii::t('app', 'View Date'),
+			'view_ip' => Yii::t('app', 'View Ip'),
+			'deleted_date' => Yii::t('app', 'Deleted Date'),
+			'faq_search' => Yii::t('app', 'Faq'),
+			'user_search' => Yii::t('app', 'User'),
+		];
 	}
 
 	/**
@@ -97,24 +122,14 @@ class FaqViews extends \app\components\ActiveRecord
 	}
 
 	/**
-	 * @return array customized attribute labels (name=>label)
+	 * @inheritdoc
+	 * @return \app\modules\faq\models\query\FaqViewsQuery the active query used by this AR class.
 	 */
-	public function attributeLabels()
+	public static function find()
 	{
-		return [
-			'view_id' => Yii::t('app', 'View'),
-			'publish' => Yii::t('app', 'Publish'),
-			'faq_id' => Yii::t('app', 'Faq'),
-			'user_id' => Yii::t('app', 'User'),
-			'views' => Yii::t('app', 'Views'),
-			'view_date' => Yii::t('app', 'View Date'),
-			'view_ip' => Yii::t('app', 'View Ip'),
-			'deleted_date' => Yii::t('app', 'Deleted Date'),
-			'faq_search' => Yii::t('app', 'Faq'),
-			'user_search' => Yii::t('app', 'User'),
-		];
+		return new \app\modules\faq\models\query\FaqViewsQuery(get_called_class());
 	}
-	
+
 	/**
 	 * Set default columns to display
 	 */
@@ -131,7 +146,7 @@ class FaqViews extends \app\components\ActiveRecord
 			$this->templateColumns['faq_search'] = [
 				'attribute' => 'faq_search',
 				'value' => function($model, $key, $index, $column) {
-					return $model->faq->faq_id;
+					return isset($model->faq->questionRltn) ? $model->faq->questionRltn->message : '-';
 				},
 			];
 		}
@@ -139,57 +154,67 @@ class FaqViews extends \app\components\ActiveRecord
 			$this->templateColumns['user_search'] = [
 				'attribute' => 'user_search',
 				'value' => function($model, $key, $index, $column) {
-					return isset($model->user->displayname) ? $model->user->displayname : '-';
+					return isset($model->user) ? $model->user->displayname : '-';
 				},
 			];
 		}
-		$this->templateColumns['views'] = 'views';
+		$this->templateColumns['views'] = [
+			'attribute' => 'views',
+			'value' => function($model, $key, $index, $column) {
+				return $model->views;
+			},
+		];
 		$this->templateColumns['view_date'] = [
 			'attribute' => 'view_date',
-			'filter'	=> \yii\jui\DatePicker::widget([
-				'dateFormat' => 'yyyy-MM-dd',
-				'attribute' => 'view_date',
-				'model'  => $this,
-			]),
+			'filter' => Html::input('date', 'view_date', Yii::$app->request->get('view_date'), ['class'=>'form-control']),
 			'value' => function($model, $key, $index, $column) {
-				if(!in_array($model->view_date, 
-					['0000-00-00 00:00:00','1970-01-01 00:00:00','-0001-11-30 00:00:00'])) {
-					return Yii::$app->formatter->format($model->view_date, 'date'/*datetime*/);
-				}else {
-					return '-';
-				}
+				return !in_array($model->view_date, ['0000-00-00 00:00:00','1970-01-01 00:00:00','-0001-11-30 00:00:00']) ? Yii::$app->formatter->format($model->view_date, 'datetime') : '-';
 			},
-			'format'	=> 'html',
+			'format' => 'html',
 		];
-		$this->templateColumns['view_ip'] = 'view_ip';
+		$this->templateColumns['view_ip'] = [
+			'attribute' => 'view_ip',
+			'value' => function($model, $key, $index, $column) {
+				return $model->view_ip;
+			},
+		];
 		$this->templateColumns['deleted_date'] = [
 			'attribute' => 'deleted_date',
-			'filter'	=> \yii\jui\DatePicker::widget([
-				'dateFormat' => 'yyyy-MM-dd',
-				'attribute' => 'deleted_date',
-				'model'  => $this,
-			]),
+			'filter' => Html::input('date', 'deleted_date', Yii::$app->request->get('deleted_date'), ['class'=>'form-control']),
 			'value' => function($model, $key, $index, $column) {
-				if(!in_array($model->deleted_date, 
-					['0000-00-00 00:00:00','1970-01-01 00:00:00','-0001-11-30 00:00:00'])) {
-					return Yii::$app->formatter->format($model->deleted_date, 'date'/*datetime*/);
-				}else {
-					return '-';
-				}
+				return !in_array($model->deleted_date, ['0000-00-00 00:00:00','1970-01-01 00:00:00','-0001-11-30 00:00:00']) ? Yii::$app->formatter->format($model->deleted_date, 'datetime') : '-';
 			},
-			'format'	=> 'html',
+			'format' => 'html',
 		];
 		if(!Yii::$app->request->get('trash')) {
 			$this->templateColumns['publish'] = [
 				'attribute' => 'publish',
-				'filter' => GridView::getFilterYesNo(),
+				'filter' => $this->filterYesNo(),
 				'value' => function($model, $key, $index, $column) {
 					$url = Url::to(['publish', 'id' => $model->primaryKey]);
-					return GridView::getPublish($url, $model->publish);
+					return $this->quickAction($url, $model->publish);
 				},
 				'contentOptions' => ['class'=>'center'],
 				'format'	=> 'raw',
 			];
+		}
+	}
+
+	/**
+	 * User get information
+	 */
+	public static function getInfo($id, $column=null)
+	{
+		if($column != null) {
+			$model = self::find()
+				->select([$column])
+				->where(['view_id' => $id])
+				->one();
+			return $model->$column;
+			
+		} else {
+			$model = self::findOne($id);
+			return $model;
 		}
 	}
 
@@ -199,8 +224,60 @@ class FaqViews extends \app\components\ActiveRecord
 	public function beforeValidate() 
 	{
 		if(parent::beforeValidate()) {
+			if($this->isNewRecord)
+				$this->user_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
 		}
 		return true;
 	}
 
+	/**
+	 * after validate attributes
+	 */
+	public function afterValidate()
+	{
+		parent::afterValidate();
+		// Create action
+		
+		return true;
+	}
+
+	/**
+	 * before save attributes
+	 */
+	public function beforeSave($insert)
+	{
+		if(parent::beforeSave($insert)) {
+			// Create action
+		}
+		return true;
+	}
+
+	/**
+	 * After save attributes
+	 */
+	public function afterSave($insert, $changedAttributes) 
+	{
+		parent::afterSave($insert, $changedAttributes);
+
+	}
+
+	/**
+	 * Before delete attributes
+	 */
+	public function beforeDelete() 
+	{
+		if(parent::beforeDelete()) {
+			// Create action
+		}
+		return true;
+	}
+
+	/**
+	 * After delete attributes
+	 */
+	public function afterDelete() 
+	{
+		parent::afterDelete();
+
+	}
 }

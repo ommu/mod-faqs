@@ -55,7 +55,7 @@ $this->params['menu']['content'] = [
 					],
 					[
 						'attribute' => 'faq_search',
-						'value' => $model->faq->faq_id,
+						'value' => isset($model->faq->questionRltn) ? $model->faq->questionRltn->message : '-';,
 					],
 					[
 						'attribute' => 'user_search',

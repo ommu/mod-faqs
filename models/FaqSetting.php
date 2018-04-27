@@ -1,7 +1,15 @@
 <?php
 /**
  * FaqSetting
- * version: 0.0.1
+ * 
+ * @author Eko Hariyanto <haryeko29@gmail.com>
+ * @contact (+62)857-4381-4273
+ * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
+ * @created date 4 January 2018, 14:32 WIB
+ * @modified date 27 April 2018, 00:35 WIB
+ * @modified by Putra Sudaryanto <putra@sudaryanto.id>
+ * @contact (+62)856-299-4114
+ * @link https://ecc.ft.ugm.ac.id
  *
  * This is the model class for table "ommu_faq_setting".
  *
@@ -12,13 +20,10 @@
  * @property string $meta_keyword
  * @property string $meta_description
  * @property string $modified_date
- * @property string $modified_id
-
- * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
- * @link http://ecc.ft.ugm.ac.id
- * @author Eko Hariyanto <haryeko29@gmail.com>
- * @created date 4 January 2018, 14:32 WIB
- * @contact (+62)857-4381-4273
+ * @property integer $modified_id
+ *
+ * The followings are the available model relations:
+ * @property Users $modified
  *
  */
 
@@ -26,10 +31,13 @@ namespace app\modules\faq\models;
 
 use Yii;
 use yii\helpers\Url;
+use yii\helpers\Html;
 use app\coremodules\user\models\Users;
 
 class FaqSetting extends \app\components\ActiveRecord
 {
+	use \app\components\traits\GridViewSystem;
+
 	public $gridForbiddenColumn = [];
 
 	// Variable Search
@@ -57,20 +65,12 @@ class FaqSetting extends \app\components\ActiveRecord
 	public function rules()
 	{
 		return [
-		 [['license', 'permission', 'meta_keyword', 'meta_description'], 'required'],
+			[['license', 'permission', 'meta_keyword', 'meta_description'], 'required'],
 			[['permission', 'modified_id'], 'integer'],
 			[['meta_keyword', 'meta_description'], 'string'],
 			[['modified_date'], 'safe'],
 			[['license'], 'string', 'max' => 32],
-	  ];
-	}
-
-	/**
-	 * @return \yii\db\ActiveQuery
-	 */
-	public function getModified()
-	{
-		return $this->hasOne(Users::className(), ['user_id' => 'modified_id']);
+		];
 	}
 
 	/**
@@ -89,7 +89,15 @@ class FaqSetting extends \app\components\ActiveRecord
 			'modified_search' => Yii::t('app', 'Modified'),
 		];
 	}
-	
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getModified()
+	{
+		return $this->hasOne(Users::className(), ['user_id' => 'modified_id']);
+	}
+
 	/**
 	 * Set default columns to display
 	 */
@@ -102,41 +110,66 @@ class FaqSetting extends \app\components\ActiveRecord
 			'class'  => 'yii\grid\SerialColumn',
 			'contentOptions' => ['class'=>'center'],
 		];
-		$this->templateColumns['license'] = 'license';
-		$this->templateColumns['meta_keyword'] = 'meta_keyword';
-		$this->templateColumns['meta_description'] = 'meta_description';
+		$this->templateColumns['license'] = [
+			'attribute' => 'license',
+			'value' => function($model, $key, $index, $column) {
+				return $model->license;
+			},
+		];
+		$this->templateColumns['meta_keyword'] = [
+			'attribute' => 'meta_keyword',
+			'value' => function($model, $key, $index, $column) {
+				return $model->meta_keyword;
+			},
+		];
+		$this->templateColumns['meta_description'] = [
+			'attribute' => 'meta_description',
+			'value' => function($model, $key, $index, $column) {
+				return $model->meta_description;
+			},
+		];
 		$this->templateColumns['modified_date'] = [
 			'attribute' => 'modified_date',
-			'filter'	=> \yii\jui\DatePicker::widget([
-				'dateFormat' => 'yyyy-MM-dd',
-				'attribute' => 'modified_date',
-				'model'  => $this,
-			]),
+			'filter' => Html::input('date', 'modified_date', Yii::$app->request->get('modified_date'), ['class'=>'form-control']),
 			'value' => function($model, $key, $index, $column) {
-				if(!in_array($model->modified_date, 
-					['0000-00-00 00:00:00','1970-01-01 00:00:00','-0001-11-30 00:00:00'])) {
-					return Yii::$app->formatter->format($model->modified_date, 'date'/*datetime*/);
-				}else {
-					return '-';
-				}
+				return !in_array($model->modified_date, ['0000-00-00 00:00:00','1970-01-01 00:00:00','-0001-11-30 00:00:00']) ? Yii::$app->formatter->format($model->modified_date, 'datetime') : '-';
 			},
-			'format'	=> 'html',
+			'format' => 'html',
 		];
 		if(!Yii::$app->request->get('modified')) {
 			$this->templateColumns['modified_search'] = [
 				'attribute' => 'modified_search',
 				'value' => function($model, $key, $index, $column) {
-					return isset($model->modified->displayname) ? $model->modified->displayname : '-';
+					return isset($model->modified) ? $model->modified->displayname : '-';
 				},
 			];
 		}
 		$this->templateColumns['permission'] = [
 			'attribute' => 'permission',
+			'filter' => $this->filterYesNo(),
 			'value' => function($model, $key, $index, $column) {
-				return $model->permission;
+				return $model->permission ? Yii::t('app', 'Yes') : Yii::t('app', 'No');
 			},
 			'contentOptions' => ['class'=>'center'],
 		];
+	}
+
+	/**
+	 * User get information
+	 */
+	public static function getInfo($id, $column=null)
+	{
+		if($column != null) {
+			$model = self::find()
+				->select([$column])
+				->where(['id' => $id])
+				->one();
+			return $model->$column;
+			
+		} else {
+			$model = self::findOne($id);
+			return $model;
+		}
 	}
 
 	/**
@@ -173,9 +206,59 @@ class FaqSetting extends \app\components\ActiveRecord
 	{
 		if(parent::beforeValidate()) {
 			if(!$this->isNewRecord)
-				$this->modified_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : '0';
+				$this->modified_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
 		}
 		return true;
 	}
 
+	/**
+	 * after validate attributes
+	 */
+	public function afterValidate()
+	{
+		parent::afterValidate();
+		// Create action
+		
+		return true;
+	}
+
+	/**
+	 * before save attributes
+	 */
+	public function beforeSave($insert)
+	{
+		if(parent::beforeSave($insert)) {
+			// Create action
+		}
+		return true;
+	}
+
+	/**
+	 * After save attributes
+	 */
+	public function afterSave($insert, $changedAttributes) 
+	{
+		parent::afterSave($insert, $changedAttributes);
+
+	}
+
+	/**
+	 * Before delete attributes
+	 */
+	public function beforeDelete() 
+	{
+		if(parent::beforeDelete()) {
+			// Create action
+		}
+		return true;
+	}
+
+	/**
+	 * After delete attributes
+	 */
+	public function afterDelete() 
+	{
+		parent::afterDelete();
+
+	}
 }

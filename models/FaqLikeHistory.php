@@ -1,25 +1,27 @@
 <?php
 /**
  * FaqLikeHistory
- * version: 0.0.1
+ * 
+ * @author Eko Hariyanto <haryeko29@gmail.com>
+ * @contact (+62)857-4381-4273
+ * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
+ * @created date 9 January 2018, 08:19 WIB
+ * @modified date 27 April 2018, 06:56 WIB
+ * @modified by Putra Sudaryanto <putra@sudaryanto.id>
+ * @contact (+62)856-299-4114
+ * @link https://ecc.ft.ugm.ac.id
  *
  * This is the model class for table "ommu_faq_like_history".
  *
  * The followings are the available columns in table "ommu_faq_like_history":
- * @property string $id
+ * @property integer $id
  * @property integer $publish
- * @property string $like_id
+ * @property integer $like_id
  * @property string $likes_date
  * @property string $likes_ip
  *
  * The followings are the available model relations:
  * @property FaqLikes $like
-
- * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
- * @link http://ecc.ft.ugm.ac.id
- * @author Eko Hariyanto <haryeko29@gmail.com>
- * @created date 9 January 2018, 08:19 WIB
- * @contact (+62)857-4381-4273
  *
  */
 
@@ -27,14 +29,17 @@ namespace app\modules\faq\models;
 
 use Yii;
 use yii\helpers\Url;
-use app\libraries\grid\GridView;
+use yii\helpers\Html;
 
 class FaqLikeHistory extends \app\components\ActiveRecord
 {
-	public $gridForbiddenColumn = ['publish'];
+	use \app\components\traits\GridViewSystem;
+
+	public $gridForbiddenColumn = [];
 
 	// Variable Search
-	public $like_search;
+	public $category_search;
+	public $question_search;
 
 	/**
 	 * @return string the associated database table name
@@ -58,20 +63,12 @@ class FaqLikeHistory extends \app\components\ActiveRecord
 	public function rules()
 	{
 		return [
-		 [['publish', 'like_id', 'likes_ip'], 'required'],
+			[['publish', 'like_id', 'likes_ip'], 'required'],
 			[['publish', 'like_id'], 'integer'],
 			[['likes_date'], 'safe'],
 			[['likes_ip'], 'string', 'max' => 20],
 			[['like_id'], 'exist', 'skipOnError' => true, 'targetClass' => FaqLikes::className(), 'targetAttribute' => ['like_id' => 'like_id']],
-	  ];
-	}
-
-	/**
-	 * @return \yii\db\ActiveQuery
-	 */
-	public function getLike()
-	{
-		return $this->hasOne(FaqLikes::className(), ['like_id' => 'like_id']);
+		];
 	}
 
 	/**
@@ -85,10 +82,28 @@ class FaqLikeHistory extends \app\components\ActiveRecord
 			'like_id' => Yii::t('app', 'Like'),
 			'likes_date' => Yii::t('app', 'Likes Date'),
 			'likes_ip' => Yii::t('app', 'Likes Ip'),
-			'like_search' => Yii::t('app', 'Like'),
+			'category_search' => Yii::t('app', 'Category'),
+			'question_search' => Yii::t('app', 'Question'),
 		];
 	}
-	
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getLike()
+	{
+		return $this->hasOne(FaqLikes::className(), ['like_id' => 'like_id']);
+	}
+
+	/**
+	 * @inheritdoc
+	 * @return \app\modules\faq\models\query\FaqLikeHistoryQuery the active query used by this AR class.
+	 */
+	public static function find()
+	{
+		return new \app\modules\faq\models\query\FaqLikeHistoryQuery(get_called_class());
+	}
+
 	/**
 	 * Set default columns to display
 	 */
@@ -102,38 +117,42 @@ class FaqLikeHistory extends \app\components\ActiveRecord
 			'contentOptions' => ['class'=>'center'],
 		];
 		if(!Yii::$app->request->get('like')) {
-			$this->templateColumns['like_search'] = [
-				'attribute' => 'like_search',
+			if(!Yii::$app->request->get('category')) {
+				$this->templateColumns['category_search'] = [
+					'attribute' => 'category_search',
+					'value' => function($model, $key, $index, $column) {
+						return isset($model->like->category) ? $model->like->category->title->message : '-';
+					},
+				];
+			}
+			$this->templateColumns['question_search'] = [
+				'attribute' => 'question_search',
 				'value' => function($model, $key, $index, $column) {
-					return $model->like->like_id;
+					return isset($model->like->questionRltn) ? $model->like->questionRltn->message : '-';
 				},
 			];
 		}
 		$this->templateColumns['likes_date'] = [
 			'attribute' => 'likes_date',
-			'filter'	=> \yii\jui\DatePicker::widget([
-				'dateFormat' => 'yyyy-MM-dd',
-				'attribute' => 'likes_date',
-				'model'  => $this,
-			]),
+			'filter' => Html::input('date', 'likes_date', Yii::$app->request->get('likes_date'), ['class'=>'form-control']),
 			'value' => function($model, $key, $index, $column) {
-				if(!in_array($model->likes_date, 
-					['0000-00-00 00:00:00','1970-01-01 00:00:00','-0001-11-30 00:00:00'])) {
-					return Yii::$app->formatter->format($model->likes_date, 'date'/*datetime*/);
-				}else {
-					return '-';
-				}
+				return !in_array($model->likes_date, ['0000-00-00 00:00:00','1970-01-01 00:00:00','-0001-11-30 00:00:00']) ? Yii::$app->formatter->format($model->likes_date, 'datetime') : '-';
 			},
-			'format'	=> 'html',
+			'format' => 'html',
 		];
-		$this->templateColumns['likes_ip'] = 'likes_ip';
+		$this->templateColumns['likes_ip'] = [
+			'attribute' => 'likes_ip',
+			'value' => function($model, $key, $index, $column) {
+				return $model->likes_ip;
+			},
+		];
 		if(!Yii::$app->request->get('trash')) {
 			$this->templateColumns['publish'] = [
 				'attribute' => 'publish',
-				'filter' => GridView::getFilterYesNo(),
+				'filter' => $this->filterYesNo(),
 				'value' => function($model, $key, $index, $column) {
 					$url = Url::to(['publish', 'id' => $model->primaryKey]);
-					return GridView::getPublish($url, $model->publish);
+					return $this->quickAction($url, $model->publish);
 				},
 				'contentOptions' => ['class'=>'center'],
 				'format'	=> 'raw',
@@ -142,13 +161,20 @@ class FaqLikeHistory extends \app\components\ActiveRecord
 	}
 
 	/**
-	 * before validate attributes
+	 * User get information
 	 */
-	public function beforeValidate() 
+	public static function getInfo($id, $column=null)
 	{
-		if(parent::beforeValidate()) {
+		if($column != null) {
+			$model = self::find()
+				->select([$column])
+				->where(['id' => $id])
+				->one();
+			return $model->$column;
+			
+		} else {
+			$model = self::findOne($id);
+			return $model;
 		}
-		return true;
 	}
-
 }

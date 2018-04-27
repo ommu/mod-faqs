@@ -1,21 +1,29 @@
 <?php
 /**
  * Faqs
- * version: 0.0.1
+ * 
+ * @author Eko Hariyanto <haryeko29@gmail.com>
+ * @contact (+62)857-4381-4273
+ * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
+ * @created date 5 January 2018, 16:00 WIB
+ * @modified date 27 April 2018, 00:36 WIB
+ * @modified by Putra Sudaryanto <putra@sudaryanto.id>
+ * @contact (+62)856-299-4114
+ * @link https://ecc.ft.ugm.ac.id
  *
  * This is the model class for table "ommu_faqs".
  *
  * The followings are the available columns in table "ommu_faqs":
- * @property string $faq_id
+ * @property integer $faq_id
  * @property integer $publish
  * @property integer $cat_id
- * @property string $question
- * @property string $answer
+ * @property integer $question
+ * @property integer $answer
  * @property integer $orders
  * @property string $creation_date
- * @property string $creation_id
+ * @property integer $creation_id
  * @property string $modified_date
- * @property string $modified_id
+ * @property integer $modified_id
  * @property string $updated_date
  * @property string $slug
  *
@@ -24,12 +32,10 @@
  * @property FaqLikes[] $likes
  * @property FaqViews[] $views
  * @property FaqCategory $category
-
- * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
- * @link http://ecc.ft.ugm.ac.id
- * @author Eko Hariyanto <haryeko29@gmail.com>
- * @created date 5 January 2018, 16:00 WIB
- * @contact (+62)857-4381-4273
+ * @property SourceMessage $questionRltn
+ * @property SourceMessage $answerRltn
+ * @property Users $creation
+ * @property Users $modified
  *
  */
 
@@ -37,20 +43,22 @@ namespace app\modules\faq\models;
 
 use Yii;
 use yii\helpers\Url;
+use yii\helpers\Html;
 use yii\behaviors\SluggableBehavior;
-use app\coremodules\user\models\Users;
-use app\libraries\grid\GridView;
-use app\components\Utility;
 use app\models\SourceMessage;
+use app\coremodules\user\models\Users;
 
 class Faqs extends \app\components\ActiveRecord
 {
-	public $gridForbiddenColumn = ['modified_date','modified_search','updated_date','slug'];
+	use \app\components\traits\GridViewSystem;
+	use \app\components\traits\FileSystem;
 
-	// Variable Search
-	public $cat_name_i;
+	public $gridForbiddenColumn = ['modified_date','modified_search','updated_date','slug'];
 	public $question_i;
 	public $answer_i;
+
+	// Variable Search
+	public $category_search;
 	public $creation_search;
 	public $modified_search;
 
@@ -90,12 +98,40 @@ class Faqs extends \app\components\ActiveRecord
 	public function rules()
 	{
 		return [
-		 [['publish', 'cat_id', 'orders', 'question', 'answer', 'creation_id', 'modified_id'], 'integer'],
-			[['cat_id', 'question_i', 'answer_i', 'orders', 'creation_id', 'modified_id', 'slug'], 'required'],
+			[['cat_id', 'question_i', 'answer_i', 'orders'], 'required'],
+			[['publish', 'cat_id', 'question', 'answer', 'orders', 'creation_id', 'modified_id'], 'integer'],
+			[['question_i', 'answer_i'], 'string'],
 			[['creation_date', 'modified_date', 'updated_date'], 'safe'],
+			[['question_i'], 'string', 'max' => 64],
 			[['slug'], 'string', 'max' => 128],
 			[['cat_id'], 'exist', 'skipOnError' => true, 'targetClass' => FaqCategory::className(), 'targetAttribute' => ['cat_id' => 'cat_id']],
-	  ];
+		];
+	}
+
+	/**
+	 * @return array customized attribute labels (name=>label)
+	 */
+	public function attributeLabels()
+	{
+		return [
+			'faq_id' => Yii::t('app', 'Faq'),
+			'publish' => Yii::t('app', 'Publish'),
+			'cat_id' => Yii::t('app', 'Category'),
+			'question' => Yii::t('app', 'Question'),
+			'answer' => Yii::t('app', 'Answer'),
+			'orders' => Yii::t('app', 'Orders'),
+			'creation_date' => Yii::t('app', 'Creation Date'),
+			'creation_id' => Yii::t('app', 'Creation'),
+			'modified_date' => Yii::t('app', 'Modified Date'),
+			'modified_id' => Yii::t('app', 'Modified'),
+			'updated_date' => Yii::t('app', 'Updated Date'),
+			'slug' => Yii::t('app', 'Slug'),
+			'question_i' => Yii::t('app', 'Question'),
+			'answer_i' => Yii::t('app', 'Answer'),
+			'category_search' => Yii::t('app', 'Category'),
+			'creation_search' => Yii::t('app', 'Creation'),
+			'modified_search' => Yii::t('app', 'Modified'),
+		];
 	}
 
 	/**
@@ -133,6 +169,22 @@ class Faqs extends \app\components\ActiveRecord
 	/**
 	 * @return \yii\db\ActiveQuery
 	 */
+	public function getQuestionRltn()
+	{
+		return $this->hasOne(SourceMessage::className(), ['id' => 'question']);
+	}
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getAnswerRltn()
+	{
+		return $this->hasOne(SourceMessage::className(), ['id' => 'answer']);
+	}
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
 	public function getCreation()
 	{
 		return $this->hasOne(Users::className(), ['user_id' => 'creation_id']);
@@ -146,51 +198,15 @@ class Faqs extends \app\components\ActiveRecord
 		return $this->hasOne(Users::className(), ['user_id' => 'modified_id']);
 	}
 
-	 public function getName()
-	{
-		return $this->hasOne(SourceMessage::className(), ['id' => 'cat_name']);
-	}
-
-	public function getQuestions()
-	{
-		return $this->hasOne(SourceMessage::className(), ['id' => 'question']);
-	}
-
 	/**
-	 * @return \yii\db\ActiveQuery
+	 * @inheritdoc
+	 * @return \app\modules\faq\models\query\FaqsQuery the active query used by this AR class.
 	 */
-	public function getAnswers()
+	public static function find()
 	{
-		return $this->hasOne(SourceMessage::className(), ['id' => 'answer']);
+		return new \app\modules\faq\models\query\FaqsQuery(get_called_class());
 	}
 
-
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return [
-			'faq_id' => Yii::t('app', 'Faq'),
-			'publish' => Yii::t('app', 'Publish'),
-			'cat_id' => Yii::t('app', 'Category'),
-			'question' => Yii::t('app', 'Question'),
-			'answer' => Yii::t('app', 'Answer'),
-			'orders' => Yii::t('app', 'Orders'),
-			'creation_date' => Yii::t('app', 'Creation Date'),
-			'creation_id' => Yii::t('app', 'Creation'),
-			'modified_date' => Yii::t('app', 'Modified Date'),
-			'modified_id' => Yii::t('app', 'Modified'),
-			'updated_date' => Yii::t('app', 'Updated Date'),
-			'slug' => Yii::t('app', 'Slug'),
-			'category_search' => Yii::t('app', 'Category'),
-			'creation_search' => Yii::t('app', 'Creation'),
-			'modified_search' => Yii::t('app', 'Modified'),
-			'answer_i' => Yii::t('app', 'Answer'),
-			'question_i' => Yii::t('app', 'Question'),
-		];
-	}
-	
 	/**
 	 * Set default columns to display
 	 */
@@ -203,103 +219,87 @@ class Faqs extends \app\components\ActiveRecord
 			'class'  => 'yii\grid\SerialColumn',
 			'contentOptions' => ['class'=>'center'],
 		];
-		 if(!isset($_GET['category'])) {
+		if(!Yii::$app->request->get('category')) {
 			$this->templateColumns['cat_id'] = [
 				'attribute' => 'cat_id',
-				'filter' => FaqCategory::getCategory(1),
+				'filter' => FaqCategory::getCategory(),
 				'value' => function($model, $key, $index, $column) {
-					return $model->cat_id ? $model->category->name->message: '-';
+					return isset($model->category) ? $model->category->title->message : '-';
 				},
 			];
 		}
 		$this->templateColumns['question_i'] = [
 			'attribute' => 'question_i',
 			'value' => function($model, $key, $index, $column) {
-				return $model->question ? $model->questions->message : '-';
+				return isset($model->questionRltn) ? $model->questionRltn->message : '-';
 			},
 		];
 		$this->templateColumns['answer_i'] = [
 			'attribute' => 'answer_i',
 			'value' => function($model, $key, $index, $column) {
-				return $model->answer ? $model->answers->message : '-';
+				return isset($model->answerRltn) ? $model->answerRltn->message : '-';
+			},
+			'format' => 'html',
+		];
+		$this->templateColumns['orders'] = [
+			'attribute' => 'orders',
+			'value' => function($model, $key, $index, $column) {
+				return $model->orders;
 			},
 		];
-		$this->templateColumns['orders'] = 'orders';
 		$this->templateColumns['creation_date'] = [
 			'attribute' => 'creation_date',
-			'filter'	=> \yii\jui\DatePicker::widget([
-				'dateFormat' => 'yyyy-MM-dd',
-				'attribute' => 'creation_date',
-				'model'  => $this,
-			]),
+			'filter' => Html::input('date', 'creation_date', Yii::$app->request->get('creation_date'), ['class'=>'form-control']),
 			'value' => function($model, $key, $index, $column) {
-				if(!in_array($model->creation_date, 
-					['0000-00-00 00:00:00','1970-01-01 00:00:00','-0001-11-30 00:00:00'])) {
-					return Yii::$app->formatter->format($model->creation_date, 'date'/*datetime*/);
-				}else {
-					return '-';
-				}
+				return !in_array($model->creation_date, ['0000-00-00 00:00:00','1970-01-01 00:00:00','-0001-11-30 00:00:00']) ? Yii::$app->formatter->format($model->creation_date, 'datetime') : '-';
 			},
-			'format'	=> 'html',
+			'format' => 'html',
 		];
 		if(!Yii::$app->request->get('creation')) {
 			$this->templateColumns['creation_search'] = [
 				'attribute' => 'creation_search',
 				'value' => function($model, $key, $index, $column) {
-					return isset($model->creation->displayname) ? $model->creation->displayname : '-';
+					return isset($model->creation) ? $model->creation->displayname : '-';
 				},
 			];
 		}
 		$this->templateColumns['modified_date'] = [
 			'attribute' => 'modified_date',
-			'filter'	=> \yii\jui\DatePicker::widget([
-				'dateFormat' => 'yyyy-MM-dd',
-				'attribute' => 'modified_date',
-				'model'  => $this,
-			]),
+			'filter' => Html::input('date', 'modified_date', Yii::$app->request->get('modified_date'), ['class'=>'form-control']),
 			'value' => function($model, $key, $index, $column) {
-				if(!in_array($model->modified_date, 
-					['0000-00-00 00:00:00','1970-01-01 00:00:00','-0001-11-30 00:00:00'])) {
-					return Yii::$app->formatter->format($model->modified_date, 'date'/*datetime*/);
-				}else {
-					return '-';
-				}
+				return !in_array($model->modified_date, ['0000-00-00 00:00:00','1970-01-01 00:00:00','-0001-11-30 00:00:00']) ? Yii::$app->formatter->format($model->modified_date, 'datetime') : '-';
 			},
-			'format'	=> 'html',
+			'format' => 'html',
 		];
 		if(!Yii::$app->request->get('modified')) {
 			$this->templateColumns['modified_search'] = [
 				'attribute' => 'modified_search',
 				'value' => function($model, $key, $index, $column) {
-					return isset($model->modified->displayname) ? $model->modified->displayname : '-';
+					return isset($model->modified) ? $model->modified->displayname : '-';
 				},
 			];
 		}
 		$this->templateColumns['updated_date'] = [
 			'attribute' => 'updated_date',
-			'filter'	=> \yii\jui\DatePicker::widget([
-				'dateFormat' => 'yyyy-MM-dd',
-				'attribute' => 'updated_date',
-				'model'  => $this,
-			]),
+			'filter' => Html::input('date', 'updated_date', Yii::$app->request->get('updated_date'), ['class'=>'form-control']),
 			'value' => function($model, $key, $index, $column) {
-				if(!in_array($model->updated_date, 
-					['0000-00-00 00:00:00','1970-01-01 00:00:00','-0001-11-30 00:00:00'])) {
-					return Yii::$app->formatter->format($model->updated_date, 'date'/*datetime*/);
-				}else {
-					return '-';
-				}
+				return !in_array($model->updated_date, ['0000-00-00 00:00:00','1970-01-01 00:00:00','-0001-11-30 00:00:00']) ? Yii::$app->formatter->format($model->updated_date, 'datetime') : '-';
 			},
-			'format'	=> 'html',
+			'format' => 'html',
 		];
-		$this->templateColumns['slug'] = 'slug';
+		$this->templateColumns['slug'] = [
+			'attribute' => 'slug',
+			'value' => function($model, $key, $index, $column) {
+				return $model->slug;
+			},
+		];
 		if(!Yii::$app->request->get('trash')) {
 			$this->templateColumns['publish'] = [
 				'attribute' => 'publish',
-				'filter' => GridView::getFilterYesNo(),
+				'filter' => $this->filterYesNo(),
 				'value' => function($model, $key, $index, $column) {
 					$url = Url::to(['publish', 'id' => $model->primaryKey]);
-					return GridView::getPublish($url, $model->publish);
+					return $this->quickAction($url, $model->publish);
 				},
 				'contentOptions' => ['class'=>'center'],
 				'format'	=> 'raw',
@@ -308,30 +308,86 @@ class Faqs extends \app\components\ActiveRecord
 	}
 
 	/**
+	 * User get information
+	 */
+	public static function getInfo($id, $column=null)
+	{
+		if($column != null) {
+			$model = self::find()
+				->select([$column])
+				->where(['faq_id' => $id])
+				->one();
+			return $model->$column;
+			
+		} else {
+			$model = self::findOne($id);
+			return $model;
+		}
+	}
+
+	/**
+	 * function getFaqs
+	 */
+	public static function getFaq($publish=null, $array=true) 
+	{
+		$model = self::find()->alias('t')
+			->leftJoin(sprintf('%s questionRltn', SourceMessage::tableName()), 't.question=questionRltn.id')
+		if($publish != null)
+			$model = $model->andWhere(['t.publish' => $publish]);
+
+		$model = $model->orderBy('questionRltn.message ASC')->all();
+
+		if($array == true) {
+			$items = [];
+			if($model !== null) {
+				foreach($model as $val) {
+					$items[$val->faq_id] = $val->questionRltn->message;
+				}
+				return $items;
+			} else
+				return false;
+		} else 
+			return $model;
+	}
+
+	/**
+	 * after find attributes
+	 */
+	public function afterFind() 
+	{
+		$this->question_i = isset($this->questionRltn) ? $this->questionRltn->message : '';
+		$this->answer_i = isset($this->answerRltn) ? $this->answerRltn->message : '';
+	}
+
+	/**
 	 * before validate attributes
 	 */
 	public function beforeValidate() 
 	{
 		if(parent::beforeValidate()) {
-			if($this->isNewRecord) {
-				$this->creation_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : '0';
-				$this->modified_id = 0;
-			}else
-				$this->modified_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : '0';
+			if($this->isNewRecord)
+				$this->creation_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
+			else
+				$this->modified_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
 		}
 		return true;
 	}
-	public function beforeSave($insert) 
+
+	/**
+	 * before save attributes
+	 */
+	public function beforeSave($insert)
 	{
 		$module = strtolower(Yii::$app->controller->module->id);
 		$controller = strtolower(Yii::$app->controller->id);
 		$action = strtolower(Yii::$app->controller->action->id);
-		$location = Utility::getUrlTitle($module.' '.$controller);
+
+		$location = $this->getUrlTitle($module.' '.$controller);
 
 		if(parent::beforeSave($insert)) {
-			if($this->isNewRecord || (!$this->isNewRecord && !$this->question)) {
+
+			if($insert || (!$insert && !$this->question)) {
 				$question = new SourceMessage();
-				//print_r($question);exit;
 				$question->location = $location.'_question';
 				$question->message = $this->question_i;
 				if($question->save())
@@ -343,7 +399,7 @@ class Faqs extends \app\components\ActiveRecord
 				$question->save();
 			}
 
-			if($this->isNewRecord || (!$this->isNewRecord && !$this->answer)) {
+			if($insert || (!$insert && !$this->answer)) {
 				$answer = new SourceMessage();
 				$answer->location = $location.'_answer';
 				$answer->message = $this->answer_i;
@@ -356,8 +412,35 @@ class Faqs extends \app\components\ActiveRecord
 				$answer->save();
 			}
 		}
-
-		return true;	
+		return true;
 	}
 
+	/**
+	 * After save attributes
+	 */
+	public function afterSave($insert, $changedAttributes) 
+	{
+		parent::afterSave($insert, $changedAttributes);
+
+	}
+
+	/**
+	 * Before delete attributes
+	 */
+	public function beforeDelete() 
+	{
+		if(parent::beforeDelete()) {
+			// Create action
+		}
+		return true;
+	}
+
+	/**
+	 * After delete attributes
+	 */
+	public function afterDelete() 
+	{
+		parent::afterDelete();
+
+	}
 }
