@@ -3,33 +3,35 @@
  * SettingController
  * @var $this yii\web\View
  * @var $model app\modules\faq\models\FaqSetting
- * version: 0.0.1
  *
  * SettingController implements the CRUD actions for FaqSetting model.
  * Reference start
  * TOC :
  *  Index
  *  Update
+ *	Delete
  *
- *  findModel
+ *	findModel
  *
- * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
- * @link http://ecc.ft.ugm.ac.id
  * @author Eko Hariyanto <haryeko29@gmail.com>
- * @created date 4 January 2018, 14:44 WIB
  * @contact (+62)857-4381-4273
+ * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
+ * @created date 4 January 2018, 14:44 WIB
+ * @modified date 27 April 2018, 10:39 WIB
+ * @modified by Putra Sudaryanto <putra@sudaryanto.id>
+ * @contact (+62)856-299-4114
+ * @link http://ecc.ft.ugm.ac.id
  *
  */
  
 namespace app\modules\faq\controllers;
 
 use Yii;
-use app\modules\faq\models\FaqSetting;
-use yii\data\ActiveDataProvider;
-use app\components\Controller;
-use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\NotFoundHttpException;
+use app\components\Controller;
 use mdm\admin\components\AccessControl;
+use app\modules\faq\models\FaqSetting;
 
 class SettingController extends Controller
 {
@@ -41,6 +43,12 @@ class SettingController extends Controller
 		return [
 			'access' => [
 				'class' => AccessControl::className(),
+			],
+			'verbs' => [
+				'class' => VerbFilter::className(),
+				'actions' => [
+					'delete' => ['POST'],
+				],
 			],
 		];
 	}
@@ -70,18 +78,32 @@ class SettingController extends Controller
 			$model->load(Yii::$app->request->post());
 
 			if($model->save()) {
-				//return $this->redirect(['view', 'id' => $model->id]);
-				Yii::$app->session->setFlash('success', Yii::t('app', 'Faq Setting success updated.'));
+				Yii::$app->session->setFlash('success', Yii::t('app', 'Faq setting success updated.'));
 				return $this->redirect(['update']);
+				//return $this->redirect(['view', 'id' => $model->id]);
 			}
 		}
 
-		$this->view->title = Yii::t('app', 'Update {modelClass}: {id}', ['modelClass' => 'Faq Setting', 'id' => $model->id]);
+		$this->view->title = Yii::t('app', 'Settings');
 		$this->view->description = '';
 		$this->view->keywords = '';
 		return $this->render('admin_update', [
 			'model' => $model,
 		]);
+	}
+
+	/**
+	 * Deletes an existing FaqSetting model.
+	 * If deletion is successful, the browser will be redirected to the 'index' page.
+	 * @param integer $id
+	 * @return mixed
+	 */
+	public function actionDelete($id)
+	{
+		$this->findModel($id)->delete();
+		
+		Yii::$app->session->setFlash('success', Yii::t('app', 'Faq setting success deleted.'));
+		return $this->redirect(['index']);
 	}
 
 	/**
