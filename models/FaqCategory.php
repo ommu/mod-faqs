@@ -33,6 +33,7 @@
  * @property SourceMessage $description
  * @property Users $creation
  * @property Users $modified
+ * @property FaqCategory $parent
  *
  */
 
@@ -50,7 +51,7 @@ class FaqCategory extends \app\components\ActiveRecord
 	use \app\components\traits\GridViewSystem;
 	use \app\components\traits\FileSystem;
 
-	public $gridForbiddenColumn = ['modified_date','modified_search','updated_date','slug'];
+	public $gridForbiddenColumn = ['orders','modified_date','modified_search','updated_date','slug','cat_desc_i'];
 	public $cat_name_i;
 	public $cat_desc_i;
 
@@ -94,10 +95,10 @@ class FaqCategory extends \app\components\ActiveRecord
 	public function rules()
 	{
 		return [
-			[['cat_name_i', 'cat_desc_i', 'orders'], 'required'],
+			[['cat_name_i', 'cat_desc_i'], 'required'],
 			[['publish', 'parent_id', 'cat_name', 'cat_desc', 'orders', 'creation_id', 'modified_id'], 'integer'],
 			[['cat_name_i', 'cat_desc_i'], 'string'],
-			[['creation_date', 'modified_date', 'updated_date'], 'safe'],
+			[['orders', 'creation_date', 'modified_date', 'updated_date'], 'safe'],
 			[['cat_name_i'], 'string', 'max' => 64],
 			[['cat_desc_i'], 'string', 'max' => 128],
 			[['slug'], 'string', 'max' => 32],
@@ -113,8 +114,8 @@ class FaqCategory extends \app\components\ActiveRecord
 			'cat_id' => Yii::t('app', 'Category'),
 			'publish' => Yii::t('app', 'Publish'),
 			'parent_id' => Yii::t('app', 'Parent'),
-			'cat_name' => Yii::t('app', 'Cat Name'),
-			'cat_desc' => Yii::t('app', 'Cat Desc'),
+			'cat_name' => Yii::t('app', 'Category'),
+			'cat_desc' => Yii::t('app', 'Description'),
 			'orders' => Yii::t('app', 'Orders'),
 			'creation_date' => Yii::t('app', 'Creation Date'),
 			'creation_id' => Yii::t('app', 'Creation'),
@@ -122,8 +123,8 @@ class FaqCategory extends \app\components\ActiveRecord
 			'modified_id' => Yii::t('app', 'Modified'),
 			'updated_date' => Yii::t('app', 'Updated Date'),
 			'slug' => Yii::t('app', 'Slug'),
-			'cat_name_i' => Yii::t('app', 'Cat Name'),
-			'cat_desc_i' => Yii::t('app', 'Cat Desc'),
+			'cat_name_i' => Yii::t('app', 'Category'),
+			'cat_desc_i' => Yii::t('app', 'Description'),
 			'creation_search' => Yii::t('app', 'Creation'),
 			'modified_search' => Yii::t('app', 'Modified'),
 		];
@@ -198,12 +199,6 @@ class FaqCategory extends \app\components\ActiveRecord
 			'class'  => 'yii\grid\SerialColumn',
 			'contentOptions' => ['class'=>'center'],
 		];
-		$this->templateColumns['parent_id'] = [
-			'attribute' => 'parent_id',
-			'value' => function($model, $key, $index, $column) {
-				return isset($model->parent) ? $model->parent->title->message : '-';
-			},
-		];
 		$this->templateColumns['cat_name_i'] = [
 			'attribute' => 'cat_name_i',
 			'value' => function($model, $key, $index, $column) {
@@ -216,10 +211,11 @@ class FaqCategory extends \app\components\ActiveRecord
 				return isset($model->description) ? $model->description->message : '-';
 			},
 		];
-		$this->templateColumns['orders'] = [
-			'attribute' => 'orders',
+		$this->templateColumns['parent_id'] = [
+			'attribute' => 'parent_id',
+			//'filter' => self::getCategory(),
 			'value' => function($model, $key, $index, $column) {
-				return $model->orders;
+				return isset($model->parent) ? $model->parent->title->message : '-';
 			},
 		];
 		$this->templateColumns['creation_date'] = [
@@ -268,6 +264,13 @@ class FaqCategory extends \app\components\ActiveRecord
 				return $model->slug;
 			},
 		];
+		$this->templateColumns['orders'] = [
+			'attribute' => 'orders',
+			'value' => function($model, $key, $index, $column) {
+				return $model->orders;
+			},
+			'contentOptions' => ['class'=>'center'],
+		];
 		if(!Yii::$app->request->get('trash')) {
 			$this->templateColumns['publish'] = [
 				'attribute' => 'publish',
@@ -306,9 +309,9 @@ class FaqCategory extends \app\components\ActiveRecord
 	public static function getCategory($publish=null, $array=true) 
 	{
 		$model = self::find()->alias('t');
-			->leftJoin(sprintf('%s title', SourceMessage::tableName()), 't.cat_name=title.id')
+		$model->leftJoin(sprintf('%s title', SourceMessage::tableName()), 't.cat_name=title.id');
 		if($publish != null)
-			$model = $model->andWhere(['t.publish' => $publish]);
+			$model->andWhere(['t.publish' => $publish]);
 
 		$model = $model->orderBy('title.message ASC')->all();
 

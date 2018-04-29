@@ -3,38 +3,40 @@
  * CategoryController
  * @var $this yii\web\View
  * @var $model app\modules\faq\models\FaqCategory
- * version: 0.0.1
  *
  * CategoryController implements the CRUD actions for FaqCategory model.
  * Reference start
  * TOC :
- *  Index
- *  Create
- *  Update
- *  View
- *  Delete
- *  RunAction
- *  Publish
+ *	Index
+ *	Create
+ *	Update
+ *	View
+ *	Delete
+ *	RunAction
+ *	Publish
  *
- *  findModel
+ *	findModel
  *
- * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
- * @link http://ecc.ft.ugm.ac.id
  * @author Eko Hariyanto <haryeko29@gmail.com>
- * @created date 5 January 2018, 10:21 WIB
  * @contact (+62)857-4381-4273
+ * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
+ * @created date 5 January 2018, 10:21 WIB
+ * @modified date 27 April 2018, 12:54 WIB
+ * @modified by Putra Sudaryanto <putra@sudaryanto.id>
+ * @contact (+62)856-299-4114
+ * @link http://ecc.ft.ugm.ac.id
  *
  */
  
 namespace app\modules\faq\controllers;
 
 use Yii;
+use yii\filters\VerbFilter;
+use yii\web\NotFoundHttpException;
+use app\components\Controller;
+use mdm\admin\components\AccessControl;
 use app\modules\faq\models\FaqCategory;
 use app\modules\faq\models\search\FaqCategory as FaqCategorySearch;
-use app\components\Controller;
-use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
-use mdm\admin\components\AccessControl;
 
 class CategoryController extends Controller
 {
@@ -82,7 +84,7 @@ class CategoryController extends Controller
 		return $this->render('admin_index', [
 			'searchModel' => $searchModel,
 			'dataProvider' => $dataProvider,
-			'columns'	 => $columns,
+			'columns' => $columns,
 		]);
 	}
 
@@ -98,9 +100,9 @@ class CategoryController extends Controller
 		if(Yii::$app->request->isPost) {
 			$model->load(Yii::$app->request->post());
 			if($model->save()) {
-				//return $this->redirect(['view', 'id' => $model->cat_id]);
-				Yii::$app->session->setFlash('success', Yii::t('app', 'Faq Category success created.'));
+				Yii::$app->session->setFlash('success', Yii::t('app', 'Faq category success created.'));
 				return $this->redirect(['index']);
+				//return $this->redirect(['view', 'id' => $model->cat_id]);
 			} 
 		}
 
@@ -125,13 +127,13 @@ class CategoryController extends Controller
 			$model->load(Yii::$app->request->post());
 
 			if($model->save()) {
-				//return $this->redirect(['view', 'id' => $model->cat_id]);
-				Yii::$app->session->setFlash('success', Yii::t('app', 'Faq Category success updated.'));
+				Yii::$app->session->setFlash('success', Yii::t('app', 'Faq category success updated.'));
 				return $this->redirect(['index']);
+				//return $this->redirect(['view', 'id' => $model->cat_id]);
 			}
 		}
 
-		$this->view->title = Yii::t('app', 'Update {modelClass}: {cat_name}', ['modelClass' => 'Faq Category', 'cat_name' => $model->cat_name]);
+		$this->view->title = Yii::t('app', 'Update {model-class}: {cat-name}', ['model-class' => 'Faq Category', 'cat-name' => $model->title->message]);
 		$this->view->description = '';
 		$this->view->keywords = '';
 		return $this->render('admin_update', [
@@ -148,7 +150,7 @@ class CategoryController extends Controller
 	{
 		$model = $this->findModel($id);
 
-		$this->view->title = Yii::t('app', 'View {modelClass}: {cat_name}', ['modelClass' => 'Faq Category', 'cat_name' => $model->cat_name]);
+		$this->view->title = Yii::t('app', 'Detail {model-class}: {cat-name}', ['model-class' => 'Faq Category', 'cat-name' => $model->title->message]);
 		$this->view->description = '';
 		$this->view->keywords = '';
 		return $this->render('admin_view', [
@@ -168,15 +170,15 @@ class CategoryController extends Controller
 		$model->publish = 2;
 
 		if($model->save(false, ['publish'])) {
-			//return $this->redirect(['view', 'id' => $model->cat_id]);
-			Yii::$app->session->setFlash('success', Yii::t('app', 'Faq Category success deleted.'));
+			Yii::$app->session->setFlash('success', Yii::t('app', 'Faq category success deleted.'));
 			return $this->redirect(['index']);
+			//return $this->redirect(['view', 'id' => $model->cat_id]);
 		}
 	}
 
 	/**
-	 * Publish/Unpublish an existing FaqCategory model.
-	 * If publish/unpublish is successful, the browser will be redirected to the 'index' page.
+	 * actionPublish an existing FaqCategory model.
+	 * If publish is successful, the browser will be redirected to the 'index' page.
 	 * @param integer $id
 	 * @return mixed
 	 */
@@ -187,7 +189,7 @@ class CategoryController extends Controller
 		$model->publish = $replace;
 
 		if($model->save(false, ['publish'])) {
-			Yii::$app->session->setFlash('success', Yii::t('app', 'Faq Category success updated.'));
+			Yii::$app->session->setFlash('success', Yii::t('app', 'Faq category success updated.'));
 			return $this->redirect(['index']);
 		}
 	}

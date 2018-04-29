@@ -1,15 +1,17 @@
 <?php
 /**
  * FaqCategory
- * version: 0.0.1
  *
  * FaqCategory represents the model behind the search form about `app\modules\faq\models\FaqCategory`.
  *
- * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
- * @link http://ecc.ft.ugm.ac.id
  * @author Eko Hariyanto <haryeko29@gmail.com>
- * @created date 5 January 2018, 10:08 WIB
  * @contact (+62)857-4381-4273
+ * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
+ * @created date 5 January 2018, 10:08 WIB
+ * @modified date 27 April 2018, 12:54 WIB
+ * @modified by Putra Sudaryanto <putra@sudaryanto.id>
+ * @contact (+62)856-299-4114
+ * @link http://ecc.ft.ugm.ac.id
  *
  */
 
@@ -19,7 +21,6 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\modules\faq\models\FaqCategory as FaqCategoryModel;
-//use app\coremodules\user\models\Users;
 
 class FaqCategory extends FaqCategoryModel
 {
@@ -29,8 +30,9 @@ class FaqCategory extends FaqCategoryModel
 	public function rules()
 	{
 		return [
-			[['cat_id', 'publish', 'parent', 'cat_name', 'cat_desc', 'orders', 'creation_id', 'modified_id'], 'integer'],
-			[['creation_date', 'modified_date', 'parent_i','updated_date', 'slug', 'creation_search', 'modified_search', 'cat_name_i', 'cat_desc_i'], 'safe'],
+			[['cat_id', 'publish', 'parent_id', 'cat_name', 'cat_desc', 'creation_id', 'modified_id'], 'integer'],
+			[['orders', 'creation_date', 'modified_date', 'updated_date', 'slug',
+				'cat_name_i', 'cat_desc_i', 'creation_search', 'modified_search'], 'safe'],
 		];
 	}
 
@@ -62,7 +64,13 @@ class FaqCategory extends FaqCategoryModel
 	public function search($params)
 	{
 		$query = FaqCategoryModel::find()->alias('t');
-		$query->joinWith(['creation creation', 'modified modified', 'name name', 'parents.name parents', 'description description']);
+		$query->joinWith([
+			'title title', 
+			'description description', 
+			'creation creation', 
+			'modified modified', 
+			'parent.title parent'
+		]);
 
 		// add conditions that should always apply here
 		$dataProvider = new ActiveDataProvider([
@@ -70,25 +78,25 @@ class FaqCategory extends FaqCategoryModel
 		]);
 
 		$attributes = array_keys($this->getTableSchema()->columns);
+		$attributes['cat_name_i'] = [
+			'asc' => ['title.message' => SORT_ASC],
+			'desc' => ['title.message' => SORT_DESC],
+		];
+		$attributes['cat_desc_i'] = [
+			'asc' => ['description.message' => SORT_ASC],
+			'desc' => ['description.message' => SORT_DESC],
+		];
 		$attributes['creation_search'] = [
 			'asc' => ['creation.displayname' => SORT_ASC],
 			'desc' => ['creation.displayname' => SORT_DESC],
-		];
-		$attributes['parent_i'] = [
-			'asc' => ['parents.message' => SORT_ASC],
-			'desc' => ['parents.message' => SORT_DESC],
 		];
 		$attributes['modified_search'] = [
 			'asc' => ['modified.displayname' => SORT_ASC],
 			'desc' => ['modified.displayname' => SORT_DESC],
 		];
-		$attributes['cat_name_i'] = [
-			'asc' => ['name.message' => SORT_ASC],
-			'desc' => ['name.message' => SORT_DESC],
-		];
-		$attributes['cat_desc_i'] = [
-			'asc' => ['description.message' => SORT_ASC],
-			'desc' => ['description.message' => SORT_DESC],
+		$attributes['parent_id'] = [
+			'asc' => ['parent.message' => SORT_ASC],
+			'desc' => ['parent.message' => SORT_DESC],
 		];
 		$dataProvider->setSort([
 			'attributes' => $attributes,
@@ -105,9 +113,8 @@ class FaqCategory extends FaqCategoryModel
 
 		// grid filtering conditions
 		$query->andFilterWhere([
-			't.cat_id' => isset($params['id']) ? $params['id'] : $this->cat_id,
-			't.publish' => isset($params['publish']) ? 1 : $this->publish,
-			't.parent' => $this->parent,
+			't.cat_id' => $this->cat_id,
+			't.parent_id' => isset($params['parent']) ? $params['parent'] : $this->parent_id,
 			't.cat_name' => $this->cat_name,
 			't.cat_desc' => $this->cat_desc,
 			't.orders' => $this->orders,
@@ -118,17 +125,20 @@ class FaqCategory extends FaqCategoryModel
 			'cast(t.updated_date as date)' => $this->updated_date,
 		]);
 
-		if(!isset($params['trash']))
-			$query->andFilterWhere(['IN', 't.publish', [0,1]]);
-		else
+		if(isset($params['trash']))
 			$query->andFilterWhere(['NOT IN', 't.publish', [0,1]]);
+		else {
+			if(!isset($params['publish']) || (isset($params['publish']) && $params['publish'] == ''))
+				$query->andFilterWhere(['IN', 't.publish', [0,1]]);
+			else
+				$query->andFilterWhere(['t.publish' => $this->publish]);
+		}
 
 		$query->andFilterWhere(['like', 't.slug', $this->slug])
-			->andFilterWhere(['like', 'creation.displayname', $this->creation_search])
-			->andFilterWhere(['like', 'modified.displayname', $this->modified_search])
-			->andFilterWhere(['like', 'name.message', $this->cat_name_i])
+			->andFilterWhere(['like', 'title.message', $this->cat_name_i])
 			->andFilterWhere(['like', 'description.message', $this->cat_desc_i])
-			->andFilterWhere(['like', 'parents.message', $this->parent_i]);
+			->andFilterWhere(['like', 'creation.displayname', $this->creation_search])
+			->andFilterWhere(['like', 'modified.displayname', $this->modified_search]);
 
 		return $dataProvider;
 	}
