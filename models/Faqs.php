@@ -53,7 +53,7 @@ class Faqs extends \app\components\ActiveRecord
 	use \app\components\traits\GridViewSystem;
 	use \app\components\traits\FileSystem;
 
-	public $gridForbiddenColumn = ['modified_date','modified_search','updated_date','slug'];
+	public $gridForbiddenColumn = ['orders','modified_date','modified_search','updated_date','slug'];
 	public $question_i;
 	public $answer_i;
 
@@ -241,12 +241,6 @@ class Faqs extends \app\components\ActiveRecord
 			},
 			'format' => 'html',
 		];
-		$this->templateColumns['orders'] = [
-			'attribute' => 'orders',
-			'value' => function($model, $key, $index, $column) {
-				return $model->orders;
-			},
-		];
 		$this->templateColumns['creation_date'] = [
 			'attribute' => 'creation_date',
 			'filter' => Html::input('date', 'creation_date', Yii::$app->request->get('creation_date'), ['class'=>'form-control']),
@@ -291,6 +285,12 @@ class Faqs extends \app\components\ActiveRecord
 			'attribute' => 'slug',
 			'value' => function($model, $key, $index, $column) {
 				return $model->slug;
+			},
+		];
+		$this->templateColumns['orders'] = [
+			'attribute' => 'orders',
+			'value' => function($model, $key, $index, $column) {
+				return $model->orders;
 			},
 		];
 		if(!Yii::$app->request->get('trash')) {

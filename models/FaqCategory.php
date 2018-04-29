@@ -45,6 +45,7 @@ use yii\helpers\Html;
 use yii\behaviors\SluggableBehavior;
 use app\models\SourceMessage;
 use app\coremodules\user\models\Users;
+use app\modules\faq\models\view\FaqCategory as FaqCategoryView;
 
 class FaqCategory extends \app\components\ActiveRecord
 {
@@ -58,6 +59,8 @@ class FaqCategory extends \app\components\ActiveRecord
 	// Variable Search
 	public $creation_search;
 	public $modified_search;
+	public $faq_search;
+	public $faq_all_search;
 
 	/**
 	 * @return string the associated database table name
@@ -127,6 +130,8 @@ class FaqCategory extends \app\components\ActiveRecord
 			'cat_desc_i' => Yii::t('app', 'Description'),
 			'creation_search' => Yii::t('app', 'Creation'),
 			'modified_search' => Yii::t('app', 'Modified'),
+			'faq_search' => Yii::t('app', 'Faqs'),
+			'faq_all_search' => Yii::t('app', 'Faq All'),
 		];
 	}
 
@@ -176,6 +181,14 @@ class FaqCategory extends \app\components\ActiveRecord
 	public function getParent()
 	{
 		return $this->hasOne(FaqCategory::className(), ['cat_id' => 'parent_id']);
+	}
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getView()
+	{
+		return $this->hasOne(FaqCategoryView::className(), ['cat_id' => 'cat_id']);
 	}
 
 	/**
@@ -270,6 +283,24 @@ class FaqCategory extends \app\components\ActiveRecord
 				return $model->orders;
 			},
 			'contentOptions' => ['class'=>'center'],
+		];
+		$this->templateColumns['faq_search'] = [
+			'attribute' => 'faq_search',
+			'value' => function($model, $key, $index, $column) {
+				$url = Url::to(['admin/index', 'category' => $model->primaryKey, 'publish' => 1]);
+				return Html::a($model->view->faqs, $url);
+			},
+			'contentOptions' => ['class'=>'center'],
+			'format' => 'html',
+		];
+		$this->templateColumns['faq_all_search'] = [
+			'attribute' => 'faq_all_search',
+			'value' => function($model, $key, $index, $column) {
+				$url = Url::to(['admin/index', 'category' => $model->primaryKey]);
+				return Html::a($model->view->faq_all, $url);
+			},
+			'contentOptions' => ['class'=>'center'],
+			'format' => 'html',
 		];
 		if(!Yii::$app->request->get('trash')) {
 			$this->templateColumns['publish'] = [
