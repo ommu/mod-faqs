@@ -1,15 +1,17 @@
 <?php
 /**
  * Faqs
- * version: 0.0.1
  *
  * Faqs represents the model behind the search form about `app\modules\faq\models\Faqs`.
  *
- * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
- * @link http://ecc.ft.ugm.ac.id
  * @author Eko Hariyanto <haryeko29@gmail.com>
- * @created date 5 January 2018, 16:52 WIB
  * @contact (+62)857-4381-4273
+ * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
+ * @created date 5 January 2018, 16:52 WIB
+ * @modified date 29 April 2018, 18:12 WIB
+ * @modified by Putra Sudaryanto <putra@sudaryanto.id>
+ * @contact (+62)856-299-4114
+ * @link http://ecc.ft.ugm.ac.id
  *
  */
 
@@ -19,8 +21,6 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\modules\faq\models\Faqs as FaqsModel;
-//use app\modules\faq\models\FaqCategory;
-//use app\coremodules\user\models\Users;
 
 class Faqs extends FaqsModel
 {
@@ -31,7 +31,8 @@ class Faqs extends FaqsModel
 	{
 		return [
 			[['faq_id', 'publish', 'cat_id', 'question', 'answer', 'orders', 'creation_id', 'modified_id'], 'integer'],
-			[['creation_date', 'modified_date', 'updated_date', 'slug', 'cat_name_i', 'creation_search', 'question_i','answer_i', 'modified_search'], 'safe'],
+			[['creation_date', 'modified_date', 'updated_date', 'slug',
+				'question_i', 'answer_i', 'category_search', 'creation_search', 'modified_search'], 'safe'],
 		];
 	}
 
@@ -63,7 +64,13 @@ class Faqs extends FaqsModel
 	public function search($params)
 	{
 		$query = FaqsModel::find()->alias('t');
-		$query->joinWith(['category category', 'creation creation', 'modified modified', 'questions question_relation', 'answers answer_relation']);
+		$query->joinWith([
+			'questionRltn questionRltn', 
+			'answerRltn answerRltn', 
+			'category.title category', 
+			'creation creation', 
+			'modified modified'
+		]);
 
 		// add conditions that should always apply here
 		$dataProvider = new ActiveDataProvider([
@@ -71,13 +78,21 @@ class Faqs extends FaqsModel
 		]);
 
 		$attributes = array_keys($this->getTableSchema()->columns);
+		$attributes['cat_id'] = [
+			'asc' => ['category.message' => SORT_ASC],
+			'desc' => ['category.message' => SORT_DESC],
+		];
 		$attributes['question_i'] = [
-			'asc' => ['question_relation.message' => SORT_ASC],
-			'desc' => ['question_relation.message' => SORT_DESC],
+			'asc' => ['questionRltn.message' => SORT_ASC],
+			'desc' => ['questionRltn.message' => SORT_DESC],
 		];
 		$attributes['answer_i'] = [
-			'asc' => ['answer_relation.message' => SORT_ASC],
-			'desc' => ['answer_relation.message' => SORT_DESC],
+			'asc' => ['answerRltn.message' => SORT_ASC],
+			'desc' => ['answerRltn.message' => SORT_DESC],
+		];
+		$attributes['category_search'] = [
+			'asc' => ['category.message' => SORT_ASC],
+			'desc' => ['category.message' => SORT_DESC],
 		];
 		$attributes['creation_search'] = [
 			'asc' => ['creation.displayname' => SORT_ASC],
@@ -102,8 +117,7 @@ class Faqs extends FaqsModel
 
 		// grid filtering conditions
 		$query->andFilterWhere([
-			't.faq_id' => isset($params['id']) ? $params['id'] : $this->faq_id,
-			't.publish' => isset($params['publish']) ? 1 : $this->publish,
+			't.faq_id' => $this->faq_id,
 			't.cat_id' => isset($params['category']) ? $params['category'] : $this->cat_id,
 			't.question' => $this->question,
 			't.answer' => $this->answer,
@@ -115,16 +129,21 @@ class Faqs extends FaqsModel
 			'cast(t.updated_date as date)' => $this->updated_date,
 		]);
 
-		if(!isset($params['trash']))
-			$query->andFilterWhere(['IN', 't.publish', [0,1]]);
-		else
+		if(isset($params['trash']))
 			$query->andFilterWhere(['NOT IN', 't.publish', [0,1]]);
+		else {
+			if(!isset($params['publish']) || (isset($params['publish']) && $params['publish'] == ''))
+				$query->andFilterWhere(['IN', 't.publish', [0,1]]);
+			else
+				$query->andFilterWhere(['t.publish' => $this->publish]);
+		}
 
 		$query->andFilterWhere(['like', 't.slug', $this->slug])
+			->andFilterWhere(['like', 'questionRltn.message', $this->question_i])
+			->andFilterWhere(['like', 'answerRltn.message', $this->answer_i])
+			->andFilterWhere(['like', 'category.message', $this->category_search])
 			->andFilterWhere(['like', 'creation.displayname', $this->creation_search])
-			->andFilterWhere(['like', 'modified.displayname', $this->modified_search])
-			->andFilterWhere(['like', 'question_relation.message', $this->question_i])
-			->andFilterWhere(['like', 'answer_relation.message', $this->answer_i]);
+			->andFilterWhere(['like', 'modified.displayname', $this->modified_search]);
 
 		return $dataProvider;
 	}

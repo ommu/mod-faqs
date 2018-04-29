@@ -98,11 +98,11 @@ class Faqs extends \app\components\ActiveRecord
 	public function rules()
 	{
 		return [
-			[['cat_id', 'question_i', 'answer_i', 'orders'], 'required'],
+			[['cat_id', 'question_i', 'answer_i'], 'required'],
 			[['publish', 'cat_id', 'question', 'answer', 'orders', 'creation_id', 'modified_id'], 'integer'],
 			[['question_i', 'answer_i'], 'string'],
-			[['creation_date', 'modified_date', 'updated_date'], 'safe'],
-			[['question_i'], 'string', 'max' => 64],
+			[['orders', 'creation_date', 'modified_date', 'updated_date'], 'safe'],
+			[['question_i'], 'string', 'max' => 128],
 			[['slug'], 'string', 'max' => 128],
 			[['cat_id'], 'exist', 'skipOnError' => true, 'targetClass' => FaqCategory::className(), 'targetAttribute' => ['cat_id' => 'cat_id']],
 		];

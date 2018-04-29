@@ -5,13 +5,15 @@
  * @var $this app\modules\faq\controllers\AdminController
  * @var $model app\modules\faq\models\search\Faqs
  * @var $form yii\widgets\ActiveForm
- * version: 0.0.1
  *
- * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
- * @link http://ecc.ft.ugm.ac.id
  * @author Eko Hariyanto <haryeko29@gmail.com>
- * @created date 5 January 2018, 17:01 WIB
  * @contact (+62)857-4381-4273
+ * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
+ * @created date 5 January 2018, 17:01 WIB
+ * @modified date 29 April 2018, 18:12 WIB
+ * @modified by Putra Sudaryanto <putra@sudaryanto.id>
+ * @contact (+62)856-299-4114
+ * @link http://ecc.ft.ugm.ac.id
  *
  */
 
@@ -24,29 +26,30 @@ use yii\widgets\ActiveForm;
 		'action' => ['index'],
 		'method' => 'get',
 	]); ?>
-		<?= $form->field($model, 'faq_id') ?>
+		<?php echo $form->field($model, 'publish')->checkbox();?>
 
-		<?= $form->field($model, 'publish') ?>
+		<?php echo $form->field($model, 'category_search');?>
 
-		<?= $form->field($model, 'cat_id') ?>
+		<?php echo $form->field($model, 'question_i');?>
 
-		<?= $form->field($model, 'question') ?>
+		<?php echo $form->field($model, 'answer_i');?>
 
-		<?= $form->field($model, 'answer') ?>
+		<?php echo $form->field($model, 'orders');?>
 
-		<?= $form->field($model, 'orders') ?>
+		<?php echo $form->field($model, 'creation_date')
+			->input('date');?>
 
-		<?= $form->field($model, 'creation_date') ?>
+		<?php echo $form->field($model, 'creation_search');?>
 
-		<?= $form->field($model, 'creation_id') ?>
+		<?php echo $form->field($model, 'modified_date')
+			->input('date');?>
 
-		<?= $form->field($model, 'modified_date') ?>
+		<?php echo $form->field($model, 'modified_search');?>
 
-		<?= $form->field($model, 'modified_id') ?>
+		<?php echo $form->field($model, 'updated_date')
+			->input('date');?>
 
-		<?= $form->field($model, 'updated_date') ?>
-
-		<?= $form->field($model, 'slug') ?>
+		<?php echo $form->field($model, 'slug');?>
 
 		<div class="form-group">
 			<?php echo Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>

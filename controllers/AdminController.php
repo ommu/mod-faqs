@@ -3,38 +3,40 @@
  * AdminController
  * @var $this yii\web\View
  * @var $model app\modules\faq\models\Faqs
- * version: 0.0.1
  *
  * AdminController implements the CRUD actions for Faqs model.
  * Reference start
  * TOC :
- *  Index
- *  Create
- *  Update
- *  View
- *  Delete
- *  RunAction
- *  Publish
+ *	Index
+ *	Create
+ *	Update
+ *	View
+ *	Delete
+ *	RunAction
+ *	Publish
  *
- *  findModel
+ *	findModel
  *
- * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
- * @link http://ecc.ft.ugm.ac.id
  * @author Eko Hariyanto <haryeko29@gmail.com>
- * @created date 5 January 2018, 16:52 WIB
  * @contact (+62)857-4381-4273
+ * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
+ * @created date 5 January 2018, 16:52 WIB
+ * @modified date 29 April 2018, 18:12 WIB
+ * @modified by Putra Sudaryanto <putra@sudaryanto.id>
+ * @contact (+62)856-299-4114
+ * @link http://ecc.ft.ugm.ac.id
  *
  */
  
 namespace app\modules\faq\controllers;
 
 use Yii;
+use yii\filters\VerbFilter;
+use yii\web\NotFoundHttpException;
+use app\components\Controller;
+use mdm\admin\components\AccessControl;
 use app\modules\faq\models\Faqs;
 use app\modules\faq\models\search\Faqs as FaqsSearch;
-use app\components\Controller;
-use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
-use mdm\admin\components\AccessControl;
 
 class AdminController extends Controller
 {
@@ -82,7 +84,7 @@ class AdminController extends Controller
 		return $this->render('admin_index', [
 			'searchModel' => $searchModel,
 			'dataProvider' => $dataProvider,
-			'columns'	 => $columns,
+			'columns' => $columns,
 		]);
 	}
 
@@ -93,22 +95,18 @@ class AdminController extends Controller
 	 */
 	public function actionCreate()
 	{
-
 		$model = new Faqs();
 
 		if(Yii::$app->request->isPost) {
-
 			$model->load(Yii::$app->request->post());
-			 //print_r($model);exit;
-			//var_dump($model);exit;
 			if($model->save()) {
-				//return $this->redirect(['view', 'id' => $model->faq_id]);
-				Yii::$app->session->setFlash('success', Yii::t('app', 'Faqs success created.'));
+				Yii::$app->session->setFlash('success', Yii::t('app', 'Faq success created.'));
 				return $this->redirect(['index']);
+				//return $this->redirect(['view', 'id' => $model->faq_id]);
 			} 
 		}
 
-		$this->view->title = Yii::t('app', 'Create Faqs');
+		$this->view->title = Yii::t('app', 'Create Faq');
 		$this->view->description = '';
 		$this->view->keywords = '';
 		return $this->render('admin_create', [
@@ -119,7 +117,7 @@ class AdminController extends Controller
 	/**
 	 * Updates an existing Faqs model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param string $id
+	 * @param integer $id
 	 * @return mixed
 	 */
 	public function actionUpdate($id)
@@ -129,13 +127,13 @@ class AdminController extends Controller
 			$model->load(Yii::$app->request->post());
 
 			if($model->save()) {
-				//return $this->redirect(['view', 'id' => $model->faq_id]);
-				Yii::$app->session->setFlash('success', Yii::t('app', 'Faqs success updated.'));
+				Yii::$app->session->setFlash('success', Yii::t('app', 'Faq success updated.'));
 				return $this->redirect(['index']);
+				//return $this->redirect(['view', 'id' => $model->faq_id]);
 			}
 		}
 
-		$this->view->title = Yii::t('app', 'Update {modelClass}: {faq_id}', ['modelClass' => 'Faqs', 'faq_id' => $model->faq_id]);
+		$this->view->title = Yii::t('app', 'Update {model-class}: {question}', ['model-class' => 'Faq', 'question' => $model->questionRltn->message]);
 		$this->view->description = '';
 		$this->view->keywords = '';
 		return $this->render('admin_update', [
@@ -145,14 +143,14 @@ class AdminController extends Controller
 
 	/**
 	 * Displays a single Faqs model.
-	 * @param string $id
+	 * @param integer $id
 	 * @return mixed
 	 */
 	public function actionView($id)
 	{
 		$model = $this->findModel($id);
 
-		$this->view->title = Yii::t('app', 'View {modelClass}: {faq_id}', ['modelClass' => 'Faqs', 'faq_id' => $model->faq_id]);
+		$this->view->title = Yii::t('app', 'Detail {model-class}: {question}', ['model-class' => 'Faq', 'question' => $model->questionRltn->message]);
 		$this->view->description = '';
 		$this->view->keywords = '';
 		return $this->render('admin_view', [
@@ -163,7 +161,7 @@ class AdminController extends Controller
 	/**
 	 * Deletes an existing Faqs model.
 	 * If deletion is successful, the browser will be redirected to the 'index' page.
-	 * @param string $id
+	 * @param integer $id
 	 * @return mixed
 	 */
 	public function actionDelete($id)
@@ -172,16 +170,16 @@ class AdminController extends Controller
 		$model->publish = 2;
 
 		if($model->save(false, ['publish'])) {
-			//return $this->redirect(['view', 'id' => $model->faq_id]);
-			Yii::$app->session->setFlash('success', Yii::t('app', 'Faqs success deleted.'));
+			Yii::$app->session->setFlash('success', Yii::t('app', 'Faq success deleted.'));
 			return $this->redirect(['index']);
+			//return $this->redirect(['view', 'id' => $model->faq_id]);
 		}
 	}
 
 	/**
-	 * Publish/Unpublish an existing Faqs model.
-	 * If publish/unpublish is successful, the browser will be redirected to the 'index' page.
-	 * @param string $id
+	 * actionPublish an existing Faqs model.
+	 * If publish is successful, the browser will be redirected to the 'index' page.
+	 * @param integer $id
 	 * @return mixed
 	 */
 	public function actionPublish($id)
@@ -191,7 +189,7 @@ class AdminController extends Controller
 		$model->publish = $replace;
 
 		if($model->save(false, ['publish'])) {
-			Yii::$app->session->setFlash('success', Yii::t('app', 'Faqs success updated.'));
+			Yii::$app->session->setFlash('success', Yii::t('app', 'Faq success updated.'));
 			return $this->redirect(['index']);
 		}
 	}
@@ -199,7 +197,7 @@ class AdminController extends Controller
 	/**
 	 * Finds the Faqs model based on its primary key value.
 	 * If the model is not found, a 404 HTTP exception will be thrown.
-	 * @param string $id
+	 * @param integer $id
 	 * @return Faqs the loaded model
 	 * @throws NotFoundHttpException if the model cannot be found
 	 */
