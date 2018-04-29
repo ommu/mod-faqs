@@ -5,13 +5,15 @@
  * @var $this app\modules\faq\controllers\HistoryViewController
  * @var $model app\modules\faq\models\search\FaqViewHistory
  * @var $form yii\widgets\ActiveForm
- * version: 0.0.1
  *
- * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
- * @link http://ecc.ft.ugm.ac.id
  * @author Eko Hariyanto <haryeko29@gmail.com>
- * @created date 8 January 2018, 15:19 WIB
  * @contact (+62)857-4381-4273
+ * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
+ * @created date 8 January 2018, 15:19 WIB
+ * @modified date 29 April 2018, 20:30 WIB
+ * @modified by Putra Sudaryanto <putra@sudaryanto.id>
+ * @contact (+62)856-299-4114
+ * @link http://ecc.ft.ugm.ac.id
  *
  */
 
@@ -24,13 +26,12 @@ use yii\widgets\ActiveForm;
 		'action' => ['index'],
 		'method' => 'get',
 	]); ?>
-		<?= $form->field($model, 'id') ?>
+		<?php echo $form->field($model, 'view_search');?>
 
-		<?= $form->field($model, 'view_id') ?>
+		<?php echo $form->field($model, 'view_date')
+			->input('date');?>
 
-		<?= $form->field($model, 'view_date') ?>
-
-		<?= $form->field($model, 'view_ip') ?>
+		<?php echo $form->field($model, 'view_ip');?>
 
 		<div class="form-group">
 			<?php echo Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>

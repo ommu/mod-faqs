@@ -3,33 +3,36 @@
  * HistoryViewController
  * @var $this yii\web\View
  * @var $model app\modules\faq\models\FaqViewHistory
- * version: 0.0.1
  *
  * HistoryViewController implements the CRUD actions for FaqViewHistory model.
  * Reference start
  * TOC :
- *  Index
- *  Delete
+ *	Index
+ *	View
+ *	Delete
  *
- *  findModel
+ *	findModel
  *
- * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
- * @link http://ecc.ft.ugm.ac.id
  * @author Eko Hariyanto <haryeko29@gmail.com>
- * @created date 8 January 2018, 15:19 WIB
  * @contact (+62)857-4381-4273
+ * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
+ * @created date 8 January 2018, 15:19 WIB
+ * @modified date 29 April 2018, 20:30 WIB
+ * @modified by Putra Sudaryanto <putra@sudaryanto.id>
+ * @contact (+62)856-299-4114
+ * @link http://ecc.ft.ugm.ac.id
  *
  */
  
 namespace app\modules\faq\controllers;
 
 use Yii;
+use yii\filters\VerbFilter;
+use yii\web\NotFoundHttpException;
+use app\components\Controller;
+use mdm\admin\components\AccessControl;
 use app\modules\faq\models\FaqViewHistory;
 use app\modules\faq\models\search\FaqViewHistory as FaqViewHistorySearch;
-use app\components\Controller;
-use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
-use mdm\admin\components\AccessControl;
 
 class HistoryViewController extends Controller
 {
@@ -76,33 +79,45 @@ class HistoryViewController extends Controller
 		return $this->render('admin_index', [
 			'searchModel' => $searchModel,
 			'dataProvider' => $dataProvider,
-			'columns'	 => $columns,
+			'columns' => $columns,
 		]);
 	}
 
 	/**
-	 * Creates a new FaqViewHistory model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 * Displays a single FaqViewHistory model.
+	 * @param integer $id
 	 * @return mixed
 	 */
-		/**
+	public function actionView($id)
+	{
+		$model = $this->findModel($id);
+
+		$this->view->title = Yii::t('app', 'Detail {model-class}: {faq-id}', ['model-class' => 'Faq View History', 'faq-id' => $model->view->faq->questionRltn->message]);
+		$this->view->description = '';
+		$this->view->keywords = '';
+		return $this->render('admin_view', [
+			'model' => $model,
+		]);
+	}
+
+	/**
 	 * Deletes an existing FaqViewHistory model.
 	 * If deletion is successful, the browser will be redirected to the 'index' page.
-	 * @param string $id
+	 * @param integer $id
 	 * @return mixed
 	 */
 	public function actionDelete($id)
 	{
 		$this->findModel($id)->delete();
 		
-		Yii::$app->session->setFlash('success', Yii::t('app', 'Faq View History success deleted.'));
+		Yii::$app->session->setFlash('success', Yii::t('app', 'Faq view history success deleted.'));
 		return $this->redirect(['index']);
 	}
 
 	/**
 	 * Finds the FaqViewHistory model based on its primary key value.
 	 * If the model is not found, a 404 HTTP exception will be thrown.
-	 * @param string $id
+	 * @param integer $id
 	 * @return FaqViewHistory the loaded model
 	 * @throws NotFoundHttpException if the model cannot be found
 	 */

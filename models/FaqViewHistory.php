@@ -36,7 +36,8 @@ class FaqViewHistory extends \app\components\ActiveRecord
 
 	// Variable Search
 	public $category_search;
-	public $question_search;
+	public $faq_search;
+	public $user_search;
 
 	/**
 	 * @return string the associated database table name
@@ -79,7 +80,8 @@ class FaqViewHistory extends \app\components\ActiveRecord
 			'view_date' => Yii::t('app', 'View Date'),
 			'view_ip' => Yii::t('app', 'View Ip'),
 			'category_search' => Yii::t('app', 'Category'),
-			'question_search' => Yii::t('app', 'Question'),
+			'faq_search' => Yii::t('app', 'Faq'),
+			'user_search' => Yii::t('app', 'User'),
 		];
 	}
 
@@ -116,15 +118,22 @@ class FaqViewHistory extends \app\components\ActiveRecord
 			if(!Yii::$app->request->get('category')) {
 				$this->templateColumns['category_search'] = [
 					'attribute' => 'category_search',
+					'filter' => FaqCategory::getCategory(),
 					'value' => function($model, $key, $index, $column) {
-						return isset($model->like->category) ? $model->like->category->title->message : '-';
+						return isset($model->view->faq->category) ? $model->view->faq->category->title->message : '-';
 					},
 				];
 			}
-			$this->templateColumns['question_search'] = [
-				'attribute' => 'question_search',
+			$this->templateColumns['faq_search'] = [
+				'attribute' => 'faq_search',
 				'value' => function($model, $key, $index, $column) {
-					return isset($model->like->questionRltn) ? $model->like->questionRltn->message : '-';
+					return isset($model->view->faq->questionRltn) ? $model->view->faq->questionRltn->message : '-';
+				},
+			];
+			$this->templateColumns['user_search'] = [
+				'attribute' => 'user_search',
+				'value' => function($model, $key, $index, $column) {
+					return isset($model->view->user) ? $model->view->user->displayname : '-';
 				},
 			];
 		}

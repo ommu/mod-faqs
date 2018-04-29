@@ -1,17 +1,19 @@
 <?php
 /**
- * Like Histories (like-history)
+ * Faq Like Histories (faq-like-history)
  * @var $this yii\web\View
  * @var $this app\modules\faq\controllers\HistoryLikeController
  * @var $model app\modules\faq\models\search\FaqLikeHistory
  * @var $form yii\widgets\ActiveForm
- * version: 0.0.1
  *
- * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
- * @link http://ecc.ft.ugm.ac.id
  * @author Eko Hariyanto <haryeko29@gmail.com>
- * @created date 9 January 2018, 08:22 WIB
  * @contact (+62)857-4381-4273
+ * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
+ * @created date 9 January 2018, 08:22 WIB
+ * @modified date 29 April 2018, 20:31 WIB
+ * @modified by Putra Sudaryanto <putra@sudaryanto.id>
+ * @contact (+62)856-299-4114
+ * @link http://ecc.ft.ugm.ac.id
  *
  */
 
@@ -24,15 +26,15 @@ use yii\widgets\ActiveForm;
 		'action' => ['index'],
 		'method' => 'get',
 	]); ?>
-		<?= $form->field($model, 'id') ?>
+		<?php echo $form->field($model, 'publish')
+			->checkbox();?>
 
-		<?= $form->field($model, 'publish') ?>
+		<?php echo $form->field($model, 'like_search');?>
 
-		<?= $form->field($model, 'like_id') ?>
+		<?php echo $form->field($model, 'likes_date')
+			->input('date');?>
 
-		<?= $form->field($model, 'likes_date') ?>
-
-		<?= $form->field($model, 'likes_ip') ?>
+		<?php echo $form->field($model, 'likes_ip');?>
 
 		<div class="form-group">
 			<?php echo Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>

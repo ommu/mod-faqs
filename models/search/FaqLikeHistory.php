@@ -1,15 +1,16 @@
 <?php
 /**
  * FaqLikeHistory
- * version: 0.0.1
  *
  * FaqLikeHistory represents the model behind the search form about `app\modules\faq\models\FaqLikeHistory`.
  *
- * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
- * @link http://ecc.ft.ugm.ac.id
  * @author Eko Hariyanto <haryeko29@gmail.com>
- * @created date 9 January 2018, 08:22 WIB
  * @contact (+62)857-4381-4273
+ * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
+ * @created date 9 January 2018, 08:22 WIB
+ * @modified date 29 April 2018, 20:31 WIB
+ * @modified by Putra Sudaryanto <putra@sudaryanto.id>
+ * @link http://ecc.ft.ugm.ac.id
  *
  */
 
@@ -19,7 +20,6 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\modules\faq\models\FaqLikeHistory as FaqLikeHistoryModel;
-//use app\modules\faq\models\FaqLikes;
 
 class FaqLikeHistory extends FaqLikeHistoryModel
 {
@@ -30,7 +30,8 @@ class FaqLikeHistory extends FaqLikeHistoryModel
 	{
 		return [
 			[['id', 'publish', 'like_id'], 'integer'],
-			[['likes_date', 'likes_ip', 'like_search'], 'safe'],
+			[['likes_date', 'likes_ip',
+				'category_search', 'faq_search', 'user_search'], 'safe'],
 		];
 	}
 
@@ -62,7 +63,12 @@ class FaqLikeHistory extends FaqLikeHistoryModel
 	public function search($params)
 	{
 		$query = FaqLikeHistoryModel::find()->alias('t');
-		$query->joinWith(['like like']);
+		$query->joinWith([
+			'like.faq faq', 
+			'like.faq.questionRltn questionRltn', 
+			'like.faq.category.title category', 
+			'like.user user',
+		]);
 
 		// add conditions that should always apply here
 		$dataProvider = new ActiveDataProvider([
@@ -70,9 +76,17 @@ class FaqLikeHistory extends FaqLikeHistoryModel
 		]);
 
 		$attributes = array_keys($this->getTableSchema()->columns);
-		$attributes['like_search'] = [
-			'asc' => ['like.like_id' => SORT_ASC],
-			'desc' => ['like.like_id' => SORT_DESC],
+		$attributes['category_search'] = [
+			'asc' => ['category.message' => SORT_ASC],
+			'desc' => ['category.message' => SORT_DESC],
+		];
+		$attributes['faq_search'] = [
+			'asc' => ['questionRltn.message' => SORT_ASC],
+			'desc' => ['questionRltn.message' => SORT_DESC],
+		];
+		$attributes['user_search'] = [
+			'asc' => ['user.displayname' => SORT_ASC],
+			'desc' => ['user.displayname' => SORT_DESC],
 		];
 		$dataProvider->setSort([
 			'attributes' => $attributes,
@@ -89,19 +103,16 @@ class FaqLikeHistory extends FaqLikeHistoryModel
 
 		// grid filtering conditions
 		$query->andFilterWhere([
-			't.id' => isset($params['id']) ? $params['id'] : $this->id,
-			't.publish' => isset($params['publish']) ? 1 : $this->publish,
+			't.id' => $this->id,
+			't.publish' => isset($params['publish']) ? $params['publish'] : $this->publish,
 			't.like_id' => isset($params['like']) ? $params['like'] : $this->like_id,
 			'cast(t.likes_date as date)' => $this->likes_date,
+			'faq.cat_id' => isset($params['category']) ? $params['category'] : $this->category_search,
 		]);
 
-		if(!isset($params['trash']))
-			$query->andFilterWhere(['IN', 't.publish', [0,1]]);
-		else
-			$query->andFilterWhere(['NOT IN', 't.publish', [0,1]]);
-
 		$query->andFilterWhere(['like', 't.likes_ip', $this->likes_ip])
-			->andFilterWhere(['like', 'like.like_id', $this->like_search]);
+			->andFilterWhere(['like', 'questionRltn.message', $this->faq_search])
+			->andFilterWhere(['like', 'user.displayname', $this->user_search]);
 
 		return $dataProvider;
 	}

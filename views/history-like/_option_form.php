@@ -1,17 +1,19 @@
 <?php
 /**
- * Like Histories (like-history)
+ * Faq Like Histories (faq-like-history)
  * @var $this yii\web\View
  * @var $this app\modules\faq\controllers\HistoryLikeController
  * @var $model app\modules\faq\models\search\FaqLikeHistory
  * @var $form yii\widgets\ActiveForm
- * version: 0.0.1
  *
- * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
- * @link http://ecc.ft.ugm.ac.id
  * @author Eko Hariyanto <haryeko29@gmail.com>
- * @created date 9 January 2018, 08:22 WIB
  * @contact (+62)857-4381-4273
+ * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
+ * @created date 9 January 2018, 08:22 WIB
+ * @modified date 29 April 2018, 20:31 WIB
+ * @modified by Putra Sudaryanto <putra@sudaryanto.id>
+ * @contact (+62)856-299-4114
+ * @link http://ecc.ft.ugm.ac.id
  *
  */
 
@@ -39,11 +41,9 @@ JS;
 <div class="grid-form">
 	<?php echo Html::beginForm(Url::to(['/'.$route]), 'get', ['name' => 'gridoption']);
 		$columns = [];
-
 		foreach($model->templateColumns as $key => $column) {
 			if($key == '_no')
 				continue;
-			
 			$columns[$key] = $key;
 		}
 	?>
@@ -55,6 +55,5 @@ JS;
 			</li>
 			<?php endforeach; ?>
 		</ul>
-		<div class="clear"></div>
 	<?php echo Html::endForm(); ?>
 </div>

@@ -169,13 +169,6 @@ class FaqViews extends \app\components\ActiveRecord
 				},
 			];
 		}
-		$this->templateColumns['views'] = [
-			'attribute' => 'views',
-			'value' => function($model, $key, $index, $column) {
-				return $model->views;
-			},
-			'contentOptions' => ['class'=>'center'],
-		];
 		$this->templateColumns['view_date'] = [
 			'attribute' => 'view_date',
 			'filter' => Html::input('date', 'view_date', Yii::$app->request->get('view_date'), ['class'=>'form-control']),
@@ -196,6 +189,15 @@ class FaqViews extends \app\components\ActiveRecord
 			'value' => function($model, $key, $index, $column) {
 				return !in_array($model->deleted_date, ['0000-00-00 00:00:00','1970-01-01 00:00:00','-0001-11-30 00:00:00']) ? Yii::$app->formatter->format($model->deleted_date, 'datetime') : '-';
 			},
+			'format' => 'html',
+		];
+		$this->templateColumns['views'] = [
+			'attribute' => 'views',
+			'value' => function($model, $key, $index, $column) {
+				$url = Url::to(['history-view/index', 'view' => $model->primaryKey]);
+				return Html::a($model->views, $url);
+			},
+			'contentOptions' => ['class'=>'center'],
 			'format' => 'html',
 		];
 		if(!Yii::$app->request->get('trash')) {

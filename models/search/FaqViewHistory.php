@@ -1,15 +1,17 @@
 <?php
 /**
  * FaqViewHistory
- * version: 0.0.1
  *
  * FaqViewHistory represents the model behind the search form about `app\modules\faq\models\FaqViewHistory`.
  *
- * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
- * @link http://ecc.ft.ugm.ac.id
  * @author Eko Hariyanto <haryeko29@gmail.com>
- * @created date 8 January 2018, 15:19 WIB
  * @contact (+62)857-4381-4273
+ * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
+ * @created date 8 January 2018, 15:19 WIB
+ * @modified date 29 April 2018, 20:30 WIB
+ * @modified by Putra Sudaryanto <putra@sudaryanto.id>
+ * @contact (+62)856-299-4114
+ * @link http://ecc.ft.ugm.ac.id
  *
  */
 
@@ -19,7 +21,6 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\modules\faq\models\FaqViewHistory as FaqViewHistoryModel;
-//use app\modules\faq\models\FaqViews;
 
 class FaqViewHistory extends FaqViewHistoryModel
 {
@@ -30,7 +31,8 @@ class FaqViewHistory extends FaqViewHistoryModel
 	{
 		return [
 			[['id', 'view_id'], 'integer'],
-			[['view_date', 'view_ip', 'view_search'], 'safe'],
+			[['view_date', 'view_ip',
+				'category_search', 'faq_search', 'user_search'], 'safe'],
 		];
 	}
 
@@ -62,7 +64,12 @@ class FaqViewHistory extends FaqViewHistoryModel
 	public function search($params)
 	{
 		$query = FaqViewHistoryModel::find()->alias('t');
-		$query->joinWith(['view view']);
+		$query->joinWith([
+			'view.faq faq', 
+			'view.faq.questionRltn questionRltn', 
+			'view.faq.category.title category', 
+			'view.user user',
+		]);
 
 		// add conditions that should always apply here
 		$dataProvider = new ActiveDataProvider([
@@ -70,9 +77,17 @@ class FaqViewHistory extends FaqViewHistoryModel
 		]);
 
 		$attributes = array_keys($this->getTableSchema()->columns);
-		$attributes['view_search'] = [
-			'asc' => ['view.view_id' => SORT_ASC],
-			'desc' => ['view.view_id' => SORT_DESC],
+		$attributes['category_search'] = [
+			'asc' => ['category.message' => SORT_ASC],
+			'desc' => ['category.message' => SORT_DESC],
+		];
+		$attributes['faq_search'] = [
+			'asc' => ['questionRltn.message' => SORT_ASC],
+			'desc' => ['questionRltn.message' => SORT_DESC],
+		];
+		$attributes['user_search'] = [
+			'asc' => ['user.displayname' => SORT_ASC],
+			'desc' => ['user.displayname' => SORT_DESC],
 		];
 		$dataProvider->setSort([
 			'attributes' => $attributes,
@@ -89,13 +104,15 @@ class FaqViewHistory extends FaqViewHistoryModel
 
 		// grid filtering conditions
 		$query->andFilterWhere([
-			't.id' => isset($params['id']) ? $params['id'] : $this->id,
+			't.id' => $this->id,
 			't.view_id' => isset($params['view']) ? $params['view'] : $this->view_id,
 			'cast(t.view_date as date)' => $this->view_date,
+			'faq.cat_id' => isset($params['category']) ? $params['category'] : $this->category_search,
 		]);
 
 		$query->andFilterWhere(['like', 't.view_ip', $this->view_ip])
-			->andFilterWhere(['like', 'view.view_id', $this->view_search]);
+			->andFilterWhere(['like', 'questionRltn.message', $this->faq_search])
+			->andFilterWhere(['like', 'user.displayname', $this->user_search]);
 
 		return $dataProvider;
 	}
