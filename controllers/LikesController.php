@@ -3,35 +3,37 @@
  * LikesController
  * @var $this yii\web\View
  * @var $model app\modules\faq\models\FaqLikes
- * version: 0.0.1
  *
  * LikesController implements the CRUD actions for FaqLikes model.
  * Reference start
  * TOC :
- *  Index
- *  View
- *  Delete
- *  RunAction
- *  Publish
+ *	Index
+ *	View
+ *	Delete
+ *	RunAction
+ *	Publish
  *
- *  findModel
+ *	findModel
  *
- * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
- * @link http://ecc.ft.ugm.ac.id
  * @author Eko Hariyanto <haryeko29@gmail.com>
- * @created date 8 January 2018, 17:06 WIB
  * @contact (+62)857-4381-4273
+ * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
+ * @created date 8 January 2018, 17:06 WIB
+ * @modified date 29 April 2018, 19:23 WIB
+ * @modified by Putra Sudaryanto <putra@sudaryanto.id>
+ * @link http://ecc.ft.ugm.ac.id
  *
  */
  
 namespace app\modules\faq\controllers;
 
 use Yii;
+use yii\filters\VerbFilter;
+use yii\web\NotFoundHttpException;
+use app\components\Controller;
+use mdm\admin\components\AccessControl;
 use app\modules\faq\models\FaqLikes;
 use app\modules\faq\models\search\FaqLikes as FaqLikesSearch;
-use app\components\Controller;
-use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 class LikesController extends Controller
 {
@@ -41,6 +43,9 @@ class LikesController extends Controller
 	public function behaviors()
 	{
 		return [
+			'access' => [
+				'class' => AccessControl::className(),
+			],
 			'verbs' => [
 				'class' => VerbFilter::className(),
 				'actions' => [
@@ -76,26 +81,20 @@ class LikesController extends Controller
 		return $this->render('admin_index', [
 			'searchModel' => $searchModel,
 			'dataProvider' => $dataProvider,
-			'columns'	 => $columns,
+			'columns' => $columns,
 		]);
 	}
 
 	/**
-	 * Creates a new FaqLikes model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 * @return mixed
-	 */
-   
-	/**
 	 * Displays a single FaqLikes model.
-	 * @param string $id
+	 * @param integer $id
 	 * @return mixed
 	 */
 	public function actionView($id)
 	{
 		$model = $this->findModel($id);
 
-		$this->view->title = Yii::t('app', 'View {modelClass}: {like_id}', ['modelClass' => 'Faq Likes', 'like_id' => $model->like_id]);
+		$this->view->title = Yii::t('app', 'Detail {model-class}: {faq-id}', ['model-class' => 'Faq Like', 'faq-id' => $model->faq->questionRltn->message]);
 		$this->view->description = '';
 		$this->view->keywords = '';
 		return $this->render('admin_view', [
@@ -106,7 +105,7 @@ class LikesController extends Controller
 	/**
 	 * Deletes an existing FaqLikes model.
 	 * If deletion is successful, the browser will be redirected to the 'index' page.
-	 * @param string $id
+	 * @param integer $id
 	 * @return mixed
 	 */
 	public function actionDelete($id)
@@ -115,16 +114,16 @@ class LikesController extends Controller
 		$model->publish = 2;
 
 		if($model->save(false, ['publish'])) {
-			//return $this->redirect(['view', 'id' => $model->like_id]);
-			Yii::$app->session->setFlash('success', Yii::t('app', 'Faq Likes success deleted.'));
+			Yii::$app->session->setFlash('success', Yii::t('app', 'Faq like success deleted.'));
 			return $this->redirect(['index']);
+			//return $this->redirect(['view', 'id' => $model->like_id]);
 		}
 	}
 
 	/**
-	 * Publish/Unpublish an existing FaqLikes model.
-	 * If publish/unpublish is successful, the browser will be redirected to the 'index' page.
-	 * @param string $id
+	 * actionPublish an existing FaqLikes model.
+	 * If publish is successful, the browser will be redirected to the 'index' page.
+	 * @param integer $id
 	 * @return mixed
 	 */
 	public function actionPublish($id)
@@ -134,7 +133,7 @@ class LikesController extends Controller
 		$model->publish = $replace;
 
 		if($model->save(false, ['publish'])) {
-			Yii::$app->session->setFlash('success', Yii::t('app', 'Faq Likes success updated.'));
+			Yii::$app->session->setFlash('success', Yii::t('app', 'Faq like success updated.'));
 			return $this->redirect(['index']);
 		}
 	}
@@ -142,7 +141,7 @@ class LikesController extends Controller
 	/**
 	 * Finds the FaqLikes model based on its primary key value.
 	 * If the model is not found, a 404 HTTP exception will be thrown.
-	 * @param string $id
+	 * @param integer $id
 	 * @return FaqLikes the loaded model
 	 * @throws NotFoundHttpException if the model cannot be found
 	 */

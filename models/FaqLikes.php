@@ -40,9 +40,10 @@ class FaqLikes extends \app\components\ActiveRecord
 {
 	use \app\components\traits\GridViewSystem;
 
-	public $gridForbiddenColumn = [];
+	public $gridForbiddenColumn = ['likes_ip','updated_date'];
 
 	// Variable Search
+	public $category_search;
 	public $faq_search;
 	public $user_search;
 
@@ -90,6 +91,7 @@ class FaqLikes extends \app\components\ActiveRecord
 			'likes_date' => Yii::t('app', 'Likes Date'),
 			'likes_ip' => Yii::t('app', 'Likes Ip'),
 			'updated_date' => Yii::t('app', 'Updated Date'),
+			'category_search' => Yii::t('app', 'Category'),
 			'faq_search' => Yii::t('app', 'Faq'),
 			'user_search' => Yii::t('app', 'User'),
 		];
@@ -140,6 +142,15 @@ class FaqLikes extends \app\components\ActiveRecord
 			'class'  => 'yii\grid\SerialColumn',
 			'contentOptions' => ['class'=>'center'],
 		];
+		if(!Yii::$app->request->get('category')) {
+			$this->templateColumns['category_search'] = [
+				'attribute' => 'category_search',
+				'filter' => FaqCategory::getCategory(),
+				'value' => function($model, $key, $index, $column) {
+					return isset($model->faq->category) ? $model->faq->category->title->message : '-';
+				},
+			];
+		}
 		if(!Yii::$app->request->get('faq')) {
 			$this->templateColumns['faq_search'] = [
 				'attribute' => 'faq_search',
@@ -220,57 +231,6 @@ class FaqLikes extends \app\components\ActiveRecord
 				$this->user_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
 		}
 		return true;
-	}
-
-	/**
-	 * after validate attributes
-	 */
-	public function afterValidate()
-	{
-		parent::afterValidate();
-		// Create action
-		
-		return true;
-	}
-
-	/**
-	 * before save attributes
-	 */
-	public function beforeSave($insert)
-	{
-		if(parent::beforeSave($insert)) {
-			// Create action
-		}
-		return true;
-	}
-
-	/**
-	 * After save attributes
-	 */
-	public function afterSave($insert, $changedAttributes) 
-	{
-		parent::afterSave($insert, $changedAttributes);
-
-	}
-
-	/**
-	 * Before delete attributes
-	 */
-	public function beforeDelete() 
-	{
-		if(parent::beforeDelete()) {
-			// Create action
-		}
-		return true;
-	}
-
-	/**
-	 * After delete attributes
-	 */
-	public function afterDelete() 
-	{
-		parent::afterDelete();
-
 	}
 
 }

@@ -1,15 +1,16 @@
 <?php
 /**
  * FaqViews
- * version: 0.0.1
  *
  * FaqViews represents the model behind the search form about `app\modules\faq\models\FaqViews`.
  *
- * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
- * @link http://ecc.ft.ugm.ac.id
  * @author Eko Hariyanto <haryeko29@gmail.com>
- * @created date 5 January 2018, 15:17 WIB
  * @contact (+62)857-4381-4273
+ * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
+ * @created date 5 January 2018, 15:17 WIB
+ * @modified date 29 April 2018, 19:23 WIB
+ * @modified by Putra Sudaryanto <putra@sudaryanto.id>
+ * @link http://ecc.ft.ugm.ac.id
  *
  */
 
@@ -19,8 +20,6 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\modules\faq\models\FaqViews as FaqViewsModel;
-//use app\modules\faq\models\Faqs;
-//use app\coremodules\user\models\Users;
 
 class FaqViews extends FaqViewsModel
 {
@@ -31,7 +30,8 @@ class FaqViews extends FaqViewsModel
 	{
 		return [
 			[['view_id', 'publish', 'faq_id', 'user_id', 'views'], 'integer'],
-			[['view_date', 'view_ip', 'deleted_date', 'faq_search', 'user_search'], 'safe'],
+			[['view_date', 'view_ip', 'deleted_date',
+				'category_search', 'faq_search', 'user_search'], 'safe'],
 		];
 	}
 
@@ -63,7 +63,12 @@ class FaqViews extends FaqViewsModel
 	public function search($params)
 	{
 		$query = FaqViewsModel::find()->alias('t');
-		$query->joinWith(['faq faq', 'user user']);
+		$query->joinWith([
+			'faq faq', 
+			'faq.questionRltn questionRltn', 
+			'faq.category.title category', 
+			'user user',
+		]);
 
 		// add conditions that should always apply here
 		$dataProvider = new ActiveDataProvider([
@@ -71,9 +76,13 @@ class FaqViews extends FaqViewsModel
 		]);
 
 		$attributes = array_keys($this->getTableSchema()->columns);
+		$attributes['category_search'] = [
+			'asc' => ['category.message' => SORT_ASC],
+			'desc' => ['category.message' => SORT_DESC],
+		];
 		$attributes['faq_search'] = [
-			'asc' => ['faq.faq_id' => SORT_ASC],
-			'desc' => ['faq.faq_id' => SORT_DESC],
+			'asc' => ['questionRltn.message' => SORT_ASC],
+			'desc' => ['questionRltn.message' => SORT_DESC],
 		];
 		$attributes['user_search'] = [
 			'asc' => ['user.displayname' => SORT_ASC],
@@ -94,22 +103,26 @@ class FaqViews extends FaqViewsModel
 
 		// grid filtering conditions
 		$query->andFilterWhere([
-			't.view_id' => isset($params['id']) ? $params['id'] : $this->view_id,
-			't.publish' => isset($params['publish']) ? 1 : $this->publish,
+			't.view_id' => $this->view_id,
 			't.faq_id' => isset($params['faq']) ? $params['faq'] : $this->faq_id,
 			't.user_id' => isset($params['user']) ? $params['user'] : $this->user_id,
 			't.views' => $this->views,
 			'cast(t.view_date as date)' => $this->view_date,
 			'cast(t.deleted_date as date)' => $this->deleted_date,
+			'faq.cat_id' => isset($params['category']) ? $params['category'] : $this->category_search,
 		]);
 
-		if(!isset($params['trash']))
-			$query->andFilterWhere(['IN', 't.publish', [0,1]]);
-		else
+		if(isset($params['trash']))
 			$query->andFilterWhere(['NOT IN', 't.publish', [0,1]]);
+		else {
+			if(!isset($params['publish']) || (isset($params['publish']) && $params['publish'] == ''))
+				$query->andFilterWhere(['IN', 't.publish', [0,1]]);
+			else
+				$query->andFilterWhere(['t.publish' => $this->publish]);
+		}
 
 		$query->andFilterWhere(['like', 't.view_ip', $this->view_ip])
-			->andFilterWhere(['like', 'faq.faq_id', $this->faq_search])
+			->andFilterWhere(['like', 'questionRltn.message', $this->faq_search])
 			->andFilterWhere(['like', 'user.displayname', $this->user_search]);
 
 		return $dataProvider;
