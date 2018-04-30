@@ -40,9 +40,12 @@ use app\coremodules\user\models\Users;
 
 class FaqHelpful extends \app\components\ActiveRecord
 {
-	public $gridForbiddenColumn = ['modified_date', 'modified_id'];
+	use \app\components\traits\GridViewSystem;
+
+	public $gridForbiddenColumn = ['helpful_ip','modified_date', 'modified_search'];
 
 	// Variable Search
+	public $category_search;
 	public $faq_search;
 	public $user_search;
 	public $modified_search;
@@ -69,10 +72,10 @@ class FaqHelpful extends \app\components\ActiveRecord
 	public function rules()
 	{
 		return [
-			[['faq_id', 'helpful', 'message', 'helpful_ip'], 'required'],
+			[['faq_id', 'helpful', 'message'], 'required'],
 			[['faq_id', 'user_id', 'modified_id'], 'integer'],
 			[['helpful', 'message'], 'string'],
-			[['helpful_date', 'modified_date'], 'safe'],
+			[['helpful_date', 'helpful_ip', 'modified_date'], 'safe'],
 			[['helpful_ip'], 'string', 'max' => 20],
 			[['faq_id'], 'exist', 'skipOnError' => true, 'targetClass' => Faqs::className(), 'targetAttribute' => ['faq_id' => 'faq_id']],
 			[['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'user_id']],
@@ -94,6 +97,7 @@ class FaqHelpful extends \app\components\ActiveRecord
 			'helpful_ip' => Yii::t('app', 'Helpful Ip'),
 			'modified_date' => Yii::t('app', 'Modified Date'),
 			'modified_id' => Yii::t('app', 'Modified'),
+			'category_search' => Yii::t('app', 'Category'),
 			'faq_search' => Yii::t('app', 'Faq'),
 			'user_search' => Yii::t('app', 'User'),
 			'modified_search' => Yii::t('app', 'Modified'),
@@ -145,6 +149,15 @@ class FaqHelpful extends \app\components\ActiveRecord
 			'class'  => 'yii\grid\SerialColumn',
 			'contentOptions' => ['class'=>'center'],
 		];
+		if(!Yii::$app->request->get('category') && !Yii::$app->request->get('faq')) {
+			$this->templateColumns['category_search'] = [
+				'attribute' => 'category_search',
+				'filter' => FaqCategory::getCategory(),
+				'value' => function($model, $key, $index, $column) {
+					return isset($model->faq->category) ? $model->faq->category->title->message : '-';
+				},
+			];
+		}
 		if(!Yii::$app->request->get('faq')) {
 			$this->templateColumns['faq_search'] = [
 				'attribute' => 'faq_search',
@@ -161,15 +174,6 @@ class FaqHelpful extends \app\components\ActiveRecord
 				},
 			];
 		}
-		$this->templateColumns['helpful'] = [
-			'attribute' => 'helpful',
-			'filter' => $this->filterYesNo(),
-			'value' => function($model, $key, $index, $column) {
-				return $model->helpful == 1 ? Yii::t('app', 'Yes') : Yii::t('app', 'No');
-			},
-			'contentOptions' => ['class'=>'center'],
-			'format'	=> 'raw',
-		];
 		$this->templateColumns['message'] = [
 			'attribute' => 'message',
 			'value' => function($model, $key, $index, $column) {
@@ -197,6 +201,15 @@ class FaqHelpful extends \app\components\ActiveRecord
 				return !in_array($model->modified_date, ['0000-00-00 00:00:00','1970-01-01 00:00:00','-0001-11-30 00:00:00']) ? Yii::$app->formatter->format($model->modified_date, 'datetime') : '-';
 			},
 			'format' => 'html',
+		];
+		$this->templateColumns['helpful'] = [
+			'attribute' => 'helpful',
+			'filter' => $this->filterYesNo(),
+			'value' => function($model, $key, $index, $column) {
+				return $model->helpful == 1 ? Yii::t('app', 'Yes') : Yii::t('app', 'No');
+			},
+			'contentOptions' => ['class'=>'center'],
+			'format'	=> 'raw',
 		];
 		if(!Yii::$app->request->get('modified')) {
 			$this->templateColumns['modified_search'] = [
@@ -236,59 +249,10 @@ class FaqHelpful extends \app\components\ActiveRecord
 				$this->user_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
 			else
 				$this->modified_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
+
+			$this->helpful_ip = $_SERVER['REMOTE_ADDR'];
 		}
 		return true;
-	}
-
-	/**
-	 * after validate attributes
-	 */
-	public function afterValidate()
-	{
-		parent::afterValidate();
-		// Create action
-		
-		return true;
-	}
-
-	/**
-	 * before save attributes
-	 */
-	public function beforeSave($insert)
-	{
-		if(parent::beforeSave($insert)) {
-			// Create action
-		}
-		return true;
-	}
-
-	/**
-	 * After save attributes
-	 */
-	public function afterSave($insert, $changedAttributes) 
-	{
-		parent::afterSave($insert, $changedAttributes);
-
-	}
-
-	/**
-	 * Before delete attributes
-	 */
-	public function beforeDelete() 
-	{
-		if(parent::beforeDelete()) {
-			// Create action
-		}
-		return true;
-	}
-
-	/**
-	 * After delete attributes
-	 */
-	public function afterDelete() 
-	{
-		parent::afterDelete();
-
 	}
 
 }

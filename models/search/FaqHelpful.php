@@ -1,15 +1,17 @@
 <?php
 /**
  * FaqHelpful
- * version: 0.0.1
  *
  * FaqHelpful represents the model behind the search form about `app\modules\faq\models\FaqHelpful`.
  *
- * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
- * @link http://ecc.ft.ugm.ac.id
  * @author Eko Hariyanto <haryeko29@gmail.com>
- * @created date 9 January 2018, 08:35 WIB
  * @contact (+62)857-4381-4273
+ * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
+ * @created date 9 January 2018, 08:35 WIB
+ * @modified date 30 April 2018, 09:07 WIB
+ * @modified by Putra Sudaryanto <putra@sudaryanto.id>
+ * @contact (+62)856-299-4114
+ * @link http://ecc.ft.ugm.ac.id
  *
  */
 
@@ -19,8 +21,6 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\modules\faq\models\FaqHelpful as FaqHelpfulModel;
-//use app\modules\faq\models\Faqs;
-//use app\coremodules\user\models\Users;
 
 class FaqHelpful extends FaqHelpfulModel
 {
@@ -31,7 +31,8 @@ class FaqHelpful extends FaqHelpfulModel
 	{
 		return [
 			[['id', 'faq_id', 'user_id', 'modified_id'], 'integer'],
-			[['helpful', 'message', 'helpful_date', 'helpful_ip', 'modified_date', 'faq_search', 'user_search', 'modified_search'], 'safe'],
+			[['helpful', 'message', 'helpful_date', 'helpful_ip', 'modified_date',
+				'category_search', 'faq_search', 'user_search', 'modified_search'], 'safe'],
 		];
 	}
 
@@ -63,7 +64,13 @@ class FaqHelpful extends FaqHelpfulModel
 	public function search($params)
 	{
 		$query = FaqHelpfulModel::find()->alias('t');
-		$query->joinWith(['faq faq', 'user user', 'modified modified']);
+		$query->joinWith([
+			'faq faq', 
+			'faq.questionRltn questionRltn', 
+			'faq.category.title category', 
+			'user user',
+			'modified modified'
+		]);
 
 		// add conditions that should always apply here
 		$dataProvider = new ActiveDataProvider([
@@ -71,9 +78,13 @@ class FaqHelpful extends FaqHelpfulModel
 		]);
 
 		$attributes = array_keys($this->getTableSchema()->columns);
+		$attributes['category_search'] = [
+			'asc' => ['category.message' => SORT_ASC],
+			'desc' => ['category.message' => SORT_DESC],
+		];
 		$attributes['faq_search'] = [
-			'asc' => ['faq.faq_id' => SORT_ASC],
-			'desc' => ['faq.faq_id' => SORT_DESC],
+			'asc' => ['questionRltn.message' => SORT_ASC],
+			'desc' => ['questionRltn.message' => SORT_DESC],
 		];
 		$attributes['user_search'] = [
 			'asc' => ['user.displayname' => SORT_ASC],
@@ -98,18 +109,19 @@ class FaqHelpful extends FaqHelpfulModel
 
 		// grid filtering conditions
 		$query->andFilterWhere([
-			't.id' => isset($params['id']) ? $params['id'] : $this->id,
+			't.id' => $this->id,
 			't.faq_id' => isset($params['faq']) ? $params['faq'] : $this->faq_id,
 			't.user_id' => isset($params['user']) ? $params['user'] : $this->user_id,
+			't.helpful' => $this->helpful,
 			'cast(t.helpful_date as date)' => $this->helpful_date,
 			'cast(t.modified_date as date)' => $this->modified_date,
 			't.modified_id' => isset($params['modified']) ? $params['modified'] : $this->modified_id,
+			'faq.cat_id' => isset($params['category']) ? $params['category'] : $this->category_search,
 		]);
 
-		$query->andFilterWhere(['like', 't.helpful', $this->helpful])
-			->andFilterWhere(['like', 't.message', $this->message])
+		$query->andFilterWhere(['like', 't.message', $this->message])
 			->andFilterWhere(['like', 't.helpful_ip', $this->helpful_ip])
-			->andFilterWhere(['like', 'faq.faq_id', $this->faq_search])
+			->andFilterWhere(['like', 'questionRltn.message', $this->faq_search])
 			->andFilterWhere(['like', 'user.displayname', $this->user_search])
 			->andFilterWhere(['like', 'modified.displayname', $this->modified_search]);
 

@@ -1,17 +1,19 @@
 <?php
 /**
- * Helpfuls (helpful)
+ * Faq Helpfuls (faq-helpful)
  * @var $this yii\web\View
  * @var $this app\modules\faq\controllers\HelpfulController
  * @var $model app\modules\faq\models\search\FaqHelpful
  * @var $form yii\widgets\ActiveForm
- * version: 0.0.1
  *
- * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
- * @link http://ecc.ft.ugm.ac.id
  * @author Eko Hariyanto <haryeko29@gmail.com>
- * @created date 9 January 2018, 08:35 WIB
  * @contact (+62)857-4381-4273
+ * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
+ * @created date 9 January 2018, 08:35 WIB
+ * @modified date 30 April 2018, 09:07 WIB
+ * @modified by Putra Sudaryanto <putra@sudaryanto.id>
+ * @contact (+62)856-299-4114
+ * @link http://ecc.ft.ugm.ac.id
  *
  */
 
@@ -24,23 +26,23 @@ use yii\widgets\ActiveForm;
 		'action' => ['index'],
 		'method' => 'get',
 	]); ?>
-		<?= $form->field($model, 'id') ?>
+		<?php echo $form->field($model, 'faq_search');?>
 
-		<?= $form->field($model, 'faq_id') ?>
+		<?php echo $form->field($model, 'user_search');?>
 
-		<?= $form->field($model, 'user_id') ?>
+		<?php echo $form->field($model, 'helpful');?>
 
-		<?= $form->field($model, 'helpful') ?>
+		<?php echo $form->field($model, 'message');?>
 
-		<?= $form->field($model, 'message') ?>
+		<?php echo $form->field($model, 'helpful_date')
+			->input('date');?>
 
-		<?= $form->field($model, 'helpful_date') ?>
+		<?php echo $form->field($model, 'helpful_ip');?>
 
-		<?= $form->field($model, 'helpful_ip') ?>
+		<?php echo $form->field($model, 'modified_date')
+			->input('date');?>
 
-		<?= $form->field($model, 'modified_date') ?>
-
-		<?= $form->field($model, 'modified_id') ?>
+		<?php echo $form->field($model, 'modified_search');?>
 
 		<div class="form-group">
 			<?php echo Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>

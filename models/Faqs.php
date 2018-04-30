@@ -304,6 +304,7 @@ class Faqs extends \app\components\ActiveRecord
 		];
 		$this->templateColumns['orders'] = [
 			'attribute' => 'orders',
+			'filter' => false,
 			'value' => function($model, $key, $index, $column) {
 				return $model->orders;
 			},
@@ -312,7 +313,7 @@ class Faqs extends \app\components\ActiveRecord
 			'attribute' => 'helpful_search',
 			'filter' => false,
 			'value' => function($model, $key, $index, $column) {
-				$url = Url::to(['helpfuls/index', 'faq' => $model->primaryKey]);
+				$url = Url::to(['helpful/index', 'faq' => $model->primaryKey]);
 				return Html::a($model->view->helpfuls, $url);
 			},
 			'contentOptions' => ['class'=>'center'],

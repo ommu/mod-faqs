@@ -3,34 +3,38 @@
  * HelpfulController
  * @var $this yii\web\View
  * @var $model app\modules\faq\models\FaqHelpful
- * version: 0.0.1
  *
  * HelpfulController implements the CRUD actions for FaqHelpful model.
  * Reference start
  * TOC :
- *  Index
- *  View
- *  Delete
+ *	Index
+ *	Create
+ *	Update
+ *	View
+ *	Delete
  *
- *  findModel
+ *	findModel
  *
- * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
- * @link http://ecc.ft.ugm.ac.id
  * @author Eko Hariyanto <haryeko29@gmail.com>
- * @created date 9 January 2018, 08:35 WIB
  * @contact (+62)857-4381-4273
+ * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
+ * @created date 9 January 2018, 08:35 WIB
+ * @modified date 30 April 2018, 09:07 WIB
+ * @modified by Putra Sudaryanto <putra@sudaryanto.id>
+ * @contact (+62)856-299-4114
+ * @link http://ecc.ft.ugm.ac.id
  *
  */
  
 namespace app\modules\faq\controllers;
 
 use Yii;
-use app\modules\faq\models\FaqHelpful;
-use app\modules\faq\models\search\FaqHelpful as HelpfulSearch;
-use app\components\Controller;
-use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\NotFoundHttpException;
+use app\components\Controller;
 use mdm\admin\components\AccessControl;
+use app\modules\faq\models\FaqHelpful;
+use app\modules\faq\models\search\FaqHelpful as FaqHelpfulSearch;
 
 class HelpfulController extends Controller
 {
@@ -58,7 +62,7 @@ class HelpfulController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$searchModel = new HelpfulSearch();
+		$searchModel = new FaqHelpfulSearch();
 		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
 		$gridColumn = Yii::$app->request->get('GridColumn', null);
@@ -71,26 +75,79 @@ class HelpfulController extends Controller
 		}
 		$columns = $searchModel->getGridColumn($cols);
 
-		$this->view->title = Yii::t('app', 'Helpfuls');
+		$this->view->title = Yii::t('app', 'Faq Helpfuls');
 		$this->view->description = '';
 		$this->view->keywords = '';
 		return $this->render('admin_index', [
 			'searchModel' => $searchModel,
 			'dataProvider' => $dataProvider,
-			'columns'	 => $columns,
+			'columns' => $columns,
+		]);
+	}
+
+	/**
+	 * Creates a new FaqHelpful model.
+	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 * @return mixed
+	 */
+	public function actionCreate()
+	{
+		$model = new FaqHelpful();
+
+		if(Yii::$app->request->isPost) {
+			$model->load(Yii::$app->request->post());
+			if($model->save()) {
+				Yii::$app->session->setFlash('success', Yii::t('app', 'Faq helpful success created.'));
+				return $this->redirect(['index']);
+				//return $this->redirect(['view', 'id' => $model->id]);
+			} 
+		}
+
+		$this->view->title = Yii::t('app', 'Create Faq Helpful');
+		$this->view->description = '';
+		$this->view->keywords = '';
+		return $this->render('admin_create', [
+			'model' => $model,
+		]);
+	}
+
+	/**
+	 * Updates an existing FaqHelpful model.
+	 * If update is successful, the browser will be redirected to the 'view' page.
+	 * @param integer $id
+	 * @return mixed
+	 */
+	public function actionUpdate($id)
+	{
+		$model = $this->findModel($id);
+		if(Yii::$app->request->isPost) {
+			$model->load(Yii::$app->request->post());
+
+			if($model->save()) {
+				Yii::$app->session->setFlash('success', Yii::t('app', 'Faq helpful success updated.'));
+				return $this->redirect(['index']);
+				//return $this->redirect(['view', 'id' => $model->id]);
+			}
+		}
+
+		$this->view->title = Yii::t('app', 'Update {model-class}: {faq-id}', ['model-class' => 'Faq Helpful', 'faq-id' => $model->faq->questionRltn->message]);
+		$this->view->description = '';
+		$this->view->keywords = '';
+		return $this->render('admin_update', [
+			'model' => $model,
 		]);
 	}
 
 	/**
 	 * Displays a single FaqHelpful model.
-	 * @param string $id
+	 * @param integer $id
 	 * @return mixed
 	 */
 	public function actionView($id)
 	{
 		$model = $this->findModel($id);
 
-		$this->view->title = Yii::t('app', 'View {modelClass}: {id}', ['modelClass' => 'FaqHelpful', 'id' => $model->id]);
+		$this->view->title = Yii::t('app', 'Detail {model-class}: {faq-id}', ['model-class' => 'Faq Helpful', 'faq-id' => $model->faq->questionRltn->message]);
 		$this->view->description = '';
 		$this->view->keywords = '';
 		return $this->render('admin_view', [
@@ -101,21 +158,21 @@ class HelpfulController extends Controller
 	/**
 	 * Deletes an existing FaqHelpful model.
 	 * If deletion is successful, the browser will be redirected to the 'index' page.
-	 * @param string $id
+	 * @param integer $id
 	 * @return mixed
 	 */
 	public function actionDelete($id)
 	{
 		$this->findModel($id)->delete();
 		
-		Yii::$app->session->setFlash('success', Yii::t('app', 'FaqHelpful success deleted.'));
+		Yii::$app->session->setFlash('success', Yii::t('app', 'Faq helpful success deleted.'));
 		return $this->redirect(['index']);
 	}
 
 	/**
 	 * Finds the FaqHelpful model based on its primary key value.
 	 * If the model is not found, a 404 HTTP exception will be thrown.
-	 * @param string $id
+	 * @param integer $id
 	 * @return FaqHelpful the loaded model
 	 * @throws NotFoundHttpException if the model cannot be found
 	 */

@@ -279,6 +279,7 @@ class FaqCategory extends \app\components\ActiveRecord
 		];
 		$this->templateColumns['orders'] = [
 			'attribute' => 'orders',
+			'filter' => false,
 			'value' => function($model, $key, $index, $column) {
 				return $model->orders;
 			},

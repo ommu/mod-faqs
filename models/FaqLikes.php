@@ -229,6 +229,8 @@ class FaqLikes extends \app\components\ActiveRecord
 		if(parent::beforeValidate()) {
 			if($this->isNewRecord)
 				$this->user_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
+
+			$this->likes_ip = $_SERVER['REMOTE_ADDR'];
 		}
 		return true;
 	}
