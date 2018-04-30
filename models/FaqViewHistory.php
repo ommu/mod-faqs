@@ -170,4 +170,15 @@ class FaqViewHistory extends \app\components\ActiveRecord
 			return $model;
 		}
 	}
+
+	/**
+	 * before validate attributes
+	 */
+	public function beforeValidate() 
+	{
+		if(parent::beforeValidate()) {
+			$this->view_ip = $_SERVER['REMOTE_ADDR'];
+		}
+		return true;
+	}
 }
