@@ -142,7 +142,7 @@ class FaqLikes extends \app\components\ActiveRecord
 			'class'  => 'yii\grid\SerialColumn',
 			'contentOptions' => ['class'=>'center'],
 		];
-		if(!Yii::$app->request->get('category')) {
+		if(!Yii::$app->request->get('category') && !Yii::$app->request->get('faq')) {
 			$this->templateColumns['category_search'] = [
 				'attribute' => 'category_search',
 				'filter' => FaqCategory::getCategory(),

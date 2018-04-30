@@ -144,7 +144,7 @@ class FaqViews extends \app\components\ActiveRecord
 			'class'  => 'yii\grid\SerialColumn',
 			'contentOptions' => ['class'=>'center'],
 		];
-		if(!Yii::$app->request->get('category')) {
+		if(!Yii::$app->request->get('category') && !Yii::$app->request->get('faq')) {
 			$this->templateColumns['category_search'] = [
 				'attribute' => 'category_search',
 				'filter' => FaqCategory::getCategory(),
@@ -193,6 +193,7 @@ class FaqViews extends \app\components\ActiveRecord
 		];
 		$this->templateColumns['views'] = [
 			'attribute' => 'views',
+			'filter' => false,
 			'value' => function($model, $key, $index, $column) {
 				$url = Url::to(['history-view/index', 'view' => $model->primaryKey]);
 				return Html::a($model->views, $url);
