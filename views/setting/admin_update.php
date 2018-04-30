@@ -25,7 +25,7 @@ use app\libraries\grid\GridView;
 use yii\widgets\Pjax;
 use app\components\Utility;
 
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Setting'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Settings'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
 $this->params['menu']['content'] = [
@@ -56,7 +56,7 @@ $this->params['menu']['option'] = [
 			<div class="clearfix"></div>
 		</div>
 		<div class="x_content">
-		<?php Pjax::begin(); ?>
+<?php Pjax::begin(); ?>
 
 <?php //echo $this->render('/category/_search', ['model' => $searchModel]); ?>
 
