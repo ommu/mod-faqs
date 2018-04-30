@@ -47,13 +47,14 @@ use yii\helpers\Html;
 use yii\behaviors\SluggableBehavior;
 use app\models\SourceMessage;
 use app\coremodules\user\models\Users;
+use app\modules\faq\models\view\Faqs as FaqsView;
 
 class Faqs extends \app\components\ActiveRecord
 {
 	use \app\components\traits\GridViewSystem;
 	use \app\components\traits\FileSystem;
 
-	public $gridForbiddenColumn = ['orders','modified_date','modified_search','updated_date','slug'];
+	public $gridForbiddenColumn = ['answer_i','orders','modified_date','modified_search','updated_date','slug'];
 	public $question_i;
 	public $answer_i;
 
@@ -61,6 +62,9 @@ class Faqs extends \app\components\ActiveRecord
 	public $category_search;
 	public $creation_search;
 	public $modified_search;
+	public $helpful_search;
+	public $view_search;
+	public $like_search;
 
 	/**
 	 * @return string the associated database table name
@@ -131,6 +135,9 @@ class Faqs extends \app\components\ActiveRecord
 			'category_search' => Yii::t('app', 'Category'),
 			'creation_search' => Yii::t('app', 'Creation'),
 			'modified_search' => Yii::t('app', 'Modified'),
+			'helpful_search' => Yii::t('app', 'helpfuls'),
+			'view_search' => Yii::t('app', 'Views'),
+			'like_search' => Yii::t('app', 'Likes'),
 		];
 	}
 
@@ -196,6 +203,14 @@ class Faqs extends \app\components\ActiveRecord
 	public function getModified()
 	{
 		return $this->hasOne(Users::className(), ['user_id' => 'modified_id']);
+	}
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getView()
+	{
+		return $this->hasOne(FaqsView::className(), ['faq_id' => 'faq_id']);
 	}
 
 	/**
@@ -292,6 +307,36 @@ class Faqs extends \app\components\ActiveRecord
 			'value' => function($model, $key, $index, $column) {
 				return $model->orders;
 			},
+		];
+		$this->templateColumns['helpful_search'] = [
+			'attribute' => 'helpful_search',
+			'filter' => false,
+			'value' => function($model, $key, $index, $column) {
+				$url = Url::to(['helpfuls/index', 'faq' => $model->primaryKey]);
+				return Html::a($model->view->helpfuls, $url);
+			},
+			'contentOptions' => ['class'=>'center'],
+			'format' => 'html',
+		];
+		$this->templateColumns['view_search'] = [
+			'attribute' => 'view_search',
+			'filter' => false,
+			'value' => function($model, $key, $index, $column) {
+				$url = Url::to(['views/index', 'faq' => $model->primaryKey, 'publish' => 1]);
+				return Html::a($model->view->views, $url);
+			},
+			'contentOptions' => ['class'=>'center'],
+			'format' => 'html',
+		];
+		$this->templateColumns['like_search'] = [
+			'attribute' => 'like_search',
+			'filter' => false,
+			'value' => function($model, $key, $index, $column) {
+				$url = Url::to(['likes/index', 'faq' => $model->primaryKey, 'publish' => 1]);
+				return Html::a($model->view->likes, $url);
+			},
+			'contentOptions' => ['class'=>'center'],
+			'format' => 'html',
 		];
 		if(!Yii::$app->request->get('trash')) {
 			$this->templateColumns['publish'] = [

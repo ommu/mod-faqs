@@ -286,6 +286,7 @@ class FaqCategory extends \app\components\ActiveRecord
 		];
 		$this->templateColumns['faq_search'] = [
 			'attribute' => 'faq_search',
+			'filter' => false,
 			'value' => function($model, $key, $index, $column) {
 				$url = Url::to(['admin/index', 'category' => $model->primaryKey, 'publish' => 1]);
 				return Html::a($model->view->faqs, $url);
@@ -295,6 +296,7 @@ class FaqCategory extends \app\components\ActiveRecord
 		];
 		$this->templateColumns['faq_all_search'] = [
 			'attribute' => 'faq_all_search',
+			'filter' => false,
 			'value' => function($model, $key, $index, $column) {
 				$url = Url::to(['admin/index', 'category' => $model->primaryKey]);
 				return Html::a($model->view->faq_all, $url);

@@ -65,6 +65,7 @@ class Faqs extends FaqsModel
 	{
 		$query = FaqsModel::find()->alias('t');
 		$query->joinWith([
+			'view view', 
 			'questionRltn questionRltn', 
 			'answerRltn answerRltn', 
 			'category.title category', 
@@ -101,6 +102,18 @@ class Faqs extends FaqsModel
 		$attributes['modified_search'] = [
 			'asc' => ['modified.displayname' => SORT_ASC],
 			'desc' => ['modified.displayname' => SORT_DESC],
+		];
+		$attributes['helpful_search'] = [
+			'asc' => ['view.helpfuls' => SORT_ASC],
+			'desc' => ['view.helpfuls' => SORT_DESC],
+		];
+		$attributes['view_search'] = [
+			'asc' => ['view.views' => SORT_ASC],
+			'desc' => ['view.views' => SORT_DESC],
+		];
+		$attributes['like_search'] = [
+			'asc' => ['view.likes' => SORT_ASC],
+			'desc' => ['view.likes' => SORT_DESC],
 		];
 		$dataProvider->setSort([
 			'attributes' => $attributes,

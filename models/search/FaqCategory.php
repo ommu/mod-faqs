@@ -65,6 +65,7 @@ class FaqCategory extends FaqCategoryModel
 	{
 		$query = FaqCategoryModel::find()->alias('t');
 		$query->joinWith([
+			'view view', 
 			'title title', 
 			'description description', 
 			'creation creation', 
@@ -97,6 +98,14 @@ class FaqCategory extends FaqCategoryModel
 		$attributes['parent_id'] = [
 			'asc' => ['parent.message' => SORT_ASC],
 			'desc' => ['parent.message' => SORT_DESC],
+		];
+		$attributes['faq_search'] = [
+			'asc' => ['view.faqs' => SORT_ASC],
+			'desc' => ['view.faqs' => SORT_DESC],
+		];
+		$attributes['faq_all_search'] = [
+			'asc' => ['view.faq_all' => SORT_ASC],
+			'desc' => ['view.faq_all' => SORT_DESC],
 		];
 		$dataProvider->setSort([
 			'attributes' => $attributes,
