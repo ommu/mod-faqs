@@ -313,7 +313,7 @@ class Faqs extends \app\components\ActiveRecord
 			'attribute' => 'helpful_search',
 			'filter' => false,
 			'value' => function($model, $key, $index, $column) {
-				$url = Url::to(['helpful/index', 'faq' => $model->primaryKey]);
+				$url = Url::to(['helpful/index', 'faq'=>$model->primaryKey]);
 				return Html::a($model->view->helpfuls, $url);
 			},
 			'contentOptions' => ['class'=>'center'],
@@ -323,7 +323,7 @@ class Faqs extends \app\components\ActiveRecord
 			'attribute' => 'view_search',
 			'filter' => false,
 			'value' => function($model, $key, $index, $column) {
-				$url = Url::to(['views/index', 'faq' => $model->primaryKey, 'publish' => 1]);
+				$url = Url::to(['views/index', 'faq'=>$model->primaryKey, 'publish' => 1]);
 				return Html::a($model->view->views, $url);
 			},
 			'contentOptions' => ['class'=>'center'],
@@ -333,7 +333,7 @@ class Faqs extends \app\components\ActiveRecord
 			'attribute' => 'like_search',
 			'filter' => false,
 			'value' => function($model, $key, $index, $column) {
-				$url = Url::to(['likes/index', 'faq' => $model->primaryKey, 'publish' => 1]);
+				$url = Url::to(['likes/index', 'faq'=>$model->primaryKey, 'publish' => 1]);
 				return Html::a($model->view->likes, $url);
 			},
 			'contentOptions' => ['class'=>'center'],
@@ -344,7 +344,7 @@ class Faqs extends \app\components\ActiveRecord
 				'attribute' => 'publish',
 				'filter' => $this->filterYesNo(),
 				'value' => function($model, $key, $index, $column) {
-					$url = Url::to(['publish', 'id' => $model->primaryKey]);
+					$url = Url::to(['publish', 'id'=>$model->primaryKey]);
 					return $this->quickAction($url, $model->publish);
 				},
 				'contentOptions' => ['class'=>'center'],

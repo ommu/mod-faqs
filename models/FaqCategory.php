@@ -289,7 +289,7 @@ class FaqCategory extends \app\components\ActiveRecord
 			'attribute' => 'faq_search',
 			'filter' => false,
 			'value' => function($model, $key, $index, $column) {
-				$url = Url::to(['admin/index', 'category' => $model->primaryKey, 'publish' => 1]);
+				$url = Url::to(['admin/index', 'category'=>$model->primaryKey, 'publish' => 1]);
 				return Html::a($model->view->faqs, $url);
 			},
 			'contentOptions' => ['class'=>'center'],
@@ -299,7 +299,7 @@ class FaqCategory extends \app\components\ActiveRecord
 			'attribute' => 'faq_all_search',
 			'filter' => false,
 			'value' => function($model, $key, $index, $column) {
-				$url = Url::to(['admin/index', 'category' => $model->primaryKey]);
+				$url = Url::to(['admin/index', 'category'=>$model->primaryKey]);
 				return Html::a($model->view->faq_all, $url);
 			},
 			'contentOptions' => ['class'=>'center'],
@@ -310,7 +310,7 @@ class FaqCategory extends \app\components\ActiveRecord
 				'attribute' => 'publish',
 				'filter' => $this->filterYesNo(),
 				'value' => function($model, $key, $index, $column) {
-					$url = Url::to(['publish', 'id' => $model->primaryKey]);
+					$url = Url::to(['publish', 'id'=>$model->primaryKey]);
 					return $this->quickAction($url, $model->publish);
 				},
 				'contentOptions' => ['class'=>'center'],
