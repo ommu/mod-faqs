@@ -221,6 +221,49 @@ class FaqLikes extends \app\components\ActiveRecord
 		}
 	}
 
+	public function insertLike($faq_id, $action=false)
+	{
+		$user_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
+
+		if($action == false) {
+			if($user_id == null)
+				return 0;
+
+			$findLike = self::find()
+				->select(['like_id','publish','faq_id','user_id'])	//1=like, 0=no like
+				->where(['publish' => 1])
+				->andWhere(['faq_id' => $faq_id])
+				->andWhere(['user_id' => $user_id])
+				->one();
+
+			if($findLike !== null)
+				return $findLike->like_id;
+			else
+				return 0;
+
+		} else {
+			$findLike = self::find()
+				->select(['like_id','publish','faq_id','user_id'])	//1=like, 0=no like
+				->andWhere(['faq_id' => $faq_id]);
+			if($user_id != null)
+				$findLike->andWhere(['user_id' => $user_id]);
+			else
+				$findLike->andWhere(['is', 'user_id', null]);
+			$findLike = $findLike->one();
+			
+			if($findLike !== null) {
+				$publish = $findLike->publish == 1 ? 0 : 1;
+				$findLike->updateAttributes(['publish'=>$publish, 'view_ip'=>$_SERVER['REMOTE_ADDR']]);
+
+			} else {
+				$view = new FaqViews();
+				$view->publish = 1;
+				$view->faq_id = $faq_id;
+				$view->save();
+			}
+		}
+	}
+
 	/**
 	 * before validate attributes
 	 */

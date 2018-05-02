@@ -70,9 +70,9 @@ class FaqViews extends \app\components\ActiveRecord
 	public function rules()
 	{
 		return [
-			[['faq_id', 'view_ip'], 'required'],
+			[['faq_id'], 'required'],
 			[['publish', 'faq_id', 'user_id', 'views'], 'integer'],
-			[['view_date', 'deleted_date'], 'safe'],
+			[['user_id', 'view_date', 'view_ip', 'deleted_date'], 'safe'],
 			[['view_ip'], 'string', 'max' => 20],
 			[['faq_id'], 'exist', 'skipOnError' => true, 'targetClass' => Faqs::className(), 'targetAttribute' => ['faq_id' => 'faq_id']],
 			[['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'user_id']],
@@ -230,6 +230,30 @@ class FaqViews extends \app\components\ActiveRecord
 		} else {
 			$model = self::findOne($id);
 			return $model;
+		}
+	}
+
+	public function insertView($faq_id)
+	{
+		$user_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
+		
+		$findView = self::find()
+			->select(['view_id','publish','faq_id','user_id','views'])
+			->where(['publish' => 1])
+			->andWhere(['faq_id' => $faq_id]);
+		if($user_id != null)
+			$findView->andWhere(['user_id' => $user_id]);
+		else
+			$findView->andWhere(['is', 'user_id', null]);
+		$findView = $findView->one();
+			
+		if($findView !== null)
+			$findView->updateAttributes(['views'=>$findView->views+1, 'view_ip'=>$_SERVER['REMOTE_ADDR']]);
+
+		else {
+			$view = new FaqViews();
+			$view->faq_id = $faq_id;
+			$view->save();
 		}
 	}
 
