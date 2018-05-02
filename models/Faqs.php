@@ -46,7 +46,7 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\behaviors\SluggableBehavior;
 use app\models\SourceMessage;
-use app\coremodules\user\models\Users;
+use app\modules\user\models\Users;
 use app\modules\faq\models\view\Faqs as FaqsView;
 
 class Faqs extends \app\components\ActiveRecord
