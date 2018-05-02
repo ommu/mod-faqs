@@ -164,7 +164,7 @@ class FaqLikeHistory extends \app\components\ActiveRecord
 					return $this->quickAction($url, $model->publish);
 				},
 				'contentOptions' => ['class'=>'center'],
-				'format'	=> 'raw',
+				'format' => 'raw',
 			];
 		}
 	}

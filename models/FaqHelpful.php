@@ -209,7 +209,7 @@ class FaqHelpful extends \app\components\ActiveRecord
 				return $model->helpful == 1 ? Yii::t('app', 'Yes') : Yii::t('app', 'No');
 			},
 			'contentOptions' => ['class'=>'center'],
-			'format'	=> 'raw',
+			'format' => 'raw',
 		];
 		if(!Yii::$app->request->get('modified')) {
 			$this->templateColumns['modified_search'] = [
