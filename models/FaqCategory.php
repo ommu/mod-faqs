@@ -397,7 +397,6 @@ class FaqCategory extends \app\components\ActiveRecord
 		$location = $this->getUrlTitle($module.' '.$controller);
 
 		if(parent::beforeSave($insert)) {
-
 			if($insert || (!$insert && !$this->cat_name)) {
 				$cat_name = new SourceMessage();
 				$cat_name->location = $location.'_title';

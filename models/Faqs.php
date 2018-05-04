@@ -431,7 +431,6 @@ class Faqs extends \app\components\ActiveRecord
 		$location = $this->getUrlTitle($module.' '.$controller);
 
 		if(parent::beforeSave($insert)) {
-
 			if($insert || (!$insert && !$this->question)) {
 				$question = new SourceMessage();
 				$question->location = $location.'_question';
