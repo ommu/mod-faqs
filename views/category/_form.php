@@ -56,9 +56,9 @@ echo $form->field($model, 'parent_id', ['template' => '{label}<div class="col-md
 	->widget(Redactor::className(), ['clientOptions' => $redactorOptions])
 	->label($model->getAttributeLabel('cat_desc_i'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
 
-<?php /* echo $form->field($model, 'orders', ['template' => '{label}<div class="col-md-9 col-sm-9 col-xs-12">{input}{error}</div>'])
-	->textInput(['type' => 'number', 'min' => '1'])
-	->label($model->getAttributeLabel('orders'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); */?>
+<?php echo $form->field($model, 'orders', ['template' => '{label}<div class="col-md-9 col-sm-9 col-xs-12">{input}{error}</div>'])
+	->textInput(['type' => 'number', 'min' => '0'])
+	->label($model->getAttributeLabel('orders'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']);?>
 
 <?php echo $form->field($model, 'publish', ['template' => '{label}<div class="col-md-9 col-sm-9 col-xs-12 checkbox">{input}{error}</div>'])
 	->checkbox(['label'=>''])
