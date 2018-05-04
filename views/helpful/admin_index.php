@@ -25,7 +25,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
 $this->params['menu']['content'] = [
 	['label' => Yii::t('app', 'Back To FAQs'), 'url' => Url::to(['admin/index']), 'icon' => 'table'],
-	['label' => Yii::t('app', 'Add Faq Helpful'), 'url' => Url::to(['create']), 'icon' => 'plus-square'],
 ];
 $this->params['menu']['option'] = [
 	//['label' => Yii::t('app', 'Search'), 'url' => 'javascript:void(0);'],
@@ -65,7 +64,7 @@ array_push($columnData, [
 			]);
 		},
 	],
-	'template' => '{view}{update}{delete}',
+	'template' => '{view}{delete}',
 ]);
 
 echo GridView::widget([

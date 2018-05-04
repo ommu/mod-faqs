@@ -376,8 +376,8 @@ class Faqs extends \app\components\ActiveRecord
 	 */
 	public static function getFaq($publish=null, $array=true) 
 	{
-		$model = self::find()->alias('t');
-		$model->leftJoin(sprintf('%s questionRltn', SourceMessage::tableName()), 't.question=questionRltn.id');
+		$model = self::find()->alias('t')
+			->leftJoin(sprintf('%s questionRltn', SourceMessage::tableName()), 't.question=questionRltn.id');
 		if($publish != null)
 			$model->andWhere(['t.publish' => $publish]);
 

@@ -8,8 +8,6 @@
  * Reference start
  * TOC :
  *	Index
- *	Create
- *	Update
  *	View
  *	Delete
  *
@@ -82,59 +80,6 @@ class HelpfulController extends Controller
 			'searchModel' => $searchModel,
 			'dataProvider' => $dataProvider,
 			'columns' => $columns,
-		]);
-	}
-
-	/**
-	 * Creates a new FaqHelpful model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 * @return mixed
-	 */
-	public function actionCreate()
-	{
-		$model = new FaqHelpful();
-
-		if(Yii::$app->request->isPost) {
-			$model->load(Yii::$app->request->post());
-			if($model->save()) {
-				Yii::$app->session->setFlash('success', Yii::t('app', 'Faq helpful success created.'));
-				return $this->redirect(['index']);
-				//return $this->redirect(['view', 'id' => $model->id]);
-			} 
-		}
-
-		$this->view->title = Yii::t('app', 'Create Faq Helpful');
-		$this->view->description = '';
-		$this->view->keywords = '';
-		return $this->render('admin_create', [
-			'model' => $model,
-		]);
-	}
-
-	/**
-	 * Updates an existing FaqHelpful model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id
-	 * @return mixed
-	 */
-	public function actionUpdate($id)
-	{
-		$model = $this->findModel($id);
-		if(Yii::$app->request->isPost) {
-			$model->load(Yii::$app->request->post());
-
-			if($model->save()) {
-				Yii::$app->session->setFlash('success', Yii::t('app', 'Faq helpful success updated.'));
-				return $this->redirect(['index']);
-				//return $this->redirect(['view', 'id' => $model->id]);
-			}
-		}
-
-		$this->view->title = Yii::t('app', 'Update {model-class}: {faq-id}', ['model-class' => 'Faq Helpful', 'faq-id' => $model->faq->questionRltn->message]);
-		$this->view->description = '';
-		$this->view->keywords = '';
-		return $this->render('admin_update', [
-			'model' => $model,
 		]);
 	}
 

@@ -42,7 +42,7 @@ class FaqHelpful extends \app\components\ActiveRecord
 {
 	use \app\components\traits\GridViewSystem;
 
-	public $gridForbiddenColumn = ['helpful_ip','modified_date', 'modified_search'];
+	public $gridForbiddenColumn = ['message','helpful_ip','modified_date', 'modified_search'];
 
 	// Variable Search
 	public $category_search;
@@ -254,5 +254,4 @@ class FaqHelpful extends \app\components\ActiveRecord
 		}
 		return true;
 	}
-
 }
