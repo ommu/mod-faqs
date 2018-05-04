@@ -39,7 +39,7 @@ use app\modules\user\models\Users;
 
 class FaqViews extends \app\components\ActiveRecord
 {
-	use \app\components\traits\GridViewSystem;
+	use \ommu\traits\GridViewTrait;
 
 	public $gridForbiddenColumn = ['view_ip','deleted_date'];
 

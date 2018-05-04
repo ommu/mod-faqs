@@ -49,8 +49,8 @@ use app\modules\faq\models\view\FaqCategory as FaqCategoryView;
 
 class FaqCategory extends \app\components\ActiveRecord
 {
-	use \app\components\traits\GridViewSystem;
-	use \app\components\traits\FileSystem;
+	use \ommu\traits\GridViewTrait;
+	use \ommu\traits\FileTrait;
 
 	public $gridForbiddenColumn = ['orders','modified_date','modified_search','updated_date','slug','cat_desc_i'];
 	public $cat_name_i;
@@ -394,7 +394,7 @@ class FaqCategory extends \app\components\ActiveRecord
 		$controller = strtolower(Yii::$app->controller->id);
 		$action = strtolower(Yii::$app->controller->action->id);
 
-		$location = $this->getUrlTitle($module.' '.$controller);
+		$location = $this->urlTitle($module.' '.$controller);
 
 		if(parent::beforeSave($insert)) {
 			if($insert || (!$insert && !$this->cat_name)) {

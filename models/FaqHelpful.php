@@ -40,7 +40,7 @@ use app\modules\user\models\Users;
 
 class FaqHelpful extends \app\components\ActiveRecord
 {
-	use \app\components\traits\GridViewSystem;
+	use \ommu\traits\GridViewTrait;
 
 	public $gridForbiddenColumn = ['message','helpful_ip','modified_date', 'modified_search'];
 
