@@ -44,7 +44,7 @@ $this->params['menu']['content'] = [
 		],
 		[
 			'attribute' => 'likes_date',
-			'value' => !in_array($model->likes_date, ['0000-00-00 00:00:00','1970-01-01 00:00:00','0002-12-02 00:00:00','-0001-11-30 00:00:00']) ? Yii::$app->formatter->format($model->likes_date, 'datetime') : '-',
+			'value' => !in_array($model->likes_date, ['0000-00-00 00:00:00','1970-01-01 00:00:00','0002-12-02 07:07:12','-0001-11-30 00:00:00']) ? Yii::$app->formatter->format($model->likes_date, 'datetime') : '-',
 		],
 		'likes_ip',
 	],
