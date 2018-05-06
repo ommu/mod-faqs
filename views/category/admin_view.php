@@ -51,6 +51,7 @@ $this->params['menu']['content'] = [
 		[
 			'attribute' => 'cat_desc_i',
 			'value' => isset($model->description) ? $model->description->message : '-',
+			'format' => 'html',
 		],
 		'orders',
 		[

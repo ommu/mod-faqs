@@ -88,7 +88,7 @@ class Faqs extends \app\components\ActiveRecord
 	public function behaviors() {
 		return [
 			[
-				'class'	 => SluggableBehavior::className(),
+				'class' => SluggableBehavior::className(),
 				'attribute' => 'faq_id',
 				'immutable' => true,
 				'ensureUnique' => true,
