@@ -19,7 +19,6 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-use app\libraries\MenuContent;
 
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Faqs'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->questionRltn->message, 'url' => ['view', 'id' => $model->faq_id]];
