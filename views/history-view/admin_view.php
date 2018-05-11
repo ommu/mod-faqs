@@ -2,7 +2,7 @@
 /**
  * Faq View Histories (faq-view-history)
  * @var $this yii\web\View
- * @var $this app\modules\faq\controllers\__\HistoryViewController
+ * @var $this app\modules\faq\controllers\HistoryViewController
  * @var $model app\modules\faq\models\FaqViewHistory
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
