@@ -49,8 +49,8 @@ use app\modules\faq\models\view\FaqCategory as FaqCategoryView;
 
 class FaqCategory extends \app\components\ActiveRecord
 {
+	use \ommu\traits\UtilityTrait;
 	use \ommu\traits\GridViewTrait;
-	use \ommu\traits\FileTrait;
 
 	public $gridForbiddenColumn = ['orders','modified_date','modified_search','updated_date','slug','cat_desc_i'];
 	public $cat_name_i;
