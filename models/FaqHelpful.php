@@ -31,7 +31,7 @@
  *
  */
 
-namespace app\modules\faq\models;
+namespace ommu\faq\models;
 
 use Yii;
 use yii\helpers\Url;
@@ -130,11 +130,11 @@ class FaqHelpful extends \app\components\ActiveRecord
 
 	/**
 	 * @inheritdoc
-	 * @return \app\modules\faq\models\query\FaqHelpfulQuery the active query used by this AR class.
+	 * @return \ommu\faq\models\query\FaqHelpfulQuery the active query used by this AR class.
 	 */
 	public static function find()
 	{
-		return new \app\modules\faq\models\query\FaqHelpfulQuery(get_called_class());
+		return new \ommu\faq\models\query\FaqHelpfulQuery(get_called_class());
 	}
 
 	/**

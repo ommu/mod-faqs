@@ -37,7 +37,7 @@
  *
  */
 
-namespace app\modules\faq\models;
+namespace ommu\faq\models;
 
 use Yii;
 use yii\helpers\Url;
@@ -45,7 +45,7 @@ use yii\helpers\Html;
 use yii\behaviors\SluggableBehavior;
 use app\models\SourceMessage;
 use app\modules\user\models\Users;
-use app\modules\faq\models\view\FaqCategory as FaqCategoryView;
+use ommu\faq\models\view\FaqCategory as FaqCategoryView;
 
 class FaqCategory extends \app\components\ActiveRecord
 {
@@ -193,11 +193,11 @@ class FaqCategory extends \app\components\ActiveRecord
 
 	/**
 	 * @inheritdoc
-	 * @return \app\modules\faq\models\query\FaqCategoryQuery the active query used by this AR class.
+	 * @return \ommu\faq\models\query\FaqCategoryQuery the active query used by this AR class.
 	 */
 	public static function find()
 	{
-		return new \app\modules\faq\models\query\FaqCategoryQuery(get_called_class());
+		return new \ommu\faq\models\query\FaqCategoryQuery(get_called_class());
 	}
 
 	/**

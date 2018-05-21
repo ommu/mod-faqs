@@ -2,8 +2,8 @@
 /**
  * Faq Like Histories (faq-like-history)
  * @var $this yii\web\View
- * @var $this app\modules\faq\controllers\HistoryLikeController
- * @var $model app\modules\faq\models\FaqLikeHistory
+ * @var $this ommu\faq\controllers\HistoryLikeController
+ * @var $model ommu\faq\models\FaqLikeHistory
  *
  * @author Eko Hariyanto <haryeko29@gmail.com>
  * @contact (+62)857-4381-4273

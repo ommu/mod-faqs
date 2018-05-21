@@ -2,7 +2,7 @@
 /**
  * ViewsController
  * @var $this yii\web\View
- * @var $model app\modules\faq\models\FaqViews
+ * @var $model ommu\faq\models\FaqViews
  *
  * ViewsController implements the CRUD actions for FaqViews model.
  * Reference start
@@ -25,15 +25,15 @@
  *
  */
  
-namespace app\modules\faq\controllers;
+namespace ommu\faq\controllers;
 
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 use app\components\Controller;
 use mdm\admin\components\AccessControl;
-use app\modules\faq\models\FaqViews;
-use app\modules\faq\models\search\FaqViews as FaqViewsSearch;
+use ommu\faq\models\FaqViews;
+use ommu\faq\models\search\FaqViews as FaqViewsSearch;
 
 class ViewsController extends Controller
 {

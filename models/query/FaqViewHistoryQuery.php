@@ -2,8 +2,8 @@
 /**
  * FaqViewHistoryQuery
  *
- * This is the ActiveQuery class for [[\app\modules\faq\models\FaqViewHistory]].
- * @see \app\modules\faq\models\FaqViewHistory
+ * This is the ActiveQuery class for [[\ommu\faq\models\FaqViewHistory]].
+ * @see \ommu\faq\models\FaqViewHistory
  * 
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
@@ -13,7 +13,7 @@
  *
  */
 
-namespace app\modules\faq\models\query;
+namespace ommu\faq\models\query;
 
 class FaqViewHistoryQuery extends \yii\db\ActiveQuery
 {
@@ -26,7 +26,7 @@ class FaqViewHistoryQuery extends \yii\db\ActiveQuery
 
 	/**
 	 * @inheritdoc
-	 * @return \app\modules\faq\models\FaqViewHistory[]|array
+	 * @return \ommu\faq\models\FaqViewHistory[]|array
 	 */
 	public function all($db = null)
 	{
@@ -35,7 +35,7 @@ class FaqViewHistoryQuery extends \yii\db\ActiveQuery
 
 	/**
 	 * @inheritdoc
-	 * @return \app\modules\faq\models\FaqViewHistory|array|null
+	 * @return \ommu\faq\models\FaqViewHistory|array|null
 	 */
 	public function one($db = null)
 	{

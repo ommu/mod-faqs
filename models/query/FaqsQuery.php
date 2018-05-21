@@ -2,8 +2,8 @@
 /**
  * FaqsQuery
  *
- * This is the ActiveQuery class for [[\app\modules\faq\models\Faqs]].
- * @see \app\modules\faq\models\Faqs
+ * This is the ActiveQuery class for [[\ommu\faq\models\Faqs]].
+ * @see \ommu\faq\models\Faqs
  * 
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
@@ -13,7 +13,7 @@
  *
  */
 
-namespace app\modules\faq\models\query;
+namespace ommu\faq\models\query;
 
 class FaqsQuery extends \yii\db\ActiveQuery
 {
@@ -42,7 +42,7 @@ class FaqsQuery extends \yii\db\ActiveQuery
 
 	/**
 	 * @inheritdoc
-	 * @return \app\modules\faq\models\Faqs[]|array
+	 * @return \ommu\faq\models\Faqs[]|array
 	 */
 	public function all($db = null)
 	{
@@ -51,7 +51,7 @@ class FaqsQuery extends \yii\db\ActiveQuery
 
 	/**
 	 * @inheritdoc
-	 * @return \app\modules\faq\models\Faqs|array|null
+	 * @return \ommu\faq\models\Faqs|array|null
 	 */
 	public function one($db = null)
 	{

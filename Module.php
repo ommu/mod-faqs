@@ -1,5 +1,5 @@
 <?php
-namespace app\modules\faq;
+namespace ommu\faq;
 
 /**
  * faq module definition class
@@ -19,7 +19,7 @@ class Module extends \app\components\Module
 	/**
 	 * @inheritdoc
 	 */
-	public $controllerNamespace = 'app\modules\faq\controllers';
+	public $controllerNamespace = 'ommu\faq\controllers';
 
 	/**
 	 * @inheritdoc

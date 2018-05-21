@@ -2,7 +2,7 @@
 /**
  * HistoryLikeController
  * @var $this yii\web\View
- * @var $model app\modules\faq\models\FaqLikeHistory
+ * @var $model ommu\faq\models\FaqLikeHistory
  *
  * HistoryLikeController implements the CRUD actions for FaqLikeHistory model.
  * Reference start
@@ -26,15 +26,15 @@
  *
  */
  
-namespace app\modules\faq\controllers;
+namespace ommu\faq\controllers;
 
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 use app\components\Controller;
 use mdm\admin\components\AccessControl;
-use app\modules\faq\models\FaqLikeHistory;
-use app\modules\faq\models\search\FaqLikeHistory as FaqLikeHistorySearch;
+use ommu\faq\models\FaqLikeHistory;
+use ommu\faq\models\search\FaqLikeHistory as FaqLikeHistorySearch;
 
 class HistoryLikeController extends Controller
 {

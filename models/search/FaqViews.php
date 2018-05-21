@@ -2,7 +2,7 @@
 /**
  * FaqViews
  *
- * FaqViews represents the model behind the search form about `app\modules\faq\models\FaqViews`.
+ * FaqViews represents the model behind the search form about `ommu\faq\models\FaqViews`.
  *
  * @author Eko Hariyanto <haryeko29@gmail.com>
  * @contact (+62)857-4381-4273
@@ -14,12 +14,12 @@
  *
  */
 
-namespace app\modules\faq\models\search;
+namespace ommu\faq\models\search;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\modules\faq\models\FaqViews as FaqViewsModel;
+use ommu\faq\models\FaqViews as FaqViewsModel;
 
 class FaqViews extends FaqViewsModel
 {

@@ -2,8 +2,8 @@
 /**
  * Faq Views (faq-views)
  * @var $this yii\web\View
- * @var $this app\modules\faq\controllers\ViewsController
- * @var $model app\modules\faq\models\search\FaqViews
+ * @var $this ommu\faq\controllers\ViewsController
+ * @var $model ommu\faq\models\search\FaqViews
  * @var $form yii\widgets\ActiveForm
  *
  * @author Eko Hariyanto <haryeko29@gmail.com>

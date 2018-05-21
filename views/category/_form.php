@@ -2,8 +2,8 @@
 /**
  * Faq Categories (faq-category)
  * @var $this yii\web\View
- * @var $this app\modules\faq\controllers\CategoryController
- * @var $model app\modules\faq\models\FaqCategory
+ * @var $this ommu\faq\controllers\CategoryController
+ * @var $model ommu\faq\models\FaqCategory
  * @var $form yii\widgets\ActiveForm
  *
  * @author Eko Hariyanto <haryeko29@gmail.com>
@@ -20,7 +20,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\redactor\widgets\Redactor;
-use app\modules\faq\models\FaqCategory;
+use ommu\faq\models\FaqCategory;
 
 $redactorOptions = [
 	'imageManagerJson' => ['/redactor/upload/image-json'],

@@ -2,8 +2,8 @@
 /**
  * Faq View Histories (faq-view-history)
  * @var $this yii\web\View
- * @var $this app\modules\faq\controllers\HistoryViewController
- * @var $model app\modules\faq\models\FaqViewHistory
+ * @var $this ommu\faq\controllers\HistoryViewController
+ * @var $model ommu\faq\models\FaqViewHistory
  *
  * @author Eko Hariyanto <haryeko29@gmail.com>
  * @contact (+62)857-4381-4273

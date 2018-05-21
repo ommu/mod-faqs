@@ -2,8 +2,8 @@
 /**
  * Faq Likes (faq-likes)
  * @var $this yii\web\View
- * @var $this app\modules\faq\controllers\LikesController
- * @var $model app\modules\faq\models\FaqLikes
+ * @var $this ommu\faq\controllers\LikesController
+ * @var $model ommu\faq\models\FaqLikes
  *
  * @author Eko Hariyanto <haryeko29@gmail.com>
  * @contact (+62)857-4381-4273

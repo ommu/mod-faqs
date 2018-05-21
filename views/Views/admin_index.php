@@ -2,8 +2,8 @@
 /**
  * Faq Views (faq-views)
  * @var $this yii\web\View
- * @var $this app\modules\faq\controllers\ViewsController
- * @var $model app\modules\faq\models\FaqViews
+ * @var $this ommu\faq\controllers\ViewsController
+ * @var $model ommu\faq\models\FaqViews
  *
  * @author Eko Hariyanto <haryeko29@gmail.com>
  * @contact (+62)857-4381-4273

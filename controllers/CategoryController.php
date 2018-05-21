@@ -2,7 +2,7 @@
 /**
  * CategoryController
  * @var $this yii\web\View
- * @var $model app\modules\faq\models\FaqCategory
+ * @var $model ommu\faq\models\FaqCategory
  *
  * CategoryController implements the CRUD actions for FaqCategory model.
  * Reference start
@@ -28,15 +28,15 @@
  *
  */
  
-namespace app\modules\faq\controllers;
+namespace ommu\faq\controllers;
 
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 use app\components\Controller;
 use mdm\admin\components\AccessControl;
-use app\modules\faq\models\FaqCategory;
-use app\modules\faq\models\search\FaqCategory as FaqCategorySearch;
+use ommu\faq\models\FaqCategory;
+use ommu\faq\models\search\FaqCategory as FaqCategorySearch;
 
 class CategoryController extends Controller
 {

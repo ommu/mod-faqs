@@ -2,8 +2,8 @@
 /**
  * FaqHelpfulQuery
  *
- * This is the ActiveQuery class for [[\app\modules\faq\models\FaqHelpful]].
- * @see \app\modules\faq\models\FaqHelpful
+ * This is the ActiveQuery class for [[\ommu\faq\models\FaqHelpful]].
+ * @see \ommu\faq\models\FaqHelpful
  * 
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
@@ -13,7 +13,7 @@
  *
  */
 
-namespace app\modules\faq\models\query;
+namespace ommu\faq\models\query;
 
 class FaqHelpfulQuery extends \yii\db\ActiveQuery
 {
@@ -26,7 +26,7 @@ class FaqHelpfulQuery extends \yii\db\ActiveQuery
 
 	/**
 	 * @inheritdoc
-	 * @return \app\modules\faq\models\FaqHelpful[]|array
+	 * @return \ommu\faq\models\FaqHelpful[]|array
 	 */
 	public function all($db = null)
 	{
@@ -35,7 +35,7 @@ class FaqHelpfulQuery extends \yii\db\ActiveQuery
 
 	/**
 	 * @inheritdoc
-	 * @return \app\modules\faq\models\FaqHelpful|array|null
+	 * @return \ommu\faq\models\FaqHelpful|array|null
 	 */
 	public function one($db = null)
 	{

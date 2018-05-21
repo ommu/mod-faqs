@@ -2,7 +2,7 @@
 /**
  * FaqLikeHistory
  *
- * FaqLikeHistory represents the model behind the search form about `app\modules\faq\models\FaqLikeHistory`.
+ * FaqLikeHistory represents the model behind the search form about `ommu\faq\models\FaqLikeHistory`.
  *
  * @author Eko Hariyanto <haryeko29@gmail.com>
  * @contact (+62)857-4381-4273
@@ -14,12 +14,12 @@
  *
  */
 
-namespace app\modules\faq\models\search;
+namespace ommu\faq\models\search;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\modules\faq\models\FaqLikeHistory as FaqLikeHistoryModel;
+use ommu\faq\models\FaqLikeHistory as FaqLikeHistoryModel;
 
 class FaqLikeHistory extends FaqLikeHistoryModel
 {

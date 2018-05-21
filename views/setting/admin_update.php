@@ -2,8 +2,8 @@
 /**
  * Faq Settings (faq-setting)
  * @var $this yii\web\View
- * @var $this app\modules\faq\controllers\SettingController
- * @var $model app\modules\faq\models\FaqSetting
+ * @var $this ommu\faq\controllers\SettingController
+ * @var $model ommu\faq\models\FaqSetting
  * @var $form yii\widgets\ActiveForm
  *
  * @author Eko Hariyanto <haryeko29@gmail.com>

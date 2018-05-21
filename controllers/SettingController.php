@@ -2,7 +2,7 @@
 /**
  * SettingController
  * @var $this yii\web\View
- * @var $model app\modules\faq\models\FaqSetting
+ * @var $model ommu\faq\models\FaqSetting
  *
  * SettingController implements the CRUD actions for FaqSetting model.
  * Reference start
@@ -24,15 +24,15 @@
  *
  */
  
-namespace app\modules\faq\controllers;
+namespace ommu\faq\controllers;
 
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 use app\components\Controller;
 use mdm\admin\components\AccessControl;
-use app\modules\faq\models\FaqSetting;
-use app\modules\faq\models\search\FaqCategory as FaqCategorySearch;
+use ommu\faq\models\FaqSetting;
+use ommu\faq\models\search\FaqCategory as FaqCategorySearch;
 
 class SettingController extends Controller
 {

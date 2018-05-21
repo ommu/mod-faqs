@@ -2,7 +2,7 @@
 /**
  * HistoryViewController
  * @var $this yii\web\View
- * @var $model app\modules\faq\models\FaqViewHistory
+ * @var $model ommu\faq\models\FaqViewHistory
  *
  * HistoryViewController implements the CRUD actions for FaqViewHistory model.
  * Reference start
@@ -24,15 +24,15 @@
  *
  */
  
-namespace app\modules\faq\controllers;
+namespace ommu\faq\controllers;
 
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 use app\components\Controller;
 use mdm\admin\components\AccessControl;
-use app\modules\faq\models\FaqViewHistory;
-use app\modules\faq\models\search\FaqViewHistory as FaqViewHistorySearch;
+use ommu\faq\models\FaqViewHistory;
+use ommu\faq\models\search\FaqViewHistory as FaqViewHistorySearch;
 
 class HistoryViewController extends Controller
 {

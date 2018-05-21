@@ -2,8 +2,8 @@
 /**
  * Faq Helpfuls (faq-helpful)
  * @var $this yii\web\View
- * @var $this app\modules\faq\controllers\HelpfulController
- * @var $model app\modules\faq\models\FaqHelpful
+ * @var $this ommu\faq\controllers\HelpfulController
+ * @var $model ommu\faq\models\FaqHelpful
  *
  * @author Eko Hariyanto <haryeko29@gmail.com>
  * @contact (+62)857-4381-4273

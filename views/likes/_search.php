@@ -2,8 +2,8 @@
 /**
  * Faq Likes (faq-likes)
  * @var $this yii\web\View
- * @var $this app\modules\faq\controllers\LikesController
- * @var $model app\modules\faq\models\search\FaqLikes
+ * @var $this ommu\faq\controllers\LikesController
+ * @var $model ommu\faq\models\search\FaqLikes
  * @var $form yii\widgets\ActiveForm
  *
  * @author Eko Hariyanto <haryeko29@gmail.com>

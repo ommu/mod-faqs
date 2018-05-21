@@ -2,7 +2,7 @@
 /**
  * HelpfulController
  * @var $this yii\web\View
- * @var $model app\modules\faq\models\FaqHelpful
+ * @var $model ommu\faq\models\FaqHelpful
  *
  * HelpfulController implements the CRUD actions for FaqHelpful model.
  * Reference start
@@ -24,15 +24,15 @@
  *
  */
  
-namespace app\modules\faq\controllers;
+namespace ommu\faq\controllers;
 
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 use app\components\Controller;
 use mdm\admin\components\AccessControl;
-use app\modules\faq\models\FaqHelpful;
-use app\modules\faq\models\search\FaqHelpful as FaqHelpfulSearch;
+use ommu\faq\models\FaqHelpful;
+use ommu\faq\models\search\FaqHelpful as FaqHelpfulSearch;
 
 class HelpfulController extends Controller
 {

@@ -2,7 +2,7 @@
 /**
  * AdminController
  * @var $this yii\web\View
- * @var $model app\modules\faq\models\Faqs
+ * @var $model ommu\faq\models\Faqs
  *
  * AdminController implements the CRUD actions for Faqs model.
  * Reference start
@@ -28,15 +28,15 @@
  *
  */
  
-namespace app\modules\faq\controllers;
+namespace ommu\faq\controllers;
 
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 use app\components\Controller;
 use mdm\admin\components\AccessControl;
-use app\modules\faq\models\Faqs;
-use app\modules\faq\models\search\Faqs as FaqsSearch;
+use ommu\faq\models\Faqs;
+use ommu\faq\models\search\Faqs as FaqsSearch;
 
 class AdminController extends Controller
 {

@@ -2,8 +2,8 @@
 /**
  * FaqCategoryQuery
  *
- * This is the ActiveQuery class for [[\app\modules\faq\models\FaqCategory]].
- * @see \app\modules\faq\models\FaqCategory
+ * This is the ActiveQuery class for [[\ommu\faq\models\FaqCategory]].
+ * @see \ommu\faq\models\FaqCategory
  * 
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
@@ -13,7 +13,7 @@
  *
  */
 
-namespace app\modules\faq\models\query;
+namespace ommu\faq\models\query;
 
 class FaqCategoryQuery extends \yii\db\ActiveQuery
 {
@@ -42,7 +42,7 @@ class FaqCategoryQuery extends \yii\db\ActiveQuery
 
 	/**
 	 * @inheritdoc
-	 * @return \app\modules\faq\models\FaqCategory[]|array
+	 * @return \ommu\faq\models\FaqCategory[]|array
 	 */
 	public function all($db = null)
 	{
@@ -51,7 +51,7 @@ class FaqCategoryQuery extends \yii\db\ActiveQuery
 
 	/**
 	 * @inheritdoc
-	 * @return \app\modules\faq\models\FaqCategory|array|null
+	 * @return \ommu\faq\models\FaqCategory|array|null
 	 */
 	public function one($db = null)
 	{

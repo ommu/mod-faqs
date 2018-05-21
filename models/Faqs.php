@@ -39,7 +39,7 @@
  *
  */
 
-namespace app\modules\faq\models;
+namespace ommu\faq\models;
 
 use Yii;
 use yii\helpers\Url;
@@ -47,7 +47,7 @@ use yii\helpers\Html;
 use yii\behaviors\SluggableBehavior;
 use app\models\SourceMessage;
 use app\modules\user\models\Users;
-use app\modules\faq\models\view\Faqs as FaqsView;
+use ommu\faq\models\view\Faqs as FaqsView;
 
 class Faqs extends \app\components\ActiveRecord
 {
@@ -215,11 +215,11 @@ class Faqs extends \app\components\ActiveRecord
 
 	/**
 	 * @inheritdoc
-	 * @return \app\modules\faq\models\query\FaqsQuery the active query used by this AR class.
+	 * @return \ommu\faq\models\query\FaqsQuery the active query used by this AR class.
 	 */
 	public static function find()
 	{
-		return new \app\modules\faq\models\query\FaqsQuery(get_called_class());
+		return new \ommu\faq\models\query\FaqsQuery(get_called_class());
 	}
 
 	/**

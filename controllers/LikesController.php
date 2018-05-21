@@ -2,7 +2,7 @@
 /**
  * LikesController
  * @var $this yii\web\View
- * @var $model app\modules\faq\models\FaqLikes
+ * @var $model ommu\faq\models\FaqLikes
  *
  * LikesController implements the CRUD actions for FaqLikes model.
  * Reference start
@@ -25,15 +25,15 @@
  *
  */
  
-namespace app\modules\faq\controllers;
+namespace ommu\faq\controllers;
 
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 use app\components\Controller;
 use mdm\admin\components\AccessControl;
-use app\modules\faq\models\FaqLikes;
-use app\modules\faq\models\search\FaqLikes as FaqLikesSearch;
+use ommu\faq\models\FaqLikes;
+use ommu\faq\models\search\FaqLikes as FaqLikesSearch;
 
 class LikesController extends Controller
 {

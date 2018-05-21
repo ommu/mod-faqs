@@ -2,8 +2,8 @@
 /**
  * Faq Helpfuls (faq-helpful)
  * @var $this yii\web\View
- * @var $this app\modules\faq\controllers\HelpfulController
- * @var $model app\modules\faq\models\search\FaqHelpful
+ * @var $this ommu\faq\controllers\HelpfulController
+ * @var $model ommu\faq\models\search\FaqHelpful
  * @var $form yii\widgets\ActiveForm
  *
  * @author Eko Hariyanto <haryeko29@gmail.com>

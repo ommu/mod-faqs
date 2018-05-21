@@ -24,7 +24,7 @@
  *
  */
 
-namespace app\modules\faq\models;
+namespace ommu\faq\models;
 
 use Yii;
 use yii\helpers\Url;
@@ -95,11 +95,11 @@ class FaqViewHistory extends \app\components\ActiveRecord
 
 	/**
 	 * @inheritdoc
-	 * @return \app\modules\faq\models\query\FaqViewHistoryQuery the active query used by this AR class.
+	 * @return \ommu\faq\models\query\FaqViewHistoryQuery the active query used by this AR class.
 	 */
 	public static function find()
 	{
-		return new \app\modules\faq\models\query\FaqViewHistoryQuery(get_called_class());
+		return new \ommu\faq\models\query\FaqViewHistoryQuery(get_called_class());
 	}
 
 	/**

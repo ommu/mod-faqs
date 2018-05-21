@@ -17,7 +17,7 @@
  *
  */
 
-namespace app\modules\faq\models\view;
+namespace ommu\faq\models\view;
 
 use Yii;
 use yii\helpers\Url;

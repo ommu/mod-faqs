@@ -2,8 +2,8 @@
 /**
  * Faqs (faqs)
  * @var $this yii\web\View
- * @var $this app\modules\faq\controllers\AdminController
- * @var $model app\modules\faq\models\Faqs
+ * @var $this ommu\faq\controllers\AdminController
+ * @var $model ommu\faq\models\Faqs
  * @var $form yii\widgets\ActiveForm
  *
  * @author Eko Hariyanto <haryeko29@gmail.com>
