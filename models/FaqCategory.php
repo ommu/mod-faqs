@@ -44,7 +44,7 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\behaviors\SluggableBehavior;
 use app\models\SourceMessage;
-use app\modules\user\models\Users;
+use ommu\users\models\Users;
 use ommu\faq\models\view\FaqCategory as FaqCategoryView;
 
 class FaqCategory extends \app\components\ActiveRecord
