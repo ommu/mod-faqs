@@ -42,7 +42,7 @@ $this->params['menu']['content'] = [
 		],
 		[
 			'attribute' => 'parent_id',
-			'value' => isset($model->parent) ? $model->parents->name->message : '-',
+			'value' => isset($model->parent) ? $model->parent->title->message : '-',
 		],
 		[
 			'attribute' => 'cat_name_i',
