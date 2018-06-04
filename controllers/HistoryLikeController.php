@@ -10,8 +10,6 @@
  *	Index
  *	View
  *	Delete
- *	RunAction
- *	Publish
  *
  *	findModel
  *
