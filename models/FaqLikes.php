@@ -4,7 +4,7 @@
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
- * @copyright Copyright (c) 2014 Ommu Platform (opensource.ommu.co)
+ * @copyright Copyright (c) 2014 Ommu Platform (www.ommu.co)
  * @link https://github.com/ommu/mod-faqs
  *
  * This is the template for generating the model class of a specified table.
@@ -107,14 +107,14 @@ class FaqLikes extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('t.like_id',$this->like_id);
-		$criteria->compare('t.faq_id',$this->faq_id);
-		$criteria->compare('t.user_id',$this->user_id);
-		if($this->likes_date != null && !in_array($this->likes_date, array('0000-00-00 00:00:00', '0000-00-00')))
-			$criteria->compare('date(t.likes_date)',date('Y-m-d', strtotime($this->likes_date)));
-		$criteria->compare('t.likes_ip',$this->likes_ip,true);
+		$criteria->compare('t.like_id', $this->like_id);
+		$criteria->compare('t.faq_id', $this->faq_id);
+		$criteria->compare('t.user_id', $this->user_id);
+		if($this->likes_date != null && !in_array($this->likes_date, array('0000-00-00 00:00:00','1970-01-01 00:00:00','0002-12-02 07:07:12','-0001-11-30 00:00:00')))
+			$criteria->compare('date(t.likes_date)', date('Y-m-d', strtotime($this->likes_date)));
+		$criteria->compare('t.likes_ip', $this->likes_ip,true);
 
-		if(!isset($_GET['FaqLikes_sort']))
+		if(!Yii::app()->getRequest()->getParam('FaqLikes_sort'))
 			$criteria->order = 'like_id DESC';
 
 		return new CActiveDataProvider($this, array(
@@ -179,7 +179,7 @@ class FaqLikes extends CActiveRecord
 					),
 					'options'=>array(
 						'showOn' => 'focus',
-						'dateFormat' => 'dd-mm-yy',
+						'dateFormat' => 'yy-mm-dd',
 						'showOtherMonths' => true,
 						'selectOtherMonths' => true,
 						'changeMonth' => true,

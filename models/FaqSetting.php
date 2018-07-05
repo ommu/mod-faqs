@@ -4,7 +4,7 @@
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
- * @copyright Copyright (c) 2014 Ommu Platform (opensource.ommu.co)
+ * @copyright Copyright (c) 2014 Ommu Platform (www.ommu.co)
  * @link https://github.com/ommu/mod-faqs
  *
  * This is the template for generating the model class of a specified table.
@@ -102,13 +102,13 @@ class FaqSetting extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('t.id',$this->id);
-		$criteria->compare('t.license',$this->license,true);
-		$criteria->compare('t.permission',$this->permission);
-		$criteria->compare('t.meta_keyword',$this->meta_keyword,true);
-		$criteria->compare('t.meta_description',$this->meta_description,true);
+		$criteria->compare('t.id', $this->id);
+		$criteria->compare('t.license', $this->license,true);
+		$criteria->compare('t.permission', $this->permission);
+		$criteria->compare('t.meta_keyword', $this->meta_keyword,true);
+		$criteria->compare('t.meta_description', $this->meta_description,true);
 
-		if(!isset($_GET['FaqSetting_sort']))
+		if(!Yii::app()->getRequest()->getParam('FaqSetting_sort'))
 			$criteria->order = 'id DESC';
 
 		return new CActiveDataProvider($this, array(
@@ -163,7 +163,7 @@ class FaqSetting extends CActiveRecord
 	 */
 	public static function getInfo($column)
 	{
-		$model = self::model()->findByPk(1,array(
+		$model = self::model()->findByPk(1, array(
 			'select' => $column
 		));
 		return $model->$column;

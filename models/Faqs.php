@@ -4,7 +4,7 @@
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
- * @copyright Copyright (c) 2014 Ommu Platform (opensource.ommu.co)
+ * @copyright Copyright (c) 2014 Ommu Platform (www.ommu.co)
  * @link https://github.com/ommu/mod-faqs
  *
  * This is the template for generating the model class of a specified table.
@@ -141,34 +141,34 @@ class Faqs extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('t.faq_id',$this->faq_id);
-		if(isset($_GET['type']) && $_GET['type'] == 'publish') {
-			$criteria->compare('t.publish',1);
-		} elseif(isset($_GET['type']) && $_GET['type'] == 'unpublish') {
-			$criteria->compare('t.publish',0);
-		} elseif(isset($_GET['type']) && $_GET['type'] == 'trash') {
-			$criteria->compare('t.publish',2);
+		$criteria->compare('t.faq_id', $this->faq_id);
+		if(Yii::app()->getRequest()->getParam('type') == 'publish') {
+			$criteria->compare('t.publish', 1);
+		} elseif(Yii::app()->getRequest()->getParam('type') == 'unpublish') {
+			$criteria->compare('t.publish', 0);
+		} elseif(Yii::app()->getRequest()->getParam('type') == 'trash') {
+			$criteria->compare('t.publish', 2);
 		} else {
-			$criteria->addInCondition('t.publish',array(0,1));
-			$criteria->compare('t.publish',$this->publish);
+			$criteria->addInCondition('t.publish', array(0,1));
+			$criteria->compare('t.publish', $this->publish);
 		}
-		if(isset($_GET['category'])) {
-			$criteria->compare('t.cat_id',$_GET['category']);
+		if(Yii::app()->getRequest()->getParam('category')) {
+			$criteria->compare('t.cat_id', Yii::app()->getRequest()->getParam('category'));
 		} else {
-			$criteria->compare('t.cat_id',$this->cat_id);
+			$criteria->compare('t.cat_id', $this->cat_id);
 		}
-		$criteria->compare('t.user_id',$this->user_id);
-		$criteria->compare('t.modified_id',$this->modified_id);
-		$criteria->compare('t.question',$this->question);
-		$criteria->compare('t.answer',$this->answer);
-		$criteria->compare('t.orders',$this->orders);
-		$criteria->compare('t.view',$this->view);
-		$criteria->compare('t.likes',$this->likes);
-		$criteria->compare('t.comment',$this->comment);
-		if($this->creation_date != null && !in_array($this->creation_date, array('0000-00-00 00:00:00', '0000-00-00')))
-			$criteria->compare('date(t.creation_date)',date('Y-m-d', strtotime($this->creation_date)));
-		if($this->modified_date != null && !in_array($this->modified_date, array('0000-00-00 00:00:00', '0000-00-00')))
-			$criteria->compare('date(t.modified_date)',date('Y-m-d', strtotime($this->modified_date)));
+		$criteria->compare('t.user_id', $this->user_id);
+		$criteria->compare('t.modified_id', $this->modified_id);
+		$criteria->compare('t.question', $this->question);
+		$criteria->compare('t.answer', $this->answer);
+		$criteria->compare('t.orders', $this->orders);
+		$criteria->compare('t.view', $this->view);
+		$criteria->compare('t.likes', $this->likes);
+		$criteria->compare('t.comment', $this->comment);
+		if($this->creation_date != null && !in_array($this->creation_date, array('0000-00-00 00:00:00','1970-01-01 00:00:00','0002-12-02 07:07:12','-0001-11-30 00:00:00')))
+			$criteria->compare('date(t.creation_date)', date('Y-m-d', strtotime($this->creation_date)));
+		if($this->modified_date != null && !in_array($this->modified_date, array('0000-00-00 00:00:00','1970-01-01 00:00:00','0002-12-02 07:07:12','-0001-11-30 00:00:00')))
+			$criteria->compare('date(t.modified_date)', date('Y-m-d', strtotime($this->modified_date)));
 		
 		// Custom Search
 		$criteria->with = array(
@@ -189,12 +189,12 @@ class Faqs extends CActiveRecord
 				'select'=>'displayname'
 			),
 		);
-		$criteria->compare('question.en',strtolower($this->questions), true);
-		$criteria->compare('answer.en',strtolower($this->answers), true);
-		$criteria->compare('cat.en',strtolower($this->cat_search), true);
-		$criteria->compare('user.displayname',strtolower($this->user_search), true);
+		$criteria->compare('question.en', strtolower($this->questions), true);
+		$criteria->compare('answer.en', strtolower($this->answers), true);
+		$criteria->compare('cat.en', strtolower($this->cat_search), true);
+		$criteria->compare('user.displayname', strtolower($this->user_search), true);
 
-		if(!isset($_GET['Faqs_sort']))
+		if(!Yii::app()->getRequest()->getParam('Faqs_sort'))
 			$criteria->order = 'faq_id DESC';
 
 		return new CActiveDataProvider($this, array(
@@ -270,7 +270,7 @@ class Faqs extends CActiveRecord
 				),
 				'type' => 'raw',
 			);
-			if(!isset($_GET['category'])) {
+			if(!Yii::app()->getRequest()->getParam('category')) {
 				$this->defaultColumns[] = array(
 					'name' => 'cat_search',
 					'value' => 'CHtml::link(Phrase::trans($data->category->name), Yii::app()->controller->createUrl(\'manage\', array(\'category\' => $data->cat_id)))',
@@ -321,7 +321,7 @@ class Faqs extends CActiveRecord
 					),
 					'options'=>array(
 						'showOn' => 'focus',
-						'dateFormat' => 'dd-mm-yy',
+						'dateFormat' => 'yy-mm-dd',
 						'showOtherMonths' => true,
 						'selectOtherMonths' => true,
 						'changeMonth' => true,
@@ -330,10 +330,10 @@ class Faqs extends CActiveRecord
 					),
 				), true),
 			);
-			if(!isset($_GET['type'])) {
+			if(!Yii::app()->getRequest()->getParam('type')) {
 				$this->defaultColumns[] = array(
 					'name' => 'publish',
-					'value' => 'Utility::getPublish(Yii::app()->controller->createUrl("publish",array("id"=>$data->faq_id)), $data->publish, 1)',
+					'value' => 'Utility::getPublish(Yii::app()->controller->createUrl("publish", array("id"=>$data->faq_id)), $data->publish, 1)',
 					'htmlOptions' => array(
 						'class' => 'center',
 					),

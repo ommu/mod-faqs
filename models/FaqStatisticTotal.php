@@ -4,7 +4,7 @@
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
- * @copyright Copyright (c) 2014 Ommu Platform (opensource.ommu.co)
+ * @copyright Copyright (c) 2014 Ommu Platform (www.ommu.co)
  * @link https://github.com/ommu/mod-faqs
  *
  * This is the template for generating the model class of a specified table.
@@ -101,12 +101,12 @@ class FaqStatisticTotal extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('statistic_key',$this->statistic_key,true);
-		$criteria->compare('total',$this->total);
-		$criteria->compare('flag',$this->flag);
-		$criteria->compare('note',$this->note,true);
+		$criteria->compare('statistic_key', $this->statistic_key,true);
+		$criteria->compare('total', $this->total);
+		$criteria->compare('flag', $this->flag);
+		$criteria->compare('note', $this->note,true);
 
-		if(!isset($_GET['FaqStatisticTotal_sort']))
+		if(!Yii::app()->getRequest()->getParam('FaqStatisticTotal_sort'))
 			$criteria->order = 'flag ASC';
 
 		return new CActiveDataProvider($this, array(

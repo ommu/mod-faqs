@@ -4,7 +4,7 @@
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
- * @copyright Copyright (c) 2014 Ommu Platform (opensource.ommu.co)
+ * @copyright Copyright (c) 2014 Ommu Platform (www.ommu.co)
  * @link https://github.com/ommu/mod-faqs
  *
  * This is the template for generating the model class of a specified table.
@@ -115,20 +115,20 @@ class FaqStatistics extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('t.date_key',$this->date_key,true);
-		$criteria->compare('t.faq_view',$this->faq_view);
-		$criteria->compare('t.faq_insert',$this->faq_insert);
-		$criteria->compare('t.faq_update',$this->faq_update);
-		$criteria->compare('t.faq_delete',$this->faq_delete);
-		$criteria->compare('t.faq_insert_category',$this->faq_insert_category);
-		$criteria->compare('t.faq_update_category',$this->faq_update_category);
-		$criteria->compare('t.faq_delete_category',$this->faq_delete_category);
-		$criteria->compare('t.faq_likes',$this->faq_likes);
-		$criteria->compare('t.faq_unlikes',$this->faq_unlikes);
-		$criteria->compare('t.faq_comment',$this->faq_comment);
-		$criteria->compare('t.faq_comment_solved',$this->faq_comment_solved);
+		$criteria->compare('t.date_key', $this->date_key,true);
+		$criteria->compare('t.faq_view', $this->faq_view);
+		$criteria->compare('t.faq_insert', $this->faq_insert);
+		$criteria->compare('t.faq_update', $this->faq_update);
+		$criteria->compare('t.faq_delete', $this->faq_delete);
+		$criteria->compare('t.faq_insert_category', $this->faq_insert_category);
+		$criteria->compare('t.faq_update_category', $this->faq_update_category);
+		$criteria->compare('t.faq_delete_category', $this->faq_delete_category);
+		$criteria->compare('t.faq_likes', $this->faq_likes);
+		$criteria->compare('t.faq_unlikes', $this->faq_unlikes);
+		$criteria->compare('t.faq_comment', $this->faq_comment);
+		$criteria->compare('t.faq_comment_solved', $this->faq_comment_solved);
 
-		if(!isset($_GET['FaqStatistics_sort']))
+		if(!Yii::app()->getRequest()->getParam('FaqStatistics_sort'))
 			$criteria->order = 'date_key DESC';
 
 		return new CActiveDataProvider($this, array(

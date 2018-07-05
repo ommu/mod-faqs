@@ -7,7 +7,7 @@
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
- * @copyright Copyright (c) 2014 Ommu Platform (opensource.ommu.co)
+ * @copyright Copyright (c) 2014 Ommu Platform (www.ommu.co)
  * @link https://github.com/ommu/mod-faqs
  *
  */
@@ -20,7 +20,7 @@
 	<ul>
 		<li>
 			<?php echo $model->getAttributeLabel('faq_id'); ?><br/>
-			<?php echo $form->textField($model,'faq_id',array('size'=>11,'maxlength'=>11)); ?>
+			<?php echo $form->textField($model,'faq_id', array('size'=>11,'maxlength'=>11)); ?>
 		</li>
 
 		<li>
@@ -35,17 +35,17 @@
 
 		<li>
 			<?php echo $model->getAttributeLabel('user_id'); ?><br/>
-			<?php echo $form->textField($model,'user_id',array('size'=>11,'maxlength'=>11)); ?>
+			<?php echo $form->textField($model,'user_id', array('size'=>11,'maxlength'=>11)); ?>
 		</li>
 
 		<li>
 			<?php echo $model->getAttributeLabel('question'); ?><br/>
-			<?php echo $form->textField($model,'question',array('size'=>11,'maxlength'=>11)); ?>
+			<?php echo $form->textField($model,'question', array('size'=>11,'maxlength'=>11)); ?>
 		</li>
 
 		<li>
 			<?php echo $model->getAttributeLabel('answer'); ?><br/>
-			<?php echo $form->textField($model,'answer',array('size'=>11,'maxlength'=>11)); ?>
+			<?php echo $form->textField($model,'answer', array('size'=>11,'maxlength'=>11)); ?>
 		</li>
 
 		<li>
