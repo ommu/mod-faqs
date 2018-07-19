@@ -108,7 +108,7 @@ class CategoryController extends Controller
 	public function actionManage() 
 	{
 		$model=new FaqCategory('search');
-		$model->unsetAttributes();  // clear any default values
+		$model->unsetAttributes();	// clear any default values
 		if(isset($_GET['FaqCategory'])) {
 			$model->attributes=$_GET['FaqCategory'];
 		}
