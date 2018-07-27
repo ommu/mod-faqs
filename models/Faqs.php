@@ -176,20 +176,20 @@ class Faqs extends CActiveRecord
 		// Custom Search
 		$criteria->with = array(
 			'question' => array(
-				'alias'=>'question',
-				'select'=>'en'
+				'alias' => 'question',
+				'select' => 'en'
 			),
 			'answer' => array(
-				'alias'=>'answer',
-				'select'=>'en'
+				'alias' => 'answer',
+				'select' => 'en'
 			),
 			'category.cat' => array(
-				'alias'=>'cat',
-				'select'=>'en'
+				'alias' => 'cat',
+				'select' => 'en'
 			),
 			'user' => array(
-				'alias'=>'user',
-				'select'=>'displayname'
+				'alias' => 'user',
+				'select' => 'displayname'
 			),
 		);
 		$criteria->compare('question.en', strtolower($this->questions), true);

@@ -157,12 +157,12 @@ class FaqCategory extends CActiveRecord
 		// Custom Search
 		$criteria->with = array(
 			'cat' => array(
-				'alias'=>'cat',
-				'select'=>'en'
+				'alias' => 'cat',
+				'select' => 'en'
 			),
 			'desc' => array(
-				'alias'=>'desc',
-				'select'=>'en'
+				'alias' => 'desc',
+				'select' => 'en'
 			),
 		);
 		$criteria->compare('cat.en', strtolower($this->category), true);
