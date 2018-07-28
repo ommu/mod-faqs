@@ -30,8 +30,8 @@
 		<?php //begin.Messages ?>
 		
 		<div class="form-group row">
-			<?php echo $form->labelEx($model,'cat_id', array('class'=>'col-form-label col-lg-4 col-md-3 col-sm-12')); ?>
-			<div class="col-lg-8 col-md-9 col-sm-12">
+			<?php echo $form->labelEx($model,'cat_id', array('class'=>'col-form-label col-lg-3 col-md-3 col-sm-12')); ?>
+			<div class="col-lg-6 col-md-9 col-sm-12">
 				<?php if(FaqCategory::getCategory('group') != null) {
 					echo $form->dropDownList($model,'cat_id', FaqCategory::getCategory('group'), array('class'=>'form-control'));
 				} else {
@@ -42,8 +42,8 @@
 		</div>
 
 		<div class="form-group row">
-			<?php echo $form->labelEx($model,'questions', array('class'=>'col-form-label col-lg-4 col-md-3 col-sm-12')); ?>
-			<div class="col-lg-8 col-md-9 col-sm-12">
+			<?php echo $form->labelEx($model,'questions', array('class'=>'col-form-label col-lg-3 col-md-3 col-sm-12')); ?>
+			<div class="col-lg-6 col-md-9 col-sm-12">
 				<?php
 				if(!$model->getErrors())
 					$model->questions = Phrase::trans($model->question);
@@ -53,8 +53,8 @@
 		</div>
 
 		<div class="form-group row">
-			<?php echo $form->labelEx($model,'answers', array('class'=>'col-form-label col-lg-4 col-md-3 col-sm-12')); ?>
-			<div class="col-lg-8 col-md-9 col-sm-12">
+			<?php echo $form->labelEx($model,'answers', array('class'=>'col-form-label col-lg-3 col-md-3 col-sm-12')); ?>
+			<div class="col-lg-6 col-md-9 col-sm-12">
 				<?php
 				if(!$model->getErrors())
 					$model->answers = Phrase::trans($model->answer);
@@ -64,8 +64,8 @@
 		</div>
 
 		<div class="form-group row publish">
-			<?php echo $form->labelEx($model,'publish', array('class'=>'col-form-label col-lg-4 col-md-3 col-sm-12')); ?>
-			<div class="col-lg-8 col-md-9 col-sm-12">
+			<?php echo $form->labelEx($model,'publish', array('class'=>'col-form-label col-lg-3 col-md-3 col-sm-12')); ?>
+			<div class="col-lg-6 col-md-9 col-sm-12">
 				<?php echo $form->checkBox($model,'publish', array('class'=>'form-control')); ?>
 				<?php echo $form->labelEx($model,'publish'); ?>
 				<?php echo $form->error($model,'publish'); ?>
