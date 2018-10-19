@@ -16,7 +16,6 @@
 <?php $form=$this->beginWidget('application.libraries.yii-traits.system.OActiveForm', array(
 	'id'=>'faqs-form',
 	'enableAjaxValidation'=>true,
-	//'htmlOptions' => array('enctype' => 'multipart/form-data')
 )); ?>
 
 <div class="dialog-content">
@@ -47,7 +46,7 @@
 				<?php
 				if(!$model->getErrors())
 					$model->questions = Phrase::trans($model->question);
-				echo $form->textArea($model,'questions', array('maxlength'=>128,'class'=>'form-control')); ?>
+				echo $form->textArea($model,'questions', array('maxlength'=>128, 'class'=>'form-control')); ?>
 				<?php echo $form->error($model,'questions'); ?>
 			</div>
 		</div>

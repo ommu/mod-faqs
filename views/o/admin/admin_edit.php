@@ -15,7 +15,7 @@
 	$this->breadcrumbs=array(
 		'Faqs'=>array('manage'),
 		$model->faq_id=>array('view','id'=>$model->faq_id),
-		'Update',
+		Yii::t('phrase', 'Update'),
 	);
 ?>
 

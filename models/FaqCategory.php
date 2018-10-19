@@ -256,7 +256,7 @@ class FaqCategory extends CActiveRecord
 			if(!Yii::app()->getRequest()->getParam('type')) {
 				$this->defaultColumns[] = array(
 					'name' => 'publish',
-					'value' => 'Utility::getPublish(Yii::app()->controller->createUrl("publish", array("id"=>$data->cat_id)), $data->publish, 1)',
+					'value' => 'Utility::getPublish(Yii::app()->controller->createUrl(\'publish\', array(\'id\'=>$data->cat_id)), $data->publish, 1)',
 					'htmlOptions' => array(
 						'class' => 'center',
 					),
@@ -358,7 +358,7 @@ class FaqCategory extends CActiveRecord
 			);
 		}
 		//$criteria->select = '';
-		//$criteria->limit = 100,		
+		//$criteria->limit = 100,
 		$model = self::model()->find($criteria);
 		
 		$data = '';		

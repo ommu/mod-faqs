@@ -16,7 +16,6 @@
 <?php $form=$this->beginWidget('application.libraries.yii-traits.system.OActiveForm', array(
 	'id'=>'faq-category-form',
 	'enableAjaxValidation'=>true,
-	//'htmlOptions' => array('enctype' => 'multipart/form-data')
 )); ?>
 
 <div class="dialog-content">
@@ -47,7 +46,7 @@
 				<?php 
 				if(!$model->getErrors())
 					$model->category = Phrase::trans($model->name);
-				echo $form->textArea($model,'category', array('maxlength'=>64,'class'=>'form-control')); ?>
+				echo $form->textArea($model,'category', array('maxlength'=>64, 'class'=>'form-control')); ?>
 				<?php echo $form->error($model,'category'); ?>
 			</div>
 		</div>
@@ -58,7 +57,7 @@
 				<?php 
 				if(!$model->getErrors())
 					$model->description = Phrase::trans($model->desc);
-				echo $form->textArea($model,'description', array('maxlength'=>256,'class'=>'form-control')); ?>
+				echo $form->textArea($model,'description', array('maxlength'=>256, 'class'=>'form-control')); ?>
 				<?php echo $form->error($model,'description'); ?>
 			</div>
 		</div>
