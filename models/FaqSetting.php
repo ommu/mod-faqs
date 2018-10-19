@@ -4,7 +4,7 @@
  * 
  * @author Eko Hariyanto <haryeko29@gmail.com>
  * @contact (+62)857-4381-4273
- * @copyright Copyright (c) 2018 ECC UGM (ecc.ft.ugm.ac.id)
+ * @copyright Copyright (c) 2018 Ommu Platform (www.ommu.co)
  * @created date 4 January 2018, 14:32 WIB
  * @modified date 27 April 2018, 00:35 WIB
  * @modified by Putra Sudaryanto <putra@sudaryanto.id>
