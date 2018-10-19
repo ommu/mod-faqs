@@ -242,7 +242,7 @@ class FaqCategory extends CActiveRecord
 			/*
 			$this->defaultColumns[] = array(
 				'name' => 'dependency',
-				'value' => '$data->dependency != 0 ? Phrase::trans(FaqCategory::model()->findByPk($data->dependency)->name) : "-"',
+				'value' => '$data->dependency != 0 ? Phrase::trans(FaqCategory::model()->findByPk($data->dependency)->name) : \'-\'',
 			);
 			*/
 			$this->defaultColumns[] = array(
