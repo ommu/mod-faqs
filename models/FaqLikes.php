@@ -38,7 +38,7 @@ use ommu\users\models\Users;
 
 class FaqLikes extends \app\components\ActiveRecord
 {
-	use \ommu\traits\GridViewTrait;
+	use \ommu\traits\UtilityTrait;
 
 	public $gridForbiddenColumn = ['likes_ip','updated_date'];
 

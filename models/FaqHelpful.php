@@ -40,7 +40,7 @@ use ommu\users\models\Users;
 
 class FaqHelpful extends \app\components\ActiveRecord
 {
-	use \ommu\traits\GridViewTrait;
+	use \ommu\traits\UtilityTrait;
 
 	public $gridForbiddenColumn = ['message','helpful_ip','modified_date', 'modified_search'];
 

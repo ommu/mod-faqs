@@ -52,7 +52,6 @@ use ommu\faq\models\view\Faqs as FaqsView;
 class Faqs extends \app\components\ActiveRecord
 {
 	use \ommu\traits\UtilityTrait;
-	use \ommu\traits\GridViewTrait;
 
 	public $gridForbiddenColumn = ['answer_i','orders','modified_date','modified_search','updated_date','slug'];
 	public $question_i;

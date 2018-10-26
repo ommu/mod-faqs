@@ -33,7 +33,7 @@ use yii\helpers\Html;
 
 class FaqLikeHistory extends \app\components\ActiveRecord
 {
-	use \ommu\traits\GridViewTrait;
+	use \ommu\traits\UtilityTrait;
 
 	public $gridForbiddenColumn = [];
 

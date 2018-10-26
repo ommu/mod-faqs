@@ -36,7 +36,7 @@ use ommu\users\models\Users;
 
 class FaqSetting extends \app\components\ActiveRecord
 {
-	use \ommu\traits\GridViewTrait;
+	use \ommu\traits\UtilityTrait;
 
 	public $gridForbiddenColumn = [];
 
