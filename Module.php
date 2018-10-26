@@ -3,7 +3,6 @@ namespace ommu\faq;
 
 /**
  * faq module definition class
- * version: 0.0.1
  *
  * @copyright Copyright (c) 2018 Ommu Platform (www.ommu.co)
  * @link https://github.com/ommu/mod-faqs

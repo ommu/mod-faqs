@@ -159,7 +159,7 @@ class FaqLikeHistory extends \app\components\ActiveRecord
 			'attribute' => 'publish',
 			'filter' => $this->filterYesNo(),
 			'value' => function($model, $key, $index, $column) {
-				return $model->publish ? Yii::t('app', 'Yes') : Yii::t('app', 'No');
+				return $this->filterYesNo($model->publish);
 			},
 			'contentOptions' => ['class'=>'center'],
 			'format' => 'raw',

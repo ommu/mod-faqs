@@ -206,7 +206,7 @@ class FaqHelpful extends \app\components\ActiveRecord
 			'attribute' => 'helpful',
 			'filter' => $this->filterYesNo(),
 			'value' => function($model, $key, $index, $column) {
-				return $model->helpful == 1 ? Yii::t('app', 'Yes') : Yii::t('app', 'No');
+				return $this->filterYesNo($model->helpful);
 			},
 			'contentOptions' => ['class'=>'center'],
 			'format' => 'raw',
