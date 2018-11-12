@@ -24,7 +24,7 @@ use ommu\faq\models\FaqLikeHistory as FaqLikeHistoryModel;
 class FaqLikeHistory extends FaqLikeHistoryModel
 {
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function rules()
 	{
@@ -36,7 +36,7 @@ class FaqLikeHistory extends FaqLikeHistoryModel
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function scenarios()
 	{

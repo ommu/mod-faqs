@@ -25,7 +25,7 @@ class FaqHelpfulQuery extends \yii\db\ActiveQuery
 	*/
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 * @return \ommu\faq\models\FaqHelpful[]|array
 	 */
 	public function all($db = null)
@@ -34,7 +34,7 @@ class FaqHelpfulQuery extends \yii\db\ActiveQuery
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 * @return \ommu\faq\models\FaqHelpful|array|null
 	 */
 	public function one($db = null)

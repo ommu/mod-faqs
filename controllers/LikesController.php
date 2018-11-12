@@ -38,7 +38,7 @@ use ommu\faq\models\search\FaqLikes as FaqLikesSearch;
 class LikesController extends Controller
 {
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function behaviors()
 	{

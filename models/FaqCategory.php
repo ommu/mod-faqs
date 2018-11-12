@@ -191,7 +191,7 @@ class FaqCategory extends \app\components\ActiveRecord
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 * @return \ommu\faq\models\query\FaqCategoryQuery the active query used by this AR class.
 	 */
 	public static function find()

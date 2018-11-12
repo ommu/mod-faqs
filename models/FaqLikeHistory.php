@@ -98,7 +98,7 @@ class FaqLikeHistory extends \app\components\ActiveRecord
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 * @return \ommu\faq\models\query\FaqLikeHistoryQuery the active query used by this AR class.
 	 */
 	public static function find()

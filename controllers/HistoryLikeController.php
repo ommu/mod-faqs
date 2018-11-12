@@ -37,7 +37,7 @@ use ommu\faq\models\search\FaqLikeHistory as FaqLikeHistorySearch;
 class HistoryLikeController extends Controller
 {
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function behaviors()
 	{

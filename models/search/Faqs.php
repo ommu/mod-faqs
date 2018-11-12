@@ -25,7 +25,7 @@ use ommu\faq\models\Faqs as FaqsModel;
 class Faqs extends FaqsModel
 {
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function rules()
 	{
@@ -37,7 +37,7 @@ class Faqs extends FaqsModel
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function scenarios()
 	{

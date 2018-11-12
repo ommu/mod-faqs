@@ -25,7 +25,7 @@ class FaqViewHistoryQuery extends \yii\db\ActiveQuery
 	*/
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 * @return \ommu\faq\models\FaqViewHistory[]|array
 	 */
 	public function all($db = null)
@@ -34,7 +34,7 @@ class FaqViewHistoryQuery extends \yii\db\ActiveQuery
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 * @return \ommu\faq\models\FaqViewHistory|array|null
 	 */
 	public function one($db = null)

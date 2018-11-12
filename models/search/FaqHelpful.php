@@ -25,7 +25,7 @@ use ommu\faq\models\FaqHelpful as FaqHelpfulModel;
 class FaqHelpful extends FaqHelpfulModel
 {
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function rules()
 	{
@@ -37,7 +37,7 @@ class FaqHelpful extends FaqHelpfulModel
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function scenarios()
 	{

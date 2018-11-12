@@ -41,7 +41,7 @@ use ommu\faq\models\search\Faqs as FaqsSearch;
 class AdminController extends Controller
 {
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function behaviors()
 	{

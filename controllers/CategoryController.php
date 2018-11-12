@@ -41,7 +41,7 @@ use ommu\faq\models\search\FaqCategory as FaqCategorySearch;
 class CategoryController extends Controller
 {
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function behaviors()
 	{

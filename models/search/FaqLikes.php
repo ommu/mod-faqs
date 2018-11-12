@@ -24,7 +24,7 @@ use ommu\faq\models\FaqLikes as FaqLikesModel;
 class FaqLikes extends FaqLikesModel
 {
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function rules()
 	{
@@ -36,7 +36,7 @@ class FaqLikes extends FaqLikesModel
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function scenarios()
 	{

@@ -38,7 +38,7 @@ use ommu\faq\models\search\FaqViews as FaqViewsSearch;
 class ViewsController extends Controller
 {
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function behaviors()
 	{

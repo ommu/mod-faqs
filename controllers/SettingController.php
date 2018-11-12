@@ -37,7 +37,7 @@ use ommu\faq\models\search\FaqCategory as FaqCategorySearch;
 class SettingController extends Controller
 {
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function behaviors()
 	{

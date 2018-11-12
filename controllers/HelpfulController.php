@@ -37,7 +37,7 @@ use ommu\faq\models\search\FaqHelpful as FaqHelpfulSearch;
 class HelpfulController extends Controller
 {
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function behaviors()
 	{

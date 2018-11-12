@@ -25,7 +25,7 @@ use ommu\faq\models\FaqViewHistory as FaqViewHistoryModel;
 class FaqViewHistory extends FaqViewHistoryModel
 {
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function rules()
 	{
@@ -37,7 +37,7 @@ class FaqViewHistory extends FaqViewHistoryModel
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function scenarios()
 	{
