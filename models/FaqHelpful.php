@@ -182,11 +182,10 @@ class FaqHelpful extends \app\components\ActiveRecord
 		];
 		$this->templateColumns['helpful_date'] = [
 			'attribute' => 'helpful_date',
-			'filter' => Html::input('date', 'helpful_date', Yii::$app->request->get('helpful_date'), ['class'=>'form-control']),
 			'value' => function($model, $key, $index, $column) {
-				return !in_array($model->helpful_date, ['0000-00-00 00:00:00','1970-01-01 00:00:00','0002-12-02 07:07:12','-0001-11-30 00:00:00']) ? Yii::$app->formatter->format($model->helpful_date, 'datetime') : '-';
+				return Yii::$app->formatter->asDatetime($model->helpful_date, 'medium');
 			},
-			'format' => 'html',
+			'filter' => $this->filterDatepicker($this, 'helpful_date'),
 		];
 		$this->templateColumns['helpful_ip'] = [
 			'attribute' => 'helpful_ip',
@@ -196,11 +195,10 @@ class FaqHelpful extends \app\components\ActiveRecord
 		];
 		$this->templateColumns['modified_date'] = [
 			'attribute' => 'modified_date',
-			'filter' => Html::input('date', 'modified_date', Yii::$app->request->get('modified_date'), ['class'=>'form-control']),
 			'value' => function($model, $key, $index, $column) {
-				return !in_array($model->modified_date, ['0000-00-00 00:00:00','1970-01-01 00:00:00','0002-12-02 07:07:12','-0001-11-30 00:00:00']) ? Yii::$app->formatter->format($model->modified_date, 'datetime') : '-';
+				return Yii::$app->formatter->asDatetime($model->modified_date, 'medium');
 			},
-			'format' => 'html',
+			'filter' => $this->filterDatepicker($this, 'modified_date'),
 		];
 		$this->templateColumns['helpful'] = [
 			'attribute' => 'helpful',
