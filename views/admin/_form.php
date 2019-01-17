@@ -48,7 +48,7 @@ echo $form->field($model, 'cat_id', ['template' => '{label}<div class="col-md-9 
 	->label($model->getAttributeLabel('question_i'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
 
 <?php echo $form->field($model, 'answer_i', ['template' => '{label}<div class="col-md-9 col-sm-9 col-xs-12">{input}{error}</div>'])
-	->textarea(['rows'=>2,'rows'=>6])
+	->textarea(['rows'=>6, 'cols'=>50])
 	->widget(Redactor::className(), ['clientOptions' => $redactorOptions])
 	->label($model->getAttributeLabel('answer_i'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
 

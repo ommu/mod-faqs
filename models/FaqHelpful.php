@@ -235,10 +235,13 @@ class FaqHelpful extends \app\components\ActiveRecord
 	public function beforeValidate() 
 	{
 		if(parent::beforeValidate()) {
-			if($this->isNewRecord)
-				$this->user_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
-			else
-				$this->modified_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
+			if($this->isNewRecord) {
+				if($this->user_id == null)
+					$this->user_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
+			} else {
+				if($this->modified_id == null)
+					$this->modified_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
+			}
 
 			$this->helpful_ip = $_SERVER['REMOTE_ADDR'];
 		}
