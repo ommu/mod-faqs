@@ -185,8 +185,7 @@ class FaqViews extends \app\components\ActiveRecord
 			'attribute' => 'views',
 			'filter' => false,
 			'value' => function($model, $key, $index, $column) {
-				$url = Url::to(['history-view/index', 'view'=>$model->primaryKey]);
-				return Html::a($model->views, $url);
+				return Html::a($model->views, ['history-view/index', 'view'=>$model->primaryKey]);
 			},
 			'contentOptions' => ['class'=>'center'],
 			'format' => 'html',

@@ -277,8 +277,7 @@ class FaqCategory extends \app\components\ActiveRecord
 			'attribute' => 'faq_search',
 			'filter' => false,
 			'value' => function($model, $key, $index, $column) {
-				$url = Url::to(['admin/index', 'category'=>$model->primaryKey, 'publish' => 1]);
-				return Html::a($model->view->faqs ? $model->view->faqs : 0, $url);
+				return Html::a($model->view->faqs ? $model->view->faqs : 0, ['admin/index', 'category'=>$model->primaryKey, 'publish' => 1]);
 			},
 			'contentOptions' => ['class'=>'center'],
 			'format' => 'html',
@@ -287,8 +286,7 @@ class FaqCategory extends \app\components\ActiveRecord
 			'attribute' => 'faq_all_search',
 			'filter' => false,
 			'value' => function($model, $key, $index, $column) {
-				$url = Url::to(['admin/index', 'category'=>$model->primaryKey]);
-				return Html::a($model->view->faq_all ? $model->view->faq_all : 0, $url);
+				return Html::a($model->view->faq_all ? $model->view->faq_all : 0, ['admin/index', 'category'=>$model->primaryKey]);
 			},
 			'contentOptions' => ['class'=>'center'],
 			'format' => 'html',
