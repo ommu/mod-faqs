@@ -19,10 +19,10 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-use app\components\grid\GridView;
+use app\components\widgets\GridView;
 use yii\widgets\Pjax;
-use app\components\menu\MenuContent;
-use app\components\menu\MenuOption;
+use app\components\widgets\MenuContent;
+use app\components\widgets\MenuOption;
 use app\components\Utility;
 
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Settings'), 'url' => ['index']];
