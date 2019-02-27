@@ -31,6 +31,7 @@ $redactorOptions = [
 ?>
 
 <?php $form = ActiveForm::begin([
+	'options' => ['class'=>'form-horizontal form-label-left'],
 	'enableClientValidation' => true,
 	'enableAjaxValidation' => false,
 	//'enableClientScript' => true,
@@ -39,26 +40,26 @@ $redactorOptions = [
 <?php //echo $form->errorSummary($model);?>
 
 <?php $category = FaqCategory::getCategory(1);
-echo $form->field($model, 'parent_id', ['template' => '{label}<div class="col-md-9 col-sm-9 col-xs-12">{input}{error}</div>'])
+echo $form->field($model, 'parent_id')
 	->dropDownList($category, ['prompt'=>''])
-	->label($model->getAttributeLabel('parent_id'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+	->label($model->getAttributeLabel('parent_id')); ?>
 
-<?php echo $form->field($model, 'cat_name_i', ['template' => '{label}<div class="col-md-9 col-sm-9 col-xs-12">{input}{error}</div>'])
+<?php echo $form->field($model, 'cat_name_i')
 	->textInput(['maxlength' => true])
-	->label($model->getAttributeLabel('cat_name_i'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+	->label($model->getAttributeLabel('cat_name_i')); ?>
 
-<?php echo $form->field($model, 'cat_desc_i', ['template' => '{label}<div class="col-md-9 col-sm-9 col-xs-12">{input}{error}</div>'])
+<?php echo $form->field($model, 'cat_desc_i')
 	->textarea(['rows'=>6, 'cols'=>50])
 	->widget(Redactor::className(), ['clientOptions' => $redactorOptions])
-	->label($model->getAttributeLabel('cat_desc_i'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+	->label($model->getAttributeLabel('cat_desc_i')); ?>
 
-<?php echo $form->field($model, 'orders', ['template' => '{label}<div class="col-md-9 col-sm-9 col-xs-12">{input}{error}</div>'])
+<?php echo $form->field($model, 'orders')
 	->textInput(['type' => 'number', 'min' => '0'])
-	->label($model->getAttributeLabel('orders'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']);?>
+	->label($model->getAttributeLabel('orders'));?>
 
-<?php echo $form->field($model, 'publish', ['template' => '{label}<div class="col-md-9 col-sm-9 col-xs-12 checkbox">{input}{error}</div>'])
+<?php echo $form->field($model, 'publish')
 	->checkbox(['label'=>''])
-	->label($model->getAttributeLabel('publish'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+	->label($model->getAttributeLabel('publish')); ?>
 
 <div class="ln_solid"></div>
 <div class="form-group">
