@@ -44,7 +44,7 @@ $permission = [
 	0 => Yii::t('app', 'No, the public cannot view faq.'),
 ];
 echo $form->field($model, 'permission', ['template' => '{label}{beginWrapper}{hint}{input}{error}{endWrapper}'])
-	->radioList($permission, ['class'=>'desc pt-10', 'separator' => '<br />'])
+	->radioList($permission)
 	->label($model->getAttributeLabel('permission'))
 	->hint(Yii::t('app', 'Select whether or not you want to let the public (visitors that are not logged-in) to view the following sections of your social network. In some cases (such as Profiles, Blogs, and Albums), if you have given them the option, your users will be able to make their pages private even though you have made them publically viewable here. For more permissions settings, please visit the General Settings page.')); ?>
 
@@ -57,8 +57,8 @@ echo $form->field($model, 'permission', ['template' => '{label}{beginWrapper}{hi
 	->label($model->getAttributeLabel('meta_description')); ?>
 
 <div class="ln_solid"></div>
-<div class="form-group">
-	<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+<div class="form-group row">
+	<div class="col-md-6 col-sm-9 col-xs-12 offset-sm-3">
 		<?php echo Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']); ?>
 	</div>
 </div>
