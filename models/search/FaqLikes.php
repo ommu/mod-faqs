@@ -60,9 +60,12 @@ class FaqLikes extends FaqLikesModel
 	 * @param array $params
 	 * @return ActiveDataProvider
 	 */
-	public function search($params)
+	public function search($params, $column=null)
 	{
-		$query = FaqLikesModel::find()->alias('t');
+		if(!($column && is_array($column)))
+			$query = FaqLikesModel::find()->alias('t');
+		else
+			$query = FaqLikesModel::find()->alias('t')->select($column);
 		$query->joinWith([
 			'faq faq', 
 			'faq.questionRltn questionRltn', 

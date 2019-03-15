@@ -61,9 +61,12 @@ class FaqViewHistory extends FaqViewHistoryModel
 	 * @param array $params
 	 * @return ActiveDataProvider
 	 */
-	public function search($params)
+	public function search($params, $column=null)
 	{
-		$query = FaqViewHistoryModel::find()->alias('t');
+		if(!($column && is_array($column)))
+			$query = FaqViewHistoryModel::find()->alias('t');
+		else
+			$query = FaqViewHistoryModel::find()->alias('t')->select($column);
 		$query->joinWith([
 			'view.faq faq', 
 			'view.faq.questionRltn questionRltn', 

@@ -60,9 +60,12 @@ class FaqLikeHistory extends FaqLikeHistoryModel
 	 * @param array $params
 	 * @return ActiveDataProvider
 	 */
-	public function search($params)
+	public function search($params, $column=null)
 	{
-		$query = FaqLikeHistoryModel::find()->alias('t');
+		if(!($column && is_array($column)))
+			$query = FaqLikeHistoryModel::find()->alias('t');
+		else
+			$query = FaqLikeHistoryModel::find()->alias('t')->select($column);
 		$query->joinWith([
 			'like.faq faq', 
 			'like.faq.questionRltn questionRltn', 

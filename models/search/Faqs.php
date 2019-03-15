@@ -61,9 +61,12 @@ class Faqs extends FaqsModel
 	 * @param array $params
 	 * @return ActiveDataProvider
 	 */
-	public function search($params)
+	public function search($params, $column=null)
 	{
-		$query = FaqsModel::find()->alias('t');
+		if(!($column && is_array($column)))
+			$query = FaqsModel::find()->alias('t');
+		else
+			$query = FaqsModel::find()->alias('t')->select($column);
 		$query->joinWith([
 			'view view', 
 			'questionRltn questionRltn', 

@@ -61,9 +61,12 @@ class FaqHelpful extends FaqHelpfulModel
 	 * @param array $params
 	 * @return ActiveDataProvider
 	 */
-	public function search($params)
+	public function search($params, $column=null)
 	{
-		$query = FaqHelpfulModel::find()->alias('t');
+		if(!($column && is_array($column)))
+			$query = FaqHelpfulModel::find()->alias('t');
+		else
+			$query = FaqHelpfulModel::find()->alias('t')->select($column);
 		$query->joinWith([
 			'faq faq', 
 			'faq.questionRltn questionRltn', 

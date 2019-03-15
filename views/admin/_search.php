@@ -26,7 +26,8 @@ use app\components\ActiveForm;
 		'action' => ['index'],
 		'method' => 'get',
 	]); ?>
-		<?php echo $form->field($model, 'publish')->checkbox();?>
+		<?php echo $form->field($model, 'publish')
+			->checkbox();?>
 
 		<?php echo $form->field($model, 'category_search');?>
 
