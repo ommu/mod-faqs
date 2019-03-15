@@ -24,7 +24,6 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Faq Likes'), 'url' =
 $this->params['breadcrumbs'][] = $this->title;
 
 $this->params['menu']['content'] = [
-	['label' => Yii::t('app', 'Back To Manage'), 'url' => Url::to(['index']), 'icon' => 'table'],
 	['label' => Yii::t('app', 'Delete'), 'url' => Url::to(['delete', 'id' => $model->like_id]), 'htmlOptions' => ['data-confirm'=>Yii::t('app', 'Are you sure you want to delete this item?'), 'data-method'=>'post'], 'icon' => 'trash'],
 ];
 ?>
