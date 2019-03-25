@@ -234,6 +234,7 @@ class FaqCategory extends \app\components\ActiveRecord
 				'attribute' => 'creation_search',
 				'value' => function($model, $key, $index, $column) {
 					return isset($model->creation) ? $model->creation->displayname : '-';
+					// return $model->creationDisplayname;
 				},
 			];
 		}
@@ -249,6 +250,7 @@ class FaqCategory extends \app\components\ActiveRecord
 				'attribute' => 'modified_search',
 				'value' => function($model, $key, $index, $column) {
 					return isset($model->modified) ? $model->modified->displayname : '-';
+					// return $model->modifiedDisplayname;
 				},
 			];
 		}
@@ -267,27 +269,27 @@ class FaqCategory extends \app\components\ActiveRecord
 		];
 		$this->templateColumns['orders'] = [
 			'attribute' => 'orders',
-			'filter' => false,
 			'value' => function($model, $key, $index, $column) {
 				return $model->orders;
 			},
+			'filter' => false,
 			'contentOptions' => ['class'=>'center'],
 		];
 		$this->templateColumns['faq_search'] = [
 			'attribute' => 'faq_search',
-			'filter' => false,
 			'value' => function($model, $key, $index, $column) {
 				return Html::a($model->view->faqs ? $model->view->faqs : 0, ['admin/index', 'category'=>$model->primaryKey, 'publish' => 1]);
 			},
+			'filter' => false,
 			'contentOptions' => ['class'=>'center'],
 			'format' => 'html',
 		];
 		$this->templateColumns['faq_all_search'] = [
 			'attribute' => 'faq_all_search',
-			'filter' => false,
 			'value' => function($model, $key, $index, $column) {
 				return Html::a($model->view->faq_all ? $model->view->faq_all : 0, ['admin/index', 'category'=>$model->primaryKey]);
 			},
+			'filter' => false,
 			'contentOptions' => ['class'=>'center'],
 			'format' => 'html',
 		];

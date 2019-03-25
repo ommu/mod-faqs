@@ -183,10 +183,10 @@ class FaqViews extends \app\components\ActiveRecord
 		];
 		$this->templateColumns['views'] = [
 			'attribute' => 'views',
-			'filter' => false,
 			'value' => function($model, $key, $index, $column) {
 				return Html::a($model->views, ['history-view/index', 'view'=>$model->primaryKey]);
 			},
+			'filter' => false,
 			'contentOptions' => ['class'=>'center'],
 			'format' => 'html',
 		];

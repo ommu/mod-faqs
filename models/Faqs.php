@@ -259,6 +259,7 @@ class Faqs extends \app\components\ActiveRecord
 				'attribute' => 'creation_search',
 				'value' => function($model, $key, $index, $column) {
 					return isset($model->creation) ? $model->creation->displayname : '-';
+					// return $model->creationDisplayname;
 				},
 			];
 		}
@@ -274,6 +275,7 @@ class Faqs extends \app\components\ActiveRecord
 				'attribute' => 'modified_search',
 				'value' => function($model, $key, $index, $column) {
 					return isset($model->modified) ? $model->modified->displayname : '-';
+					// return $model->modifiedDisplayname;
 				},
 			];
 		}
@@ -292,35 +294,35 @@ class Faqs extends \app\components\ActiveRecord
 		];
 		$this->templateColumns['orders'] = [
 			'attribute' => 'orders',
-			'filter' => false,
 			'value' => function($model, $key, $index, $column) {
 				return $model->orders;
 			},
+			'filter' => false,
 		];
 		$this->templateColumns['helpful_search'] = [
 			'attribute' => 'helpful_search',
-			'filter' => false,
 			'value' => function($model, $key, $index, $column) {
 				return Html::a($model->view->helpfuls ? $model->view->helpfuls : 0, ['helpful/index', 'faq'=>$model->primaryKey]);
 			},
+			'filter' => false,
 			'contentOptions' => ['class'=>'center'],
 			'format' => 'html',
 		];
 		$this->templateColumns['view_search'] = [
 			'attribute' => 'view_search',
-			'filter' => false,
 			'value' => function($model, $key, $index, $column) {
 				return Html::a($model->view->views ? $model->view->views : 0, ['views/index', 'faq'=>$model->primaryKey, 'publish' => 1]);
 			},
+			'filter' => false,
 			'contentOptions' => ['class'=>'center'],
 			'format' => 'html',
 		];
 		$this->templateColumns['like_search'] = [
 			'attribute' => 'like_search',
-			'filter' => false,
 			'value' => function($model, $key, $index, $column) {
 				return Html::a($model->view->likes ? $model->view->likes : 0, ['likes/index', 'faq'=>$model->primaryKey, 'publish' => 1]);
 			},
+			'filter' => false,
 			'contentOptions' => ['class'=>'center'],
 			'format' => 'html',
 		];

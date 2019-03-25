@@ -148,10 +148,10 @@ class FaqLikeHistory extends \app\components\ActiveRecord
 		];
 		$this->templateColumns['publish'] = [
 			'attribute' => 'publish',
-			'filter' => $this->filterYesNo(),
 			'value' => function($model, $key, $index, $column) {
 				return $this->filterYesNo($model->publish);
 			},
+			'filter' => $this->filterYesNo(),
 			'contentOptions' => ['class'=>'center'],
 			'format' => 'raw',
 		];
