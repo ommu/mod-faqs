@@ -153,7 +153,7 @@ class CategoryController extends Controller
 		$this->view->title = Yii::t('app', 'Detail {model-class}: {cat-name}', ['model-class' => 'Faq Category', 'cat-name' => $model->title->message]);
 		$this->view->description = '';
 		$this->view->keywords = '';
-		return $this->render('admin_view', [
+		return $this->oRender('admin_view', [
 			'model' => $model,
 		]);
 	}

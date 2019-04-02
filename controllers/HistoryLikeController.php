@@ -96,7 +96,7 @@ class HistoryLikeController extends Controller
 		$this->view->title = Yii::t('app', 'Detail {model-class}: {faq-id}', ['model-class' => 'Faq Like History', 'faq-id' => $model->like->faq->questionRltn->message]);
 		$this->view->description = '';
 		$this->view->keywords = '';
-		return $this->render('admin_view', [
+		return $this->oRender('admin_view', [
 			'model' => $model,
 		]);
 	}
