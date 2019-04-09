@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Settings'), 'url' =>
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
 $this->params['menu']['content'] = [
-	['label' => Yii::t('app', 'Add Category'), 'url' => Url::to(['category/create']), 'icon' => 'plus-square'],
+	['label' => Yii::t('app', 'Add Category'), 'url' => Url::to(['category/create']), 'icon' => 'plus-square', 'htmlOptions' => ['class'=>'btn btn-success btn-sm']],
 ];
 $this->params['menu']['option'] = [
 	//['label' => Yii::t('app', 'Search'), 'url' => 'javascript:void(0);'],
