@@ -4,7 +4,7 @@
  * @var $this yii\web\View
  * @var $this ommu\faq\controllers\SettingController
  * @var $model ommu\faq\models\FaqSetting
- * @var $form yii\widgets\ActiveForm
+ * @var $form app\components\widgets\ActiveForm
  *
  * @author Eko Hariyanto <haryeko29@gmail.com>
  * @contact (+62)857-4381-4273
@@ -90,7 +90,7 @@ echo GridView::widget([
 </div>
 
 <div class="col-md-12 col-sm-12 col-xs-12 col-12">
-	<?php echo \app\components\widgets\Alert::widget(); ?>
+	<?php echo \app\components\widgets\Alert::widget(['closeButton'=>false]); ?>
 
 	<div class="x_panel">
 		<div class="x_content">

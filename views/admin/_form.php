@@ -4,7 +4,7 @@
  * @var $this yii\web\View
  * @var $this ommu\faq\controllers\AdminController
  * @var $model ommu\faq\models\Faqs
- * @var $form yii\widgets\ActiveForm
+ * @var $form app\components\widgets\ActiveForm
  *
  * @author Eko Hariyanto <haryeko29@gmail.com>
  * @contact (+62)857-4381-4273
@@ -18,7 +18,7 @@
  */
 
 use yii\helpers\Html;
-use app\components\ActiveForm;
+use app\components\widgets\ActiveForm;
 use yii\redactor\widgets\Redactor;
 use ommu\faq\models\FaqCategory;
 

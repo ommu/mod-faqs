@@ -4,7 +4,7 @@
  * @var $this yii\web\View
  * @var $this ommu\faq\controllers\CategoryController
  * @var $model ommu\faq\models\FaqCategory
- * @var $form yii\widgets\ActiveForm
+ * @var $form app\components\widgets\ActiveForm
  *
  * @author Eko Hariyanto <haryeko29@gmail.com>
  * @contact (+62)857-4381-4273
