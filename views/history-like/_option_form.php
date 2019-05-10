@@ -1,7 +1,7 @@
 <?php
 /**
  * Faq Like Histories (faq-like-history)
- * @var $this yii\web\View
+ * @var $this app\components\View
  * @var $this ommu\faq\controllers\HistoryLikeController
  * @var $model ommu\faq\models\search\FaqLikeHistory
  * @var $form yii\widgets\ActiveForm

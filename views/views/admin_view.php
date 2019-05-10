@@ -1,7 +1,7 @@
 <?php
 /**
  * Faq Views (faq-views)
- * @var $this yii\web\View
+ * @var $this app\components\View
  * @var $this ommu\faq\controllers\ViewsController
  * @var $model ommu\faq\models\FaqViews
  *

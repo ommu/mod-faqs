@@ -1,7 +1,7 @@
 <?php
 /**
  * Faq Settings (faq-setting)
- * @var $this yii\web\View
+ * @var $this app\components\View
  * @var $this ommu\faq\controllers\SettingController
  * @var $model ommu\faq\models\FaqSetting
  * @var $form app\components\widgets\ActiveForm

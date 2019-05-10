@@ -1,7 +1,7 @@
 <?php
 /**
  * Faq Categories (faq-category)
- * @var $this yii\web\View
+ * @var $this app\components\View
  * @var $this ommu\faq\controllers\CategoryController
  * @var $model ommu\faq\models\search\FaqCategory
  * @var $form yii\widgets\ActiveForm

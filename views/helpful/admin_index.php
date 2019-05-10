@@ -1,7 +1,7 @@
 <?php
 /**
  * Faq Helpfuls (faq-helpful)
- * @var $this yii\web\View
+ * @var $this app\components\View
  * @var $this ommu\faq\controllers\HelpfulController
  * @var $model ommu\faq\models\FaqHelpful
  *

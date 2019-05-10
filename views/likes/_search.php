@@ -1,7 +1,7 @@
 <?php
 /**
  * Faq Likes (faq-likes)
- * @var $this yii\web\View
+ * @var $this app\components\View
  * @var $this ommu\faq\controllers\LikesController
  * @var $model ommu\faq\models\search\FaqLikes
  * @var $form yii\widgets\ActiveForm

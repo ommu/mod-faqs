@@ -1,7 +1,7 @@
 <?php
 /**
  * Faqs (faqs)
- * @var $this yii\web\View
+ * @var $this app\components\View
  * @var $this ommu\faq\controllers\AdminController
  * @var $model ommu\faq\models\search\Faqs
  * @var $form yii\widgets\ActiveForm
