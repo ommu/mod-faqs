@@ -1,7 +1,7 @@
 <?php
 /**
  * CategoryController
- * @var $this yii\web\View
+ * @var $this ommu\faq\controllers\CategoryController
  * @var $model ommu\faq\models\FaqCategory
  *
  * CategoryController implements the CRUD actions for FaqCategory model.

@@ -1,7 +1,7 @@
 <?php
 /**
  * SettingController
- * @var $this yii\web\View
+ * @var $this ommu\faq\controllers\SettingController
  * @var $model ommu\faq\models\FaqSetting
  *
  * SettingController implements the CRUD actions for FaqSetting model.

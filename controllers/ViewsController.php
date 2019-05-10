@@ -1,7 +1,7 @@
 <?php
 /**
  * ViewsController
- * @var $this yii\web\View
+ * @var $this ommu\faq\controllers\ViewsController
  * @var $model ommu\faq\models\FaqViews
  *
  * ViewsController implements the CRUD actions for FaqViews model.

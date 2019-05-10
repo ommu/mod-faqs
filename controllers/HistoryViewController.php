@@ -1,7 +1,7 @@
 <?php
 /**
  * HistoryViewController
- * @var $this yii\web\View
+ * @var $this ommu\faq\controllers\HistoryViewController
  * @var $model ommu\faq\models\FaqViewHistory
  *
  * HistoryViewController implements the CRUD actions for FaqViewHistory model.

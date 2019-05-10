@@ -1,7 +1,7 @@
 <?php
 /**
  * LikesController
- * @var $this yii\web\View
+ * @var $this ommu\faq\controllers\LikesController
  * @var $model ommu\faq\models\FaqLikes
  *
  * LikesController implements the CRUD actions for FaqLikes model.

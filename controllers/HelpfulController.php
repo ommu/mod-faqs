@@ -1,7 +1,7 @@
 <?php
 /**
  * HelpfulController
- * @var $this yii\web\View
+ * @var $this ommu\faq\controllers\HelpfulController
  * @var $model ommu\faq\models\FaqHelpful
  *
  * HelpfulController implements the CRUD actions for FaqHelpful model.

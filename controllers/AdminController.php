@@ -1,7 +1,7 @@
 <?php
 /**
  * AdminController
- * @var $this yii\web\View
+ * @var $this ommu\faq\controllers\AdminController
  * @var $model ommu\faq\models\Faqs
  *
  * AdminController implements the CRUD actions for Faqs model.

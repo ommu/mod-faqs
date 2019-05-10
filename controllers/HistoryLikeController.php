@@ -1,7 +1,7 @@
 <?php
 /**
  * HistoryLikeController
- * @var $this yii\web\View
+ * @var $this ommu\faq\controllers\HistoryLikeController
  * @var $model ommu\faq\models\FaqLikeHistory
  *
  * HistoryLikeController implements the CRUD actions for FaqLikeHistory model.
