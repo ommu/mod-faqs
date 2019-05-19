@@ -1,6 +1,7 @@
 {
 	"name": "ommu/mod-faq",
 	"description": "Frequency Asked Question Module from Ommu Platform",
+	"type": "ommu-module",
 	"keywords": [
 		"module",
 		"frequency-asked-question",
@@ -9,9 +10,8 @@
 		"ommu-platform",
 		"yii2"
 	],
-	"homepage": "https://github.com/ommu/mod-faqs",
-	"type": "ommu-module",
 	"license": "Apache-2.0",
+	"homepage": "https://github.com/ommu/mod-faqs",
 	"support": {
 		"issues": "https://github.com/ommu/mod-faqs/issues",
 		"wiki": "https://github.com/ommu/mod-faqs/wiki",
