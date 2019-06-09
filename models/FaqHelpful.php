@@ -86,7 +86,7 @@ class FaqHelpful extends \app\components\ActiveRecord
 			'helpful' => Yii::t('app', 'Helpful'),
 			'message' => Yii::t('app', 'Message'),
 			'helpful_date' => Yii::t('app', 'Helpful Date'),
-			'helpful_ip' => Yii::t('app', 'Helpful Ip'),
+			'helpful_ip' => Yii::t('app', 'Helpful IP'),
 			'modified_date' => Yii::t('app', 'Modified Date'),
 			'modified_id' => Yii::t('app', 'Modified'),
 			'category_search' => Yii::t('app', 'Category'),

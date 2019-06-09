@@ -24,7 +24,7 @@
  * @link https://github.com/ommu/mod-faqs
  *
  */
- 
+
 namespace ommu\faq\controllers;
 
 use Yii;

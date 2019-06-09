@@ -27,7 +27,7 @@
  * @link https://github.com/ommu/mod-faqs
  *
  */
- 
+
 namespace ommu\faq\controllers;
 
 use Yii;
@@ -99,6 +99,9 @@ class AdminController extends Controller
 
 		if(Yii::$app->request->isPost) {
 			$model->load(Yii::$app->request->post());
+			// $postData = Yii::$app->request->post();
+			// $model->load($postData);
+
 			if($model->save()) {
 				Yii::$app->session->setFlash('success', Yii::t('app', 'Faq success created.'));
 				return $this->redirect(['index']);
@@ -126,6 +129,8 @@ class AdminController extends Controller
 
 		if(Yii::$app->request->isPost) {
 			$model->load(Yii::$app->request->post());
+			// $postData = Yii::$app->request->post();
+			// $model->load($postData);
 
 			if($model->save()) {
 				Yii::$app->session->setFlash('success', Yii::t('app', 'Faq success updated.'));

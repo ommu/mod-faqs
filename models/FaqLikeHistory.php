@@ -74,7 +74,7 @@ class FaqLikeHistory extends \app\components\ActiveRecord
 			'publish' => Yii::t('app', 'Like'),
 			'like_id' => Yii::t('app', 'Like'),
 			'likes_date' => Yii::t('app', 'Likes Date'),
-			'likes_ip' => Yii::t('app', 'Likes Ip'),
+			'likes_ip' => Yii::t('app', 'Likes IP'),
 			'category_search' => Yii::t('app', 'Category'),
 			'faq_search' => Yii::t('app', 'Faq'),
 			'user_search' => Yii::t('app', 'User'),

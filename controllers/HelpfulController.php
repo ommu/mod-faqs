@@ -23,7 +23,7 @@
  * @link https://github.com/ommu/mod-faqs
  *
  */
- 
+
 namespace ommu\faq\controllers;
 
 use Yii;
@@ -108,8 +108,9 @@ class HelpfulController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->findModel($id)->delete();
-		
+		$model = $this->findModel($id);
+		$model->delete();
+
 		Yii::$app->session->setFlash('success', Yii::t('app', 'Faq helpful success deleted.'));
 		return $this->redirect(['index']);
 	}

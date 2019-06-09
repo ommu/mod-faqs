@@ -83,7 +83,7 @@ class FaqViews extends \app\components\ActiveRecord
 			'user_id' => Yii::t('app', 'User'),
 			'views' => Yii::t('app', 'Views'),
 			'view_date' => Yii::t('app', 'View Date'),
-			'view_ip' => Yii::t('app', 'View Ip'),
+			'view_ip' => Yii::t('app', 'View IP'),
 			'deleted_date' => Yii::t('app', 'Deleted Date'),
 			'category_search' => Yii::t('app', 'Category'),
 			'faq_search' => Yii::t('app', 'Faq'),

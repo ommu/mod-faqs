@@ -81,7 +81,7 @@ class FaqLikes extends \app\components\ActiveRecord
 			'faq_id' => Yii::t('app', 'Faq'),
 			'user_id' => Yii::t('app', 'User'),
 			'likes_date' => Yii::t('app', 'Likes Date'),
-			'likes_ip' => Yii::t('app', 'Likes Ip'),
+			'likes_ip' => Yii::t('app', 'Likes IP'),
 			'updated_date' => Yii::t('app', 'Updated Date'),
 			'category_search' => Yii::t('app', 'Category'),
 			'faq_search' => Yii::t('app', 'Faq'),

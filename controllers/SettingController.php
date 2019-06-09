@@ -23,7 +23,7 @@
  * @link https://github.com/ommu/mod-faqs
  *
  */
- 
+
 namespace ommu\faq\controllers;
 
 use Yii;
@@ -92,6 +92,8 @@ class SettingController extends Controller
 
 		if(Yii::$app->request->isPost) {
 			$model->load(Yii::$app->request->post());
+			// $postData = Yii::$app->request->post();
+			// $model->load($postData);
 
 			if($model->save()) {
 				Yii::$app->session->setFlash('success', Yii::t('app', 'Faq setting success updated.'));
@@ -119,8 +121,9 @@ class SettingController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->findModel($id)->delete();
-		
+		$model = $this->findModel($id);
+		$model->delete();
+
 		Yii::$app->session->setFlash('success', Yii::t('app', 'Faq setting success deleted.'));
 		return $this->redirect(['index']);
 	}
