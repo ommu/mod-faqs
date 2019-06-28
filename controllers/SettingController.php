@@ -99,6 +99,10 @@ class SettingController extends Controller
 				Yii::$app->session->setFlash('success', Yii::t('app', 'Faq setting success updated.'));
 				return $this->redirect(['update']);
 				//return $this->redirect(['view', 'id' => $model->id]);
+
+			} else {
+				if(Yii::$app->request->isAjax)
+					return \yii\helpers\Json::encode(\app\components\widgets\ActiveForm::validate($model));
 			}
 		}
 

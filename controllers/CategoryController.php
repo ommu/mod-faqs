@@ -136,6 +136,10 @@ class CategoryController extends Controller
 				Yii::$app->session->setFlash('success', Yii::t('app', 'Faq category success updated.'));
 				return $this->redirect(['index']);
 				//return $this->redirect(['view', 'id' => $model->cat_id]);
+
+			} else {
+				if(Yii::$app->request->isAjax)
+					return \yii\helpers\Json::encode(\app\components\widgets\ActiveForm::validate($model));
 			}
 		}
 
