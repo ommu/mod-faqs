@@ -71,7 +71,8 @@ class FaqLikeHistory extends FaqLikeHistoryModel
 			'like.faq.questionRltn questionRltn', 
 			'like.faq.category.title category', 
 			'like.user user',
-		]);
+		])
+		->groupBy(['id']);
 
 		// add conditions that should always apply here
 		$dataProvider = new ActiveDataProvider([

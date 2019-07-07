@@ -72,7 +72,8 @@ class FaqViewHistory extends FaqViewHistoryModel
 			'view.faq.questionRltn questionRltn', 
 			'view.faq.category.title category', 
 			'view.user user',
-		]);
+		])
+		->groupBy(['id']);
 
 		// add conditions that should always apply here
 		$dataProvider = new ActiveDataProvider([

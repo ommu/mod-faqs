@@ -71,7 +71,8 @@ class FaqViews extends FaqViewsModel
 			'faq.questionRltn questionRltn', 
 			'faq.category.title category', 
 			'user user',
-		]);
+		])
+		->groupBy(['view_id']);
 
 		// add conditions that should always apply here
 		$dataProvider = new ActiveDataProvider([

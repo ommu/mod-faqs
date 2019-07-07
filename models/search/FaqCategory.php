@@ -74,7 +74,8 @@ class FaqCategory extends FaqCategoryModel
 			'creation creation', 
 			'modified modified', 
 			'parent.title parent'
-		]);
+		])
+		->groupBy(['cat_id']);
 
 		// add conditions that should always apply here
 		$dataProvider = new ActiveDataProvider([

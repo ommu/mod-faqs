@@ -71,7 +71,8 @@ class FaqLikes extends FaqLikesModel
 			'faq.questionRltn questionRltn', 
 			'faq.category.title category', 
 			'user user',
-		]);
+		])
+		->groupBy(['like_id']);
 
 		// add conditions that should always apply here
 		$dataProvider = new ActiveDataProvider([

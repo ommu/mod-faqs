@@ -73,7 +73,8 @@ class FaqHelpful extends FaqHelpfulModel
 			'faq.category.title category', 
 			'user user',
 			'modified modified'
-		]);
+		])
+		->groupBy(['id']);
 
 		// add conditions that should always apply here
 		$dataProvider = new ActiveDataProvider([
