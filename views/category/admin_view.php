@@ -10,7 +10,7 @@
  * @copyright Copyright (c) 2018 Ommu Platform (www.ommu.co)
  * @created date 5 January 2018, 10:08 WIB
  * @modified date 27 April 2018, 12:54 WIB
- * @modified by Putra Sudaryanto <putra@sudaryanto.id>
+ * @modified by Putra Sudaryanto <putra@ommu.co>
  * @contact (+62)856-299-4114
  * @link https://github.com/ommu/mod-faqs
  *

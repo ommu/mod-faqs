@@ -7,7 +7,7 @@
  * @copyright Copyright (c) 2018 Ommu Platform (www.ommu.co)
  * @created date 9 January 2018, 08:31 WIB
  * @modified date 27 April 2018, 00:38 WIB
- * @modified by Putra Sudaryanto <putra@sudaryanto.id>
+ * @modified by Putra Sudaryanto <putra@ommu.co>
  * @contact (+62)856-299-4114
  * @link https://ecc.ft.ugm.ac.id
  *
