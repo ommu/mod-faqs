@@ -31,7 +31,7 @@ use yii\widgets\ActiveForm;
 
 		<?php echo $form->field($model, 'faq_search');?>
 
-		<?php echo $form->field($model, 'user_search');?>
+		<?php echo $form->field($model, 'userDisplayname');?>
 
 		<?php echo $form->field($model, 'likes_date')
 			->input('date');?>

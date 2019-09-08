@@ -42,13 +42,13 @@ class FaqHelpful extends \app\components\ActiveRecord
 {
 	use \ommu\traits\UtilityTrait;
 
-	public $gridForbiddenColumn = ['message','helpful_ip','modified_date', 'modified_search'];
+	public $gridForbiddenColumn = ['message','helpful_ip','modified_date', 'modifiedDisplayname'];
 
 	// Variable Search
 	public $category_search;
 	public $faq_search;
-	public $user_search;
-	public $modified_search;
+	public $userDisplayname;
+	public $modifiedDisplayname;
 
 	/**
 	 * @return string the associated database table name
@@ -91,8 +91,8 @@ class FaqHelpful extends \app\components\ActiveRecord
 			'modified_id' => Yii::t('app', 'Modified'),
 			'category_search' => Yii::t('app', 'Category'),
 			'faq_search' => Yii::t('app', 'Faq'),
-			'user_search' => Yii::t('app', 'User'),
-			'modified_search' => Yii::t('app', 'Modified'),
+			'userDisplayname' => Yii::t('app', 'User'),
+			'modifiedDisplayname' => Yii::t('app', 'Modified'),
 		];
 	}
 
@@ -162,8 +162,8 @@ class FaqHelpful extends \app\components\ActiveRecord
 			];
 		}
 		if(!Yii::$app->request->get('user')) {
-			$this->templateColumns['user_search'] = [
-				'attribute' => 'user_search',
+			$this->templateColumns['userDisplayname'] = [
+				'attribute' => 'userDisplayname',
 				'value' => function($model, $key, $index, $column) {
 					return isset($model->user) ? $model->user->displayname : '-';
 				},
@@ -205,8 +205,8 @@ class FaqHelpful extends \app\components\ActiveRecord
 			'format' => 'raw',
 		];
 		if(!Yii::$app->request->get('modified')) {
-			$this->templateColumns['modified_search'] = [
-				'attribute' => 'modified_search',
+			$this->templateColumns['modifiedDisplayname'] = [
+				'attribute' => 'modifiedDisplayname',
 				'value' => function($model, $key, $index, $column) {
 					return isset($model->modified) ? $model->modified->displayname : '-';
 					// return $model->modifiedDisplayname;

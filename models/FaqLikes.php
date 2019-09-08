@@ -45,7 +45,7 @@ class FaqLikes extends \app\components\ActiveRecord
 	// Variable Search
 	public $category_search;
 	public $faq_search;
-	public $user_search;
+	public $userDisplayname;
 
 	/**
 	 * @return string the associated database table name
@@ -85,7 +85,7 @@ class FaqLikes extends \app\components\ActiveRecord
 			'updated_date' => Yii::t('app', 'Updated Date'),
 			'category_search' => Yii::t('app', 'Category'),
 			'faq_search' => Yii::t('app', 'Faq'),
-			'user_search' => Yii::t('app', 'User'),
+			'userDisplayname' => Yii::t('app', 'User'),
 		];
 	}
 
@@ -155,8 +155,8 @@ class FaqLikes extends \app\components\ActiveRecord
 			];
 		}
 		if(!Yii::$app->request->get('user')) {
-			$this->templateColumns['user_search'] = [
-				'attribute' => 'user_search',
+			$this->templateColumns['userDisplayname'] = [
+				'attribute' => 'userDisplayname',
 				'value' => function($model, $key, $index, $column) {
 					return isset($model->user) ? $model->user->displayname : '-';
 				},

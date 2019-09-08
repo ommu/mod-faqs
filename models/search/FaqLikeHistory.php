@@ -31,7 +31,7 @@ class FaqLikeHistory extends FaqLikeHistoryModel
 		return [
 			[['id', 'publish', 'like_id'], 'integer'],
 			[['likes_date', 'likes_ip',
-				'category_search', 'faq_search', 'user_search'], 'safe'],
+				'category_search', 'faq_search', 'userDisplayname'], 'safe'],
 		];
 	}
 
@@ -88,7 +88,7 @@ class FaqLikeHistory extends FaqLikeHistoryModel
 			'asc' => ['questionRltn.message' => SORT_ASC],
 			'desc' => ['questionRltn.message' => SORT_DESC],
 		];
-		$attributes['user_search'] = [
+		$attributes['userDisplayname'] = [
 			'asc' => ['user.displayname' => SORT_ASC],
 			'desc' => ['user.displayname' => SORT_DESC],
 		];
@@ -118,7 +118,7 @@ class FaqLikeHistory extends FaqLikeHistoryModel
 
 		$query->andFilterWhere(['like', 't.likes_ip', $this->likes_ip])
 			->andFilterWhere(['like', 'questionRltn.message', $this->faq_search])
-			->andFilterWhere(['like', 'user.displayname', $this->user_search]);
+			->andFilterWhere(['like', 'user.displayname', $this->userDisplayname]);
 
 		return $dataProvider;
 	}

@@ -32,7 +32,7 @@ class FaqViewHistory extends FaqViewHistoryModel
 		return [
 			[['id', 'view_id'], 'integer'],
 			[['view_date', 'view_ip',
-				'category_search', 'faq_search', 'user_search'], 'safe'],
+				'category_search', 'faq_search', 'userDisplayname'], 'safe'],
 		];
 	}
 
@@ -89,7 +89,7 @@ class FaqViewHistory extends FaqViewHistoryModel
 			'asc' => ['questionRltn.message' => SORT_ASC],
 			'desc' => ['questionRltn.message' => SORT_DESC],
 		];
-		$attributes['user_search'] = [
+		$attributes['userDisplayname'] = [
 			'asc' => ['user.displayname' => SORT_ASC],
 			'desc' => ['user.displayname' => SORT_DESC],
 		];
@@ -118,7 +118,7 @@ class FaqViewHistory extends FaqViewHistoryModel
 
 		$query->andFilterWhere(['like', 't.view_ip', $this->view_ip])
 			->andFilterWhere(['like', 'questionRltn.message', $this->faq_search])
-			->andFilterWhere(['like', 'user.displayname', $this->user_search]);
+			->andFilterWhere(['like', 'user.displayname', $this->userDisplayname]);
 
 		return $dataProvider;
 	}

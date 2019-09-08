@@ -37,7 +37,7 @@ class FaqViewHistory extends \app\components\ActiveRecord
 	// Variable Search
 	public $category_search;
 	public $faq_search;
-	public $user_search;
+	public $userDisplayname;
 
 	/**
 	 * @return string the associated database table name
@@ -73,7 +73,7 @@ class FaqViewHistory extends \app\components\ActiveRecord
 			'view_ip' => Yii::t('app', 'View IP'),
 			'category_search' => Yii::t('app', 'Category'),
 			'faq_search' => Yii::t('app', 'Faq'),
-			'user_search' => Yii::t('app', 'User'),
+			'userDisplayname' => Yii::t('app', 'User'),
 		];
 	}
 
@@ -125,8 +125,8 @@ class FaqViewHistory extends \app\components\ActiveRecord
 					return isset($model->view->faq->questionRltn) ? $model->view->faq->questionRltn->message : '-';
 				},
 			];
-			$this->templateColumns['user_search'] = [
-				'attribute' => 'user_search',
+			$this->templateColumns['userDisplayname'] = [
+				'attribute' => 'userDisplayname',
 				'value' => function($model, $key, $index, $column) {
 					return isset($model->view->user) ? $model->view->user->displayname : '-';
 				},

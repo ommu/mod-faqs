@@ -61,7 +61,7 @@ $this->params['menu']['content'] = [
 			'visible' => !$small,
 		],
 		[
-			'attribute' => 'creation_search',
+			'attribute' => 'creationDisplayname',
 			'value' => isset($model->creation) ? $model->creation->displayname : '-',
 		],
 		[
@@ -70,7 +70,7 @@ $this->params['menu']['content'] = [
 			'visible' => !$small,
 		],
 		[
-			'attribute' => 'modified_search',
+			'attribute' => 'modifiedDisplayname',
 			'value' => isset($model->modified) ? $model->modified->displayname : '-',
 		],
 		[
@@ -80,4 +80,4 @@ $this->params['menu']['content'] = [
 		],
 		'slug',
 	],
-]) ?>
+]); ?>

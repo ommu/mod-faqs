@@ -54,14 +54,14 @@ class Faqs extends \app\components\ActiveRecord
 {
 	use \ommu\traits\UtilityTrait;
 
-	public $gridForbiddenColumn = ['answer_i','orders','modified_date','modified_search','updated_date','slug'];
+	public $gridForbiddenColumn = ['answer_i','orders','modified_date','modifiedDisplayname','updated_date','slug'];
 	public $question_i;
 	public $answer_i;
 
 	// Variable Search
 	public $category_search;
-	public $creation_search;
-	public $modified_search;
+	public $creationDisplayname;
+	public $modifiedDisplayname;
 	public $helpful_search;
 	public $view_search;
 	public $like_search;
@@ -125,8 +125,8 @@ class Faqs extends \app\components\ActiveRecord
 			'question_i' => Yii::t('app', 'Question'),
 			'answer_i' => Yii::t('app', 'Answer'),
 			'category_search' => Yii::t('app', 'Category'),
-			'creation_search' => Yii::t('app', 'Creation'),
-			'modified_search' => Yii::t('app', 'Modified'),
+			'creationDisplayname' => Yii::t('app', 'Creation'),
+			'modifiedDisplayname' => Yii::t('app', 'Modified'),
 			'helpful_search' => Yii::t('app', 'helpfuls'),
 			'view_search' => Yii::t('app', 'Views'),
 			'like_search' => Yii::t('app', 'Likes'),
@@ -259,8 +259,8 @@ class Faqs extends \app\components\ActiveRecord
 			'filter' => $this->filterDatepicker($this, 'creation_date'),
 		];
 		if(!Yii::$app->request->get('creation')) {
-			$this->templateColumns['creation_search'] = [
-				'attribute' => 'creation_search',
+			$this->templateColumns['creationDisplayname'] = [
+				'attribute' => 'creationDisplayname',
 				'value' => function($model, $key, $index, $column) {
 					return isset($model->creation) ? $model->creation->displayname : '-';
 					// return $model->creationDisplayname;
@@ -275,8 +275,8 @@ class Faqs extends \app\components\ActiveRecord
 			'filter' => $this->filterDatepicker($this, 'modified_date'),
 		];
 		if(!Yii::$app->request->get('modified')) {
-			$this->templateColumns['modified_search'] = [
-				'attribute' => 'modified_search',
+			$this->templateColumns['modifiedDisplayname'] = [
+				'attribute' => 'modifiedDisplayname',
 				'value' => function($model, $key, $index, $column) {
 					return isset($model->modified) ? $model->modified->displayname : '-';
 					// return $model->modifiedDisplayname;

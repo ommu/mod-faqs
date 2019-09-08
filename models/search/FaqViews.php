@@ -31,7 +31,7 @@ class FaqViews extends FaqViewsModel
 		return [
 			[['view_id', 'publish', 'faq_id', 'user_id', 'views'], 'integer'],
 			[['view_date', 'view_ip', 'deleted_date',
-				'category_search', 'faq_search', 'user_search'], 'safe'],
+				'category_search', 'faq_search', 'userDisplayname'], 'safe'],
 		];
 	}
 
@@ -88,7 +88,7 @@ class FaqViews extends FaqViewsModel
 			'asc' => ['questionRltn.message' => SORT_ASC],
 			'desc' => ['questionRltn.message' => SORT_DESC],
 		];
-		$attributes['user_search'] = [
+		$attributes['userDisplayname'] = [
 			'asc' => ['user.displayname' => SORT_ASC],
 			'desc' => ['user.displayname' => SORT_DESC],
 		];
@@ -127,7 +127,7 @@ class FaqViews extends FaqViewsModel
 
 		$query->andFilterWhere(['like', 't.view_ip', $this->view_ip])
 			->andFilterWhere(['like', 'questionRltn.message', $this->faq_search])
-			->andFilterWhere(['like', 'user.displayname', $this->user_search]);
+			->andFilterWhere(['like', 'user.displayname', $this->userDisplayname]);
 
 		return $dataProvider;
 	}

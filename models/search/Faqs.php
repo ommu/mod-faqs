@@ -32,7 +32,7 @@ class Faqs extends FaqsModel
 		return [
 			[['faq_id', 'publish', 'cat_id', 'question', 'answer', 'orders', 'creation_id', 'modified_id'], 'integer'],
 			[['creation_date', 'modified_date', 'updated_date', 'slug',
-				'question_i', 'answer_i', 'category_search', 'creation_search', 'modified_search'], 'safe'],
+				'question_i', 'answer_i', 'category_search', 'creationDisplayname', 'modifiedDisplayname'], 'safe'],
 		];
 	}
 
@@ -99,11 +99,11 @@ class Faqs extends FaqsModel
 			'asc' => ['category.message' => SORT_ASC],
 			'desc' => ['category.message' => SORT_DESC],
 		];
-		$attributes['creation_search'] = [
+		$attributes['creationDisplayname'] = [
 			'asc' => ['creation.displayname' => SORT_ASC],
 			'desc' => ['creation.displayname' => SORT_DESC],
 		];
-		$attributes['modified_search'] = [
+		$attributes['modifiedDisplayname'] = [
 			'asc' => ['modified.displayname' => SORT_ASC],
 			'desc' => ['modified.displayname' => SORT_DESC],
 		];
@@ -159,8 +159,8 @@ class Faqs extends FaqsModel
 			->andFilterWhere(['like', 'questionRltn.message', $this->question_i])
 			->andFilterWhere(['like', 'answerRltn.message', $this->answer_i])
 			->andFilterWhere(['like', 'category.message', $this->category_search])
-			->andFilterWhere(['like', 'creation.displayname', $this->creation_search])
-			->andFilterWhere(['like', 'modified.displayname', $this->modified_search]);
+			->andFilterWhere(['like', 'creation.displayname', $this->creationDisplayname])
+			->andFilterWhere(['like', 'modified.displayname', $this->modifiedDisplayname]);
 
 		return $dataProvider;
 	}

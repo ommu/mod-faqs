@@ -31,7 +31,7 @@ class FaqLikes extends FaqLikesModel
 		return [
 			[['like_id', 'publish', 'faq_id', 'user_id'], 'integer'],
 			[['likes_date', 'likes_ip', 'updated_date',
-				'category_search', 'faq_search', 'user_search'], 'safe'],
+				'category_search', 'faq_search', 'userDisplayname'], 'safe'],
 		];
 	}
 
@@ -88,7 +88,7 @@ class FaqLikes extends FaqLikesModel
 			'asc' => ['questionRltn.message' => SORT_ASC],
 			'desc' => ['questionRltn.message' => SORT_DESC],
 		];
-		$attributes['user_search'] = [
+		$attributes['userDisplayname'] = [
 			'asc' => ['user.displayname' => SORT_ASC],
 			'desc' => ['user.displayname' => SORT_DESC],
 		];
@@ -126,7 +126,7 @@ class FaqLikes extends FaqLikesModel
 
 		$query->andFilterWhere(['like', 't.likes_ip', $this->likes_ip])
 			->andFilterWhere(['like', 'questionRltn.message', $this->faq_search])
-			->andFilterWhere(['like', 'user.displayname', $this->user_search]);
+			->andFilterWhere(['like', 'user.displayname', $this->userDisplayname]);
 
 		return $dataProvider;
 	}

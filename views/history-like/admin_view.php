@@ -48,4 +48,4 @@ $this->params['menu']['content'] = [
 		],
 		'likes_ip',
 	],
-]) ?>
+]); ?>

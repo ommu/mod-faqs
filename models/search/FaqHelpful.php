@@ -32,7 +32,7 @@ class FaqHelpful extends FaqHelpfulModel
 		return [
 			[['id', 'faq_id', 'user_id', 'modified_id'], 'integer'],
 			[['helpful', 'message', 'helpful_date', 'helpful_ip', 'modified_date',
-				'category_search', 'faq_search', 'user_search', 'modified_search'], 'safe'],
+				'category_search', 'faq_search', 'userDisplayname', 'modifiedDisplayname'], 'safe'],
 		];
 	}
 
@@ -90,11 +90,11 @@ class FaqHelpful extends FaqHelpfulModel
 			'asc' => ['questionRltn.message' => SORT_ASC],
 			'desc' => ['questionRltn.message' => SORT_DESC],
 		];
-		$attributes['user_search'] = [
+		$attributes['userDisplayname'] = [
 			'asc' => ['user.displayname' => SORT_ASC],
 			'desc' => ['user.displayname' => SORT_DESC],
 		];
-		$attributes['modified_search'] = [
+		$attributes['modifiedDisplayname'] = [
 			'asc' => ['modified.displayname' => SORT_ASC],
 			'desc' => ['modified.displayname' => SORT_DESC],
 		];
@@ -128,8 +128,8 @@ class FaqHelpful extends FaqHelpfulModel
 		$query->andFilterWhere(['like', 't.message', $this->message])
 			->andFilterWhere(['like', 't.helpful_ip', $this->helpful_ip])
 			->andFilterWhere(['like', 'questionRltn.message', $this->faq_search])
-			->andFilterWhere(['like', 'user.displayname', $this->user_search])
-			->andFilterWhere(['like', 'modified.displayname', $this->modified_search]);
+			->andFilterWhere(['like', 'user.displayname', $this->userDisplayname])
+			->andFilterWhere(['like', 'modified.displayname', $this->modifiedDisplayname]);
 
 		return $dataProvider;
 	}

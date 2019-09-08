@@ -49,7 +49,7 @@ $this->params['menu']['content'] = [
 			'value' => isset($model->faq->questionRltn) ? $model->faq->questionRltn->message : '-',
 		],
 		[
-			'attribute' => 'user_search',
+			'attribute' => 'userDisplayname',
 			'value' => isset($model->user) ? $model->user->displayname : '-',
 		],
 		[
@@ -63,4 +63,4 @@ $this->params['menu']['content'] = [
 			'visible' => !$small,
 		],
 	],
-]) ?>
+]); ?>

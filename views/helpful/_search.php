@@ -28,7 +28,7 @@ use yii\widgets\ActiveForm;
 	]); ?>
 		<?php echo $form->field($model, 'faq_search');?>
 
-		<?php echo $form->field($model, 'user_search');?>
+		<?php echo $form->field($model, 'userDisplayname');?>
 
 		<?php echo $form->field($model, 'helpful');?>
 
@@ -42,7 +42,7 @@ use yii\widgets\ActiveForm;
 		<?php echo $form->field($model, 'modified_date')
 			->input('date');?>
 
-		<?php echo $form->field($model, 'modified_search');?>
+		<?php echo $form->field($model, 'modifiedDisplayname');?>
 
 		<div class="form-group">
 			<?php echo Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']); ?>
