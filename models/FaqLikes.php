@@ -140,31 +140,28 @@ class FaqLikes extends \app\components\ActiveRecord
 			'class' => 'yii\grid\SerialColumn',
 			'contentOptions' => ['class'=>'center'],
 		];
-		if(!Yii::$app->request->get('category') && !Yii::$app->request->get('faq')) {
-			$this->templateColumns['category_search'] = [
-				'attribute' => 'category_search',
-				'filter' => FaqCategory::getCategory(),
-				'value' => function($model, $key, $index, $column) {
-					return isset($model->faq->category) ? $model->faq->category->title->message : '-';
-				},
-			];
-		}
-		if(!Yii::$app->request->get('faq')) {
-			$this->templateColumns['faq_search'] = [
-				'attribute' => 'faq_search',
-				'value' => function($model, $key, $index, $column) {
-					return isset($model->faq->questionRltn) ? $model->faq->questionRltn->message : '-';
-				},
-			];
-		}
-		if(!Yii::$app->request->get('user')) {
-			$this->templateColumns['userDisplayname'] = [
-				'attribute' => 'userDisplayname',
-				'value' => function($model, $key, $index, $column) {
-					return isset($model->user) ? $model->user->displayname : '-';
-				},
-			];
-		}
+		$this->templateColumns['category_search'] = [
+			'attribute' => 'category_search',
+			'filter' => FaqCategory::getCategory(),
+			'value' => function($model, $key, $index, $column) {
+				return isset($model->faq->category) ? $model->faq->category->title->message : '-';
+			},
+			'visible' => !Yii::$app->request->get('category') && !Yii::$app->request->get('faq') ? true : false,
+		];
+		$this->templateColumns['faq_search'] = [
+			'attribute' => 'faq_search',
+			'value' => function($model, $key, $index, $column) {
+				return isset($model->faq->questionRltn) ? $model->faq->questionRltn->message : '-';
+			},
+			'visible' => !Yii::$app->request->get('faq') ? true : false,
+		];
+		$this->templateColumns['userDisplayname'] = [
+			'attribute' => 'userDisplayname',
+			'value' => function($model, $key, $index, $column) {
+				return isset($model->user) ? $model->user->displayname : '-';
+			},
+			'visible' => !Yii::$app->request->get('user') ? true : false,
+		];
 		$this->templateColumns['likes_date'] = [
 			'attribute' => 'likes_date',
 			'value' => function($model, $key, $index, $column) {
@@ -185,18 +182,17 @@ class FaqLikes extends \app\components\ActiveRecord
 			},
 			'filter' => $this->filterDatepicker($this, 'updated_date'),
 		];
-		if(!Yii::$app->request->get('trash')) {
-			$this->templateColumns['publish'] = [
-				'attribute' => 'publish',
-				'value' => function($model, $key, $index, $column) {
-					$url = Url::to(['publish', 'id'=>$model->primaryKey]);
-					return $this->quickAction($url, $model->publish);
-				},
-				'filter' => $this->filterYesNo(),
-				'contentOptions' => ['class'=>'center'],
-				'format' => 'raw',
-			];
-		}
+		$this->templateColumns['publish'] = [
+			'attribute' => 'publish',
+			'value' => function($model, $key, $index, $column) {
+				$url = Url::to(['publish', 'id'=>$model->primaryKey]);
+				return $this->quickAction($url, $model->publish);
+			},
+			'filter' => $this->filterYesNo(),
+			'contentOptions' => ['class'=>'center'],
+			'format' => 'raw',
+			'visible' => !Yii::$app->request->get('trash') ? true : false,
+		];
 	}
 
 	/**

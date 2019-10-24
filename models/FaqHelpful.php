@@ -147,31 +147,28 @@ class FaqHelpful extends \app\components\ActiveRecord
 			'class' => 'yii\grid\SerialColumn',
 			'contentOptions' => ['class'=>'center'],
 		];
-		if(!Yii::$app->request->get('category') && !Yii::$app->request->get('faq')) {
-			$this->templateColumns['category_search'] = [
-				'attribute' => 'category_search',
-				'filter' => FaqCategory::getCategory(),
-				'value' => function($model, $key, $index, $column) {
-					return isset($model->faq->category) ? $model->faq->category->title->message : '-';
-				},
-			];
-		}
-		if(!Yii::$app->request->get('faq')) {
-			$this->templateColumns['faq_search'] = [
-				'attribute' => 'faq_search',
-				'value' => function($model, $key, $index, $column) {
-					return isset($model->faq->questionRltn) ? $model->faq->questionRltn->message : '-';
-				},
-			];
-		}
-		if(!Yii::$app->request->get('user')) {
-			$this->templateColumns['userDisplayname'] = [
-				'attribute' => 'userDisplayname',
-				'value' => function($model, $key, $index, $column) {
-					return isset($model->user) ? $model->user->displayname : '-';
-				},
-			];
-		}
+		$this->templateColumns['category_search'] = [
+			'attribute' => 'category_search',
+			'filter' => FaqCategory::getCategory(),
+			'value' => function($model, $key, $index, $column) {
+				return isset($model->faq->category) ? $model->faq->category->title->message : '-';
+			},
+			'visible' => !Yii::$app->request->get('category') && !Yii::$app->request->get('faq') ? true : false,
+		];
+		$this->templateColumns['faq_search'] = [
+			'attribute' => 'faq_search',
+			'value' => function($model, $key, $index, $column) {
+				return isset($model->faq->questionRltn) ? $model->faq->questionRltn->message : '-';
+			},
+			'visible' => !Yii::$app->request->get('faq') ? true : false,
+		];
+		$this->templateColumns['userDisplayname'] = [
+			'attribute' => 'userDisplayname',
+			'value' => function($model, $key, $index, $column) {
+				return isset($model->user) ? $model->user->displayname : '-';
+			},
+			'visible' => !Yii::$app->request->get('user') ? true : false,
+		];
 		$this->templateColumns['message'] = [
 			'attribute' => 'message',
 			'value' => function($model, $key, $index, $column) {
@@ -207,15 +204,14 @@ class FaqHelpful extends \app\components\ActiveRecord
 			'contentOptions' => ['class'=>'center'],
 			'format' => 'raw',
 		];
-		if(!Yii::$app->request->get('modified')) {
-			$this->templateColumns['modifiedDisplayname'] = [
-				'attribute' => 'modifiedDisplayname',
-				'value' => function($model, $key, $index, $column) {
-					return isset($model->modified) ? $model->modified->displayname : '-';
-					// return $model->modifiedDisplayname;
-				},
-			];
-		}
+		$this->templateColumns['modifiedDisplayname'] = [
+			'attribute' => 'modifiedDisplayname',
+			'value' => function($model, $key, $index, $column) {
+				return isset($model->modified) ? $model->modified->displayname : '-';
+				// return $model->modifiedDisplayname;
+			},
+			'visible' => !Yii::$app->request->get('modified') ? true : false,
+		];
 	}
 
 	/**

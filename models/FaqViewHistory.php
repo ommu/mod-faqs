@@ -112,29 +112,28 @@ class FaqViewHistory extends \app\components\ActiveRecord
 			'class' => 'yii\grid\SerialColumn',
 			'contentOptions' => ['class'=>'center'],
 		];
-		if(!Yii::$app->request->get('view')) {
-			if(!Yii::$app->request->get('category')) {
-				$this->templateColumns['category_search'] = [
-					'attribute' => 'category_search',
-					'filter' => FaqCategory::getCategory(),
-					'value' => function($model, $key, $index, $column) {
-						return isset($model->view->faq->category) ? $model->view->faq->category->title->message : '-';
-					},
-				];
-			}
-			$this->templateColumns['faq_search'] = [
-				'attribute' => 'faq_search',
-				'value' => function($model, $key, $index, $column) {
-					return isset($model->view->faq->questionRltn) ? $model->view->faq->questionRltn->message : '-';
-				},
-			];
-			$this->templateColumns['userDisplayname'] = [
-				'attribute' => 'userDisplayname',
-				'value' => function($model, $key, $index, $column) {
-					return isset($model->view->user) ? $model->view->user->displayname : '-';
-				},
-			];
-		}
+		$this->templateColumns['category_search'] = [
+			'attribute' => 'category_search',
+			'filter' => FaqCategory::getCategory(),
+			'value' => function($model, $key, $index, $column) {
+				return isset($model->view->faq->category) ? $model->view->faq->category->title->message : '-';
+			},
+			'visible' => !Yii::$app->request->get('view') && !Yii::$app->request->get('category') ? true : false,
+		];
+		$this->templateColumns['faq_search'] = [
+			'attribute' => 'faq_search',
+			'value' => function($model, $key, $index, $column) {
+				return isset($model->view->faq->questionRltn) ? $model->view->faq->questionRltn->message : '-';
+			},
+			'visible' => !Yii::$app->request->get('view') ? true : false,
+		];
+		$this->templateColumns['userDisplayname'] = [
+			'attribute' => 'userDisplayname',
+			'value' => function($model, $key, $index, $column) {
+				return isset($model->view->user) ? $model->view->user->displayname : '-';
+			},
+			'visible' => !Yii::$app->request->get('view') ? true : false,
+		];
 		$this->templateColumns['view_date'] = [
 			'attribute' => 'view_date',
 			'value' => function($model, $key, $index, $column) {
