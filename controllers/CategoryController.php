@@ -31,10 +31,9 @@
 namespace ommu\faq\controllers;
 
 use Yii;
-use yii\filters\VerbFilter;
-use yii\web\NotFoundHttpException;
 use app\components\Controller;
 use mdm\admin\components\AccessControl;
+use yii\filters\VerbFilter;
 use ommu\faq\models\FaqCategory;
 use ommu\faq\models\search\FaqCategory as FaqCategorySearch;
 
@@ -215,9 +214,9 @@ class CategoryController extends Controller
 	 */
 	protected function findModel($id)
 	{
-		if(($model = FaqCategory::findOne($id)) !== null) 
+		if(($model = FaqCategory::findOne($id)) !== null)
 			return $model;
-		else
-			throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+
+		throw new \yii\web\NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
 	}
 }

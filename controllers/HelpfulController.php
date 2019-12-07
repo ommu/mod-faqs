@@ -27,10 +27,9 @@
 namespace ommu\faq\controllers;
 
 use Yii;
-use yii\filters\VerbFilter;
-use yii\web\NotFoundHttpException;
 use app\components\Controller;
 use mdm\admin\components\AccessControl;
+use yii\filters\VerbFilter;
 use ommu\faq\models\FaqHelpful;
 use ommu\faq\models\search\FaqHelpful as FaqHelpfulSearch;
 
@@ -124,9 +123,9 @@ class HelpfulController extends Controller
 	 */
 	protected function findModel($id)
 	{
-		if(($model = FaqHelpful::findOne($id)) !== null) 
+		if(($model = FaqHelpful::findOne($id)) !== null)
 			return $model;
-		else
-			throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+
+		throw new \yii\web\NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
 	}
 }
