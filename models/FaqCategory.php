@@ -208,7 +208,7 @@ class FaqCategory extends \app\components\ActiveRecord
 		$this->templateColumns['_no'] = [
 			'header' => '#',
 			'class' => 'yii\grid\SerialColumn',
-			'contentOptions' => ['class'=>'center'],
+			'contentOptions' => ['class'=>'text-center'],
 		];
 		$this->templateColumns['cat_name_i'] = [
 			'attribute' => 'cat_name_i',
@@ -278,7 +278,7 @@ class FaqCategory extends \app\components\ActiveRecord
 				return $model->orders;
 			},
 			'filter' => false,
-			'contentOptions' => ['class'=>'center'],
+			'contentOptions' => ['class'=>'text-center'],
 		];
 		$this->templateColumns['faq_search'] = [
 			'attribute' => 'faq_search',
@@ -286,7 +286,7 @@ class FaqCategory extends \app\components\ActiveRecord
 				return Html::a($model->view->faqs ? $model->view->faqs : 0, ['admin/index', 'category'=>$model->primaryKey, 'publish' => 1]);
 			},
 			'filter' => false,
-			'contentOptions' => ['class'=>'center'],
+			'contentOptions' => ['class'=>'text-center'],
 			'format' => 'html',
 		];
 		$this->templateColumns['faq_all_search'] = [
@@ -295,7 +295,7 @@ class FaqCategory extends \app\components\ActiveRecord
 				return Html::a($model->view->faq_all ? $model->view->faq_all : 0, ['admin/index', 'category'=>$model->primaryKey]);
 			},
 			'filter' => false,
-			'contentOptions' => ['class'=>'center'],
+			'contentOptions' => ['class'=>'text-center'],
 			'format' => 'html',
 		];
 		$this->templateColumns['publish'] = [
@@ -305,7 +305,7 @@ class FaqCategory extends \app\components\ActiveRecord
 				return $this->quickAction($url, $model->publish);
 			},
 			'filter' => $this->filterYesNo(),
-			'contentOptions' => ['class'=>'center'],
+			'contentOptions' => ['class'=>'text-center'],
 			'format' => 'raw',
 			'visible' => !Yii::$app->request->get('trash') ? true : false,
 		];

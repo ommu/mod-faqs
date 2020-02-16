@@ -145,7 +145,7 @@ class FaqHelpful extends \app\components\ActiveRecord
 		$this->templateColumns['_no'] = [
 			'header' => '#',
 			'class' => 'yii\grid\SerialColumn',
-			'contentOptions' => ['class'=>'center'],
+			'contentOptions' => ['class'=>'text-center'],
 		];
 		$this->templateColumns['category_search'] = [
 			'attribute' => 'category_search',
@@ -201,7 +201,7 @@ class FaqHelpful extends \app\components\ActiveRecord
 				return $this->filterYesNo($model->helpful);
 			},
 			'filter' => $this->filterYesNo(),
-			'contentOptions' => ['class'=>'center'],
+			'contentOptions' => ['class'=>'text-center'],
 			'format' => 'raw',
 		];
 		$this->templateColumns['modifiedDisplayname'] = [

@@ -140,7 +140,7 @@ class FaqViews extends \app\components\ActiveRecord
 		$this->templateColumns['_no'] = [
 			'header' => '#',
 			'class' => 'yii\grid\SerialColumn',
-			'contentOptions' => ['class'=>'center'],
+			'contentOptions' => ['class'=>'text-center'],
 		];
 		$this->templateColumns['category_search'] = [
 			'attribute' => 'category_search',
@@ -190,7 +190,7 @@ class FaqViews extends \app\components\ActiveRecord
 				return Html::a($model->views, ['history-view/index', 'view'=>$model->primaryKey]);
 			},
 			'filter' => false,
-			'contentOptions' => ['class'=>'center'],
+			'contentOptions' => ['class'=>'text-center'],
 			'format' => 'html',
 		];
 		$this->templateColumns['publish'] = [
@@ -200,7 +200,7 @@ class FaqViews extends \app\components\ActiveRecord
 				return $this->quickAction($url, $model->publish);
 			},
 			'filter' => $this->filterYesNo(),
-			'contentOptions' => ['class'=>'center'],
+			'contentOptions' => ['class'=>'text-center'],
 			'format' => 'raw',
 			'visible' => !Yii::$app->request->get('trash') ? true : false,
 		];

@@ -230,7 +230,7 @@ class Faqs extends \app\components\ActiveRecord
 		$this->templateColumns['_no'] = [
 			'header' => '#',
 			'class' => 'yii\grid\SerialColumn',
-			'contentOptions' => ['class'=>'center'],
+			'contentOptions' => ['class'=>'text-center'],
 		];
 		$this->templateColumns['cat_id'] = [
 			'attribute' => 'cat_id',
@@ -309,7 +309,7 @@ class Faqs extends \app\components\ActiveRecord
 				return Html::a($model->view->helpfuls ? $model->view->helpfuls : 0, ['helpful/index', 'faq'=>$model->primaryKey]);
 			},
 			'filter' => false,
-			'contentOptions' => ['class'=>'center'],
+			'contentOptions' => ['class'=>'text-center'],
 			'format' => 'html',
 		];
 		$this->templateColumns['view_search'] = [
@@ -318,7 +318,7 @@ class Faqs extends \app\components\ActiveRecord
 				return Html::a($model->view->views ? $model->view->views : 0, ['views/index', 'faq'=>$model->primaryKey, 'publish' => 1]);
 			},
 			'filter' => false,
-			'contentOptions' => ['class'=>'center'],
+			'contentOptions' => ['class'=>'text-center'],
 			'format' => 'html',
 		];
 		$this->templateColumns['like_search'] = [
@@ -327,7 +327,7 @@ class Faqs extends \app\components\ActiveRecord
 				return Html::a($model->view->likes ? $model->view->likes : 0, ['likes/index', 'faq'=>$model->primaryKey, 'publish' => 1]);
 			},
 			'filter' => false,
-			'contentOptions' => ['class'=>'center'],
+			'contentOptions' => ['class'=>'text-center'],
 			'format' => 'html',
 		];
 		$this->templateColumns['publish'] = [
@@ -337,7 +337,7 @@ class Faqs extends \app\components\ActiveRecord
 				return $this->quickAction($url, $model->publish);
 			},
 			'filter' => $this->filterYesNo(),
-			'contentOptions' => ['class'=>'center'],
+			'contentOptions' => ['class'=>'text-center'],
 			'format' => 'raw',
 			'visible' => !Yii::$app->request->get('trash') ? true : false,
 		];
