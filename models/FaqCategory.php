@@ -4,12 +4,12 @@
  * 
  * @author Eko Hariyanto <haryeko29@gmail.com>
  * @contact (+62)857-4381-4273
- * @copyright Copyright (c) 2018 Ommu Platform (www.ommu.co)
+ * @copyright Copyright (c) 2018 OMMU (www.ommu.id)
  * @created date 4 January 2018, 16:24 WIB
  * @modified date 27 April 2018, 00:36 WIB
- * @modified by Putra Sudaryanto <putra@ommu.co>
+ * @modified by Putra Sudaryanto <putra@ommu.id>
  * @contact (+62)856-299-4114
- * @link https://ecc.ft.ugm.ac.id
+ * @link https://github.com/ommu/mod-faqs
  *
  * This is the model class for table "ommu_faq_category".
  *

@@ -4,7 +4,7 @@ namespace ommu\faq;
 /**
  * faq module definition class
  *
- * @copyright Copyright (c) 2018 Ommu Platform (www.ommu.co)
+ * @copyright Copyright (c) 2018 OMMU (www.ommu.id)
  * @link https://github.com/ommu/mod-faqs
  * @author Eko Hariyanto <haryeko29@gmail.com>
  * @created date 4 January 2018, 11:49 WIB

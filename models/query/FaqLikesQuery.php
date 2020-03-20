@@ -5,11 +5,11 @@
  * This is the ActiveQuery class for [[\ommu\faq\models\FaqLikes]].
  * @see \ommu\faq\models\FaqLikes
  * 
- * @author Putra Sudaryanto <putra@ommu.co>
+ * @author Putra Sudaryanto <putra@ommu.id>
  * @contact (+62)856-299-4114
- * @copyright Copyright (c) 2018 Ommu Platform (www.ommu.co)
+ * @copyright Copyright (c) 2018 OMMU (www.ommu.id)
  * @created date 27 April 2018, 00:38 WIB
- * @link https://ecc.ft.ugm.ac.id
+ * @link https://github.com/ommu/mod-faqs
  *
  */
 
