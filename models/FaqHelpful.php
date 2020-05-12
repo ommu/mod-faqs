@@ -36,7 +36,7 @@ namespace ommu\faq\models;
 use Yii;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use ommu\users\models\Users;
+use app\models\Users;
 
 class FaqHelpful extends \app\components\ActiveRecord
 {
