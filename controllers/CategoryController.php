@@ -44,18 +44,18 @@ class CategoryController extends Controller
 	 */
 	public function behaviors()
 	{
-		return [
-			'access' => [
-				'class' => AccessControl::className(),
-			],
-			'verbs' => [
-				'class' => VerbFilter::className(),
-				'actions' => [
-					'delete' => ['POST'],
-					'publish' => ['POST'],
-				],
-			],
-		];
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
+                    'publish' => ['POST'],
+                ],
+            ],
+        ];
 	}
 
 	/**
@@ -95,18 +95,18 @@ class CategoryController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model = new FaqCategory();
+        $model = new FaqCategory();
 
         if (Yii::$app->request->isPost) {
-			$model->load(Yii::$app->request->post());
-			// $postData = Yii::$app->request->post();
-			// $model->load($postData);
-			// $model->order = $postData['order'] ? $postData['order'] : 0;
+            $model->load(Yii::$app->request->post());
+            // $postData = Yii::$app->request->post();
+            // $model->load($postData);
+            // $model->order = $postData['order'] ? $postData['order'] : 0;
 
             if ($model->save()) {
-				Yii::$app->session->setFlash('success', Yii::t('app', 'Faq category success created.'));
-				return $this->redirect(['index']);
-				//return $this->redirect(['view', 'id' => $model->cat_id]);
+                Yii::$app->session->setFlash('success', Yii::t('app', 'Faq category success created.'));
+                return $this->redirect(['index']);
+                //return $this->redirect(['view', 'id' => $model->cat_id]);
 			}
 		}
 
@@ -129,22 +129,22 @@ class CategoryController extends Controller
 		$model = $this->findModel($id);
 
         if (Yii::$app->request->isPost) {
-			$model->load(Yii::$app->request->post());
-			// $postData = Yii::$app->request->post();
-			// $model->load($postData);
-			// $model->order = $postData['order'] ? $postData['order'] : 0;
+            $model->load(Yii::$app->request->post());
+            // $postData = Yii::$app->request->post();
+            // $model->load($postData);
+            // $model->order = $postData['order'] ? $postData['order'] : 0;
 
             if ($model->save()) {
-				Yii::$app->session->setFlash('success', Yii::t('app', 'Faq category success updated.'));
-				return $this->redirect(['index']);
-				//return $this->redirect(['view', 'id' => $model->cat_id]);
+                Yii::$app->session->setFlash('success', Yii::t('app', 'Faq category success updated.'));
+                return $this->redirect(['index']);
+                //return $this->redirect(['view', 'id' => $model->cat_id]);
 
             } else {
                 if (Yii::$app->request->isAjax) {
                     return \yii\helpers\Json::encode(\app\components\widgets\ActiveForm::validate($model));
                 }
-			}
-		}
+            }
+        }
 
 		$this->view->title = Yii::t('app', 'Update {model-class}: {cat-name}', ['model-class' => 'Faq Category', 'cat-name' => $model->title->message]);
 		$this->view->description = '';
@@ -161,7 +161,7 @@ class CategoryController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$model = $this->findModel($id);
+        $model = $this->findModel($id);
 
 		$this->view->title = Yii::t('app', 'Detail {model-class}: {cat-name}', ['model-class' => 'Faq Category', 'cat-name' => $model->title->message]);
 		$this->view->description = '';
