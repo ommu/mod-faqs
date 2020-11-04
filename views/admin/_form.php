@@ -62,8 +62,10 @@ echo $form->field($model, 'cat_id')
 	->textInput(['type' => 'number', 'min' => '0'])
 	->label($model->getAttributeLabel('orders'));?>
 
-<?php if($model->isNewRecord && !$model->getErrors())
-	$model->publish = 1;
+<?php 
+if ($model->isNewRecord && !$model->getErrors()) {
+    $model->publish = 1;
+}
 echo $form->field($model, 'publish')
 	->checkbox()
 	->label($model->getAttributeLabel('publish')); ?>

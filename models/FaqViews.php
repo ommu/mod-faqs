@@ -41,7 +41,7 @@ class FaqViews extends \app\components\ActiveRecord
 {
 	use \ommu\traits\UtilityTrait;
 
-	public $gridForbiddenColumn = ['view_ip','deleted_date'];
+	public $gridForbiddenColumn = ['view_ip', 'deleted_date'];
 
 	// Variable Search
 	public $category_search;
@@ -131,11 +131,13 @@ class FaqViews extends \app\components\ActiveRecord
 	{
 		parent::init();
 
-		if(!(Yii::$app instanceof \app\components\Application))
-			return;
+        if (!(Yii::$app instanceof \app\components\Application)) {
+            return;
+        }
 
-		if(!$this->hasMethod('search'))
-			return;
+        if (!$this->hasMethod('search')) {
+            return;
+        }
 
 		$this->templateColumns['_no'] = [
 			'header' => '#',
@@ -211,19 +213,20 @@ class FaqViews extends \app\components\ActiveRecord
 	 */
 	public static function getInfo($id, $column=null)
 	{
-		if($column != null) {
-			$model = self::find();
-			if(is_array($column))
-				$model->select($column);
-			else
-				$model->select([$column]);
-			$model = $model->where(['view_id' => $id])->one();
-			return is_array($column) ? $model : $model->$column;
-			
-		} else {
-			$model = self::findOne($id);
-			return $model;
-		}
+        if ($column != null) {
+            $model = self::find();
+            if (is_array($column)) {
+                $model->select($column);
+            } else {
+                $model->select([$column]);
+            }
+            $model = $model->where(['view_id' => $id])->one();
+            return is_array($column) ? $model : $model->$column;
+
+        } else {
+            $model = self::findOne($id);
+            return $model;
+        }
 	}
 
 	public function insertView($faq_id)
@@ -231,19 +234,19 @@ class FaqViews extends \app\components\ActiveRecord
 		$user_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
 		
 		$findView = self::find()
-			->select(['view_id','publish','faq_id','user_id','views'])
+			->select(['view_id', 'publish', 'faq_id', 'user_id', 'views'])
 			->where(['publish' => 1])
 			->andWhere(['faq_id' => $faq_id]);
-		if($user_id != null)
-			$findView->andWhere(['user_id' => $user_id]);
-		else
-			$findView->andWhere(['is', 'user_id', null]);
+        if ($user_id != null) {
+            $findView->andWhere(['user_id' => $user_id]);
+        } else {
+            $findView->andWhere(['is', 'user_id', null]);
+        }
 		$findView = $findView->one();
 			
-		if($findView !== null)
-			$findView->updateAttributes(['views'=>$findView->views+1, 'view_ip'=>$_SERVER['REMOTE_ADDR']]);
-
-		else {
+        if ($findView !== null) {
+            $findView->updateAttributes(['views'=>$findView->views+1, 'view_ip'=>$_SERVER['REMOTE_ADDR']]);
+        } else {
 			$view = new FaqViews();
 			$view->faq_id = $faq_id;
 			$view->save();
@@ -253,16 +256,17 @@ class FaqViews extends \app\components\ActiveRecord
 	/**
 	 * before validate attributes
 	 */
-	public function beforeValidate() 
+	public function beforeValidate()
 	{
-		if(parent::beforeValidate()) {
-			if($this->isNewRecord) {
-				if($this->user_id == null)
-					$this->user_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
-			}
+        if (parent::beforeValidate()) {
+            if ($this->isNewRecord) {
+                if ($this->user_id == null) {
+                    $this->user_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
+                }
+            }
 
-			$this->view_ip = $_SERVER['REMOTE_ADDR'];
-		}
-		return true;
+            $this->view_ip = $_SERVER['REMOTE_ADDR'];
+        }
+        return true;
 	}
 }

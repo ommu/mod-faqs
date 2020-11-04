@@ -36,8 +36,10 @@ use ommu\faq\models\FaqSetting;
 
 <?php //echo $form->errorSummary($model);?>
 
-<?php if($model->isNewRecord)
-	$model->license = $model->licenseCode();
+<?php 
+if ($model->isNewRecord) {
+    $model->license = $model->licenseCode();
+}
 echo $form->field($model, 'license')
 	->textInput(['maxlength'=>true])
 	->label($model->getAttributeLabel('license'))

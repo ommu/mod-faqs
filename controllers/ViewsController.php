@@ -61,18 +61,19 @@ class ViewsController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$searchModel = new FaqViewsSearch();
-		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $searchModel = new FaqViewsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-		$gridColumn = Yii::$app->request->get('GridColumn', null);
-		$cols = [];
-		if($gridColumn != null && count($gridColumn) > 0) {
-			foreach($gridColumn as $key => $val) {
-				if($gridColumn[$key] == 1)
-					$cols[] = $key;
-			}
-		}
-		$columns = $searchModel->getGridColumn($cols);
+        $gridColumn = Yii::$app->request->get('GridColumn', null);
+        $cols = [];
+        if ($gridColumn != null && count($gridColumn) > 0) {
+            foreach ($gridColumn as $key => $val) {
+                if ($gridColumn[$key] == 1) {
+                    $cols[] = $key;
+                }
+            }
+        }
+        $columns = $searchModel->getGridColumn($cols);
 
 		$this->view->title = Yii::t('app', 'Faq Views');
 		$this->view->description = '';
@@ -112,7 +113,7 @@ class ViewsController extends Controller
 		$model = $this->findModel($id);
 		$model->publish = 2;
 
-		if($model->save(false, ['publish'])) {
+        if ($model->save(false, ['publish'])) {
 			Yii::$app->session->setFlash('success', Yii::t('app', 'Faq view success deleted.'));
 			return $this->redirect(['index']);
 			//return $this->redirect(['view', 'id' => $model->view_id]);
@@ -131,7 +132,7 @@ class ViewsController extends Controller
 		$replace = $model->publish == 1 ? 0 : 1;
 		$model->publish = $replace;
 
-		if($model->save(false, ['publish'])) {
+        if ($model->save(false, ['publish'])) {
 			Yii::$app->session->setFlash('success', Yii::t('app', 'Faq view success updated.'));
 			return $this->redirect(['index']);
 		}
@@ -146,8 +147,9 @@ class ViewsController extends Controller
 	 */
 	protected function findModel($id)
 	{
-		if(($model = FaqViews::findOne($id)) !== null)
-			return $model;
+        if (($model = FaqViews::findOne($id)) !== null) {
+            return $model;
+        }
 
 		throw new \yii\web\NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
 	}

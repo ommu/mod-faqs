@@ -54,7 +54,7 @@ class Faqs extends \app\components\ActiveRecord
 {
 	use \ommu\traits\UtilityTrait;
 
-	public $gridForbiddenColumn = ['answer_i','orders','modified_date','modifiedDisplayname','updated_date','slug'];
+	public $gridForbiddenColumn = ['answer_i', 'orders', 'modified_date', 'modifiedDisplayname', 'updated_date', 'slug'];
 	public $question_i;
 	public $answer_i;
 
@@ -221,11 +221,13 @@ class Faqs extends \app\components\ActiveRecord
 	{
 		parent::init();
 
-		if(!(Yii::$app instanceof \app\components\Application))
-			return;
+        if (!(Yii::$app instanceof \app\components\Application)) {
+            return;
+        }
 
-		if(!$this->hasMethod('search'))
-			return;
+        if (!$this->hasMethod('search')) {
+            return;
+        }
 
 		$this->templateColumns['_no'] = [
 			'header' => '#',
@@ -348,50 +350,54 @@ class Faqs extends \app\components\ActiveRecord
 	 */
 	public static function getInfo($id, $column=null)
 	{
-		if($column != null) {
-			$model = self::find();
-			if(is_array($column))
-				$model->select($column);
-			else
-				$model->select([$column]);
-			$model = $model->where(['faq_id' => $id])->one();
-			return is_array($column) ? $model : $model->$column;
-			
-		} else {
-			$model = self::findOne($id);
-			return $model;
-		}
+        if ($column != null) {
+            $model = self::find();
+            if (is_array($column)) {
+                $model->select($column);
+            } else {
+                $model->select([$column]);
+            }
+            $model = $model->where(['faq_id' => $id])->one();
+            return is_array($column) ? $model : $model->$column;
+
+        } else {
+            $model = self::findOne($id);
+            return $model;
+        }
 	}
 
 	/**
 	 * function getFaqs
 	 */
-	public static function getFaq($publish=null, $array=true) 
+	public static function getFaq($publish=null, $array=true)
 	{
 		$model = self::find()->alias('t')
 			->leftJoin(sprintf('%s questionRltn', SourceMessage::tableName()), 't.question=questionRltn.id');
-		if($publish != null)
-			$model->andWhere(['t.publish' => $publish]);
+        if ($publish != null) {
+            $model->andWhere(['t.publish' => $publish]);
+        }
 
 		$model = $model->orderBy('questionRltn.message ASC')->all();
 
-		if($array == true) {
+        if ($array == true) {
 			$items = [];
-			if($model !== null) {
-				foreach($model as $val) {
+            if ($model !== null) {
+				foreach ($model as $val) {
 					$items[$val->faq_id] = $val->questionRltn->message;
 				}
 				return $items;
-			} else
-				return false;
-		} else 
-			return $model;
+			} else {
+                return false;
+            }
+		} else {
+            return $model;
+        }
 	}
 
 	/**
 	 * after find attributes
 	 */
-	public function afterFind() 
+	public function afterFind()
 	{
 		$this->question_i = isset($this->questionRltn) ? $this->questionRltn->message : '';
 		$this->answer_i = isset($this->answerRltn) ? $this->answerRltn->message : '';
@@ -400,18 +406,20 @@ class Faqs extends \app\components\ActiveRecord
 	/**
 	 * before validate attributes
 	 */
-	public function beforeValidate() 
+	public function beforeValidate()
 	{
-		if(parent::beforeValidate()) {
-			if($this->isNewRecord) {
-				if($this->creation_id == null)
-					$this->creation_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
-			} else {
-				if($this->modified_id == null)
-					$this->modified_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
-			}
-		}
-		return true;
+        if (parent::beforeValidate()) {
+            if ($this->isNewRecord) {
+                if ($this->creation_id == null) {
+                    $this->creation_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
+                }
+            } else {
+                if ($this->modified_id == null) {
+                    $this->modified_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
+                }
+            }
+        }
+        return true;
 	}
 
 	/**
@@ -419,39 +427,41 @@ class Faqs extends \app\components\ActiveRecord
 	 */
 	public function beforeSave($insert)
 	{
-		$module = strtolower(Yii::$app->controller->module->id);
-		$controller = strtolower(Yii::$app->controller->id);
-		$action = strtolower(Yii::$app->controller->action->id);
+        $module = strtolower(Yii::$app->controller->module->id);
+        $controller = strtolower(Yii::$app->controller->id);
+        $action = strtolower(Yii::$app->controller->action->id);
 
-		$location = Inflector::slug($module.' '.$controller);
+        $location = Inflector::slug($module.' '.$controller);
 
-		if(parent::beforeSave($insert)) {
-			if($insert || (!$insert && !$this->question)) {
-				$question = new SourceMessage();
-				$question->location = $location.'_question';
-				$question->message = $this->question_i;
-				if($question->save())
-					$this->question = $question->id;
-				
-			} else {
-				$question = SourceMessage::findOne($this->question);
-				$question->message = $this->question_i;
-				$question->save();
-			}
+        if (parent::beforeSave($insert)) {
+            if ($insert || (!$insert && !$this->question)) {
+                $question = new SourceMessage();
+                $question->location = $location.'_question';
+                $question->message = $this->question_i;
+                if ($question->save()) {
+                    $this->question = $question->id;
+                }
 
-			if($insert || (!$insert && !$this->answer)) {
-				$answer = new SourceMessage();
-				$answer->location = $location.'_answer';
-				$answer->message = $this->answer_i;
-				if($answer->save())
-					$this->answer = $answer->id;
-				
-			} else {
-				$answer = SourceMessage::findOne($this->answer);
-				$answer->message = $this->answer_i;
-				$answer->save();
-			}
-		}
-		return true;
+            } else {
+                $question = SourceMessage::findOne($this->question);
+                $question->message = $this->question_i;
+                $question->save();
+            }
+
+            if ($insert || (!$insert && !$this->answer)) {
+                $answer = new SourceMessage();
+                $answer->location = $location.'_answer';
+                $answer->message = $this->answer_i;
+                if ($answer->save()) {
+                    $this->answer = $answer->id;
+                }
+
+            } else {
+                $answer = SourceMessage::findOne($this->answer);
+                $answer->message = $this->answer_i;
+                $answer->save();
+            }
+        }
+        return true;
 	}
 }

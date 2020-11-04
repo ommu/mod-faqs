@@ -52,7 +52,7 @@ class FaqCategory extends \app\components\ActiveRecord
 {
 	use \ommu\traits\UtilityTrait;
 
-	public $gridForbiddenColumn = ['orders','modified_date','modifiedDisplayname','updated_date','slug','cat_desc_i'];
+	public $gridForbiddenColumn = ['orders', 'modified_date', 'modifiedDisplayname', 'updated_date', 'slug', 'cat_desc_i'];
 	public $cat_name_i;
 	public $cat_desc_i;
 
@@ -199,11 +199,13 @@ class FaqCategory extends \app\components\ActiveRecord
 	{
 		parent::init();
 
-		if(!(Yii::$app instanceof \app\components\Application))
-			return;
+        if (!(Yii::$app instanceof \app\components\Application)) {
+            return;
+        }
 
-		if(!$this->hasMethod('search'))
-			return;
+        if (!$this->hasMethod('search')) {
+            return;
+        }
 
 		$this->templateColumns['_no'] = [
 			'header' => '#',
@@ -316,50 +318,54 @@ class FaqCategory extends \app\components\ActiveRecord
 	 */
 	public static function getInfo($id, $column=null)
 	{
-		if($column != null) {
-			$model = self::find();
-			if(is_array($column))
-				$model->select($column);
-			else
-				$model->select([$column]);
-			$model = $model->where(['cat_id' => $id])->one();
-			return is_array($column) ? $model : $model->$column;
-			
-		} else {
-			$model = self::findOne($id);
-			return $model;
-		}
+        if ($column != null) {
+            $model = self::find();
+            if (is_array($column)) {
+                $model->select($column);
+            } else {
+                $model->select([$column]);
+            }
+            $model = $model->where(['cat_id' => $id])->one();
+            return is_array($column) ? $model : $model->$column;
+
+        } else {
+            $model = self::findOne($id);
+            return $model;
+        }
 	}
 
 	/**
 	 * function getCategory
 	 */
-	public static function getCategory($publish=null, $array=true) 
+	public static function getCategory($publish=null, $array=true)
 	{
 		$model = self::find()->alias('t')
 			->leftJoin(sprintf('%s title', SourceMessage::tableName()), 't.cat_name=title.id');
-		if($publish != null)
-			$model->andWhere(['t.publish' => $publish]);
+        if ($publish != null) {
+            $model->andWhere(['t.publish' => $publish]);
+        }
 
 		$model = $model->orderBy('title.message ASC')->all();
 
-		if($array == true) {
+        if ($array == true) {
 			$items = [];
-			if($model !== null) {
-				foreach($model as $val) {
+            if ($model !== null) {
+				foreach ($model as $val) {
 					$items[$val->cat_id] = $val->title->message;
 				}
 				return $items;
-			} else
-				return false;
-		} else 
-			return $model;
+			} else {
+                return false;
+            }
+		} else {
+            return $model;
+        }
 	}
 
 	/**
 	 * after find attributes
 	 */
-	public function afterFind() 
+	public function afterFind()
 	{
 		$this->cat_name_i = isset($this->title) ? $this->title->message : '';
 		$this->cat_desc_i = isset($this->description) ? $this->description->message : '';
@@ -368,18 +374,20 @@ class FaqCategory extends \app\components\ActiveRecord
 	/**
 	 * before validate attributes
 	 */
-	public function beforeValidate() 
+	public function beforeValidate()
 	{
-		if(parent::beforeValidate()) {
-			if($this->isNewRecord) {
-				if($this->creation_id == null)
-					$this->creation_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
-			} else {
-				if($this->modified_id == null)
-					$this->modified_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
-			}
-		}
-		return true;
+        if (parent::beforeValidate()) {
+            if ($this->isNewRecord) {
+                if ($this->creation_id == null) {
+                    $this->creation_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
+                }
+            } else {
+                if ($this->modified_id == null) {
+                    $this->modified_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
+                }
+            }
+        }
+        return true;
 	}
 
 	/**
@@ -387,41 +395,41 @@ class FaqCategory extends \app\components\ActiveRecord
 	 */
 	public function beforeSave($insert)
 	{
-		$module = strtolower(Yii::$app->controller->module->id);
-		$controller = strtolower(Yii::$app->controller->id);
-		$action = strtolower(Yii::$app->controller->action->id);
+        $module = strtolower(Yii::$app->controller->module->id);
+        $controller = strtolower(Yii::$app->controller->id);
+        $action = strtolower(Yii::$app->controller->action->id);
 
-		$location = Inflector::slug($module.' '.$controller);
+        $location = Inflector::slug($module.' '.$controller);
 
-		if(parent::beforeSave($insert)) {
-			if($insert || (!$insert && !$this->cat_name)) {
-				$cat_name = new SourceMessage();
-				$cat_name->location = $location.'_title';
-				$cat_name->message = $this->cat_name_i;
-				if($cat_name->save())
-					$this->cat_name = $cat_name->id;
-				
-			} else {
-				$cat_name = SourceMessage::findOne($this->cat_name);
-				$cat_name->message = $this->cat_name_i;
-				$cat_name->save();
-			}
+        if (parent::beforeSave($insert)) {
+            if ($insert || (!$insert && !$this->cat_name)) {
+                $cat_name = new SourceMessage();
+                $cat_name->location = $location.'_title';
+                $cat_name->message = $this->cat_name_i;
+                if ($cat_name->save()) {
+                    $this->cat_name = $cat_name->id;
+                }
 
-			if($insert || (!$insert && !$this->cat_desc)) {
-				$cat_desc = new SourceMessage();
-				$cat_desc->location = $location.'_description';
-				$cat_desc->message = $this->cat_desc_i;
-				if($cat_desc->save())
-					$this->cat_desc = $cat_desc->id;
-				
-			} else {
-				$cat_desc = SourceMessage::findOne($this->cat_desc);
-				$cat_desc->message = $this->cat_desc_i;
-				$cat_desc->save();
-			}
-		}
+            } else {
+                $cat_name = SourceMessage::findOne($this->cat_name);
+                $cat_name->message = $this->cat_name_i;
+                $cat_name->save();
+            }
 
-		return true;	
+            if ($insert || (!$insert && !$this->cat_desc)) {
+                $cat_desc = new SourceMessage();
+                $cat_desc->location = $location.'_description';
+                $cat_desc->message = $this->cat_desc_i;
+                if ($cat_desc->save()) {
+                    $this->cat_desc = $cat_desc->id;
+                }
+
+            } else {
+                $cat_desc = SourceMessage::findOne($this->cat_desc);
+                $cat_desc->message = $this->cat_desc_i;
+                $cat_desc->save();
+            }
+        }
+        return true;
 	}
-
 }

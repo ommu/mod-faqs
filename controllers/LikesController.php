@@ -61,18 +61,19 @@ class LikesController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$searchModel = new FaqLikesSearch();
-		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $searchModel = new FaqLikesSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-		$gridColumn = Yii::$app->request->get('GridColumn', null);
-		$cols = [];
-		if($gridColumn != null && count($gridColumn) > 0) {
-			foreach($gridColumn as $key => $val) {
-				if($gridColumn[$key] == 1)
-					$cols[] = $key;
-			}
-		}
-		$columns = $searchModel->getGridColumn($cols);
+        $gridColumn = Yii::$app->request->get('GridColumn', null);
+        $cols = [];
+        if ($gridColumn != null && count($gridColumn) > 0) {
+            foreach ($gridColumn as $key => $val) {
+                if ($gridColumn[$key] == 1) {
+                    $cols[] = $key;
+                }
+            }
+        }
+        $columns = $searchModel->getGridColumn($cols);
 
 		$this->view->title = Yii::t('app', 'Faq Likes');
 		$this->view->description = '';
@@ -112,7 +113,7 @@ class LikesController extends Controller
 		$model = $this->findModel($id);
 		$model->publish = 2;
 
-		if($model->save(false, ['publish'])) {
+        if ($model->save(false, ['publish'])) {
 			Yii::$app->session->setFlash('success', Yii::t('app', 'Faq like success deleted.'));
 			return $this->redirect(['index']);
 			//return $this->redirect(['view', 'id' => $model->like_id]);
@@ -131,7 +132,7 @@ class LikesController extends Controller
 		$replace = $model->publish == 1 ? 0 : 1;
 		$model->publish = $replace;
 
-		if($model->save(false, ['publish'])) {
+        if ($model->save(false, ['publish'])) {
 			Yii::$app->session->setFlash('success', Yii::t('app', 'Faq like success updated.'));
 			return $this->redirect(['index']);
 		}
@@ -146,8 +147,9 @@ class LikesController extends Controller
 	 */
 	protected function findModel($id)
 	{
-		if(($model = FaqLikes::findOne($id)) !== null)
-			return $model;
+        if (($model = FaqLikes::findOne($id)) !== null) {
+            return $model;
+        }
 
 		throw new \yii\web\NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
 	}

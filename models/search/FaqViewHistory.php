@@ -63,10 +63,11 @@ class FaqViewHistory extends FaqViewHistoryModel
 	 */
 	public function search($params, $column=null)
 	{
-		if(!($column && is_array($column)))
-			$query = FaqViewHistoryModel::find()->alias('t');
-		else
-			$query = FaqViewHistoryModel::find()->alias('t')->select($column);
+        if (!($column && is_array($column))) {
+            $query = FaqViewHistoryModel::find()->alias('t');
+        } else {
+            $query = FaqViewHistoryModel::find()->alias('t')->select($column);
+        }
 		$query->joinWith([
 			'view.faq faq', 
 			'view.faq.questionRltn questionRltn', 
@@ -98,11 +99,12 @@ class FaqViewHistory extends FaqViewHistoryModel
 			'defaultOrder' => ['id' => SORT_DESC],
 		]);
 
-		if(Yii::$app->request->get('id'))
-			unset($params['id']);
+        if (Yii::$app->request->get('id')) {
+            unset($params['id']);
+        }
 		$this->load($params);
 
-		if(!$this->validate()) {
+        if (!$this->validate()) {
 			// uncomment the following line if you do not want to return any records when validation fails
 			// $query->where('0=1');
 			return $dataProvider;

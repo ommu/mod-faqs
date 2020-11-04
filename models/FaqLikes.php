@@ -40,7 +40,7 @@ class FaqLikes extends \app\components\ActiveRecord
 {
 	use \ommu\traits\UtilityTrait;
 
-	public $gridForbiddenColumn = ['likes_ip','updated_date'];
+	public $gridForbiddenColumn = ['likes_ip', 'updated_date'];
 
 	// Variable Search
 	public $category_search;
@@ -129,11 +129,13 @@ class FaqLikes extends \app\components\ActiveRecord
 	{
 		parent::init();
 
-		if(!(Yii::$app instanceof \app\components\Application))
-			return;
+        if (!(Yii::$app instanceof \app\components\Application)) {
+            return;
+        }
 
-		if(!$this->hasMethod('search'))
-			return;
+        if (!$this->hasMethod('search')) {
+            return;
+        }
 
 		$this->templateColumns['_no'] = [
 			'header' => '#',
@@ -200,52 +202,56 @@ class FaqLikes extends \app\components\ActiveRecord
 	 */
 	public static function getInfo($id, $column=null)
 	{
-		if($column != null) {
-			$model = self::find();
-			if(is_array($column))
-				$model->select($column);
-			else
-				$model->select([$column]);
-			$model = $model->where(['like_id' => $id])->one();
-			return is_array($column) ? $model : $model->$column;
-			
-		} else {
-			$model = self::findOne($id);
-			return $model;
-		}
+        if ($column != null) {
+            $model = self::find();
+            if (is_array($column)) {
+                $model->select($column);
+            } else {
+                $model->select([$column]);
+            }
+            $model = $model->where(['like_id' => $id])->one();
+            return is_array($column) ? $model : $model->$column;
+
+        } else {
+            $model = self::findOne($id);
+            return $model;
+        }
 	}
 
 	public function insertLike($faq_id, $action=false)
 	{
 		$user_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
 
-		if($action == false) {
-			if($user_id == null)
-				return 0;
+        if ($action == false) {
+            if ($user_id == null) {
+                return 0;
+            }
 
 			$findLike = self::find()
-				->select(['like_id','publish','faq_id','user_id'])	//1=like, 0=no like
+				->select(['like_id', 'publish', 'faq_id', 'user_id'])	//1=like, 0=no like
 				->where(['publish' => 1])
 				->andWhere(['faq_id' => $faq_id])
 				->andWhere(['user_id' => $user_id])
 				->one();
 
-			if($findLike !== null)
-				return $findLike->like_id;
-			else
-				return 0;
+            if ($findLike !== null) {
+                return $findLike->like_id;
+            } else {
+                return 0;
+            }
 
 		} else {
 			$findLike = self::find()
-				->select(['like_id','publish','faq_id','user_id'])	//1=like, 0=no like
+				->select(['like_id', 'publish', 'faq_id', 'user_id'])	//1=like, 0=no like
 				->andWhere(['faq_id' => $faq_id]);
-			if($user_id != null)
-				$findLike->andWhere(['user_id' => $user_id]);
-			else
-				$findLike->andWhere(['is', 'user_id', null]);
+            if ($user_id != null) {
+                $findLike->andWhere(['user_id' => $user_id]);
+            } else {
+                $findLike->andWhere(['is', 'user_id', null]);
+            }
 			$findLike = $findLike->one();
 			
-			if($findLike !== null) {
+            if ($findLike !== null) {
 				$publish = $findLike->publish == 1 ? 0 : 1;
 				$findLike->updateAttributes(['publish'=>$publish, 'view_ip'=>$_SERVER['REMOTE_ADDR']]);
 
@@ -261,17 +267,18 @@ class FaqLikes extends \app\components\ActiveRecord
 	/**
 	 * before validate attributes
 	 */
-	public function beforeValidate() 
+	public function beforeValidate()
 	{
-		if(parent::beforeValidate()) {
-			if($this->isNewRecord) {
-				if($this->user_id == null)
-					$this->user_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
-			}
+        if (parent::beforeValidate()) {
+            if ($this->isNewRecord) {
+                if ($this->user_id == null) {
+                    $this->user_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
+                }
+            }
 
-			$this->likes_ip = $_SERVER['REMOTE_ADDR'];
-		}
-		return true;
+            $this->likes_ip = $_SERVER['REMOTE_ADDR'];
+        }
+        return true;
 	}
 
 }
