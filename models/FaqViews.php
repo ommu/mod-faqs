@@ -142,7 +142,7 @@ class FaqViews extends \app\components\ActiveRecord
 		$this->templateColumns['_no'] = [
 			'header' => '#',
 			'class' => 'app\components\grid\SerialColumn',
-			'contentOptions' => ['class'=>'text-center'],
+			'contentOptions' => ['class' => 'text-center'],
 		];
 		$this->templateColumns['category_search'] = [
 			'attribute' => 'category_search',
@@ -189,20 +189,20 @@ class FaqViews extends \app\components\ActiveRecord
 		$this->templateColumns['views'] = [
 			'attribute' => 'views',
 			'value' => function($model, $key, $index, $column) {
-				return Html::a($model->views, ['history-view/index', 'view'=>$model->primaryKey]);
+				return Html::a($model->views, ['history-view/index', 'view' => $model->primaryKey]);
 			},
 			'filter' => false,
-			'contentOptions' => ['class'=>'text-center'],
+			'contentOptions' => ['class' => 'text-center'],
 			'format' => 'html',
 		];
 		$this->templateColumns['publish'] = [
 			'attribute' => 'publish',
 			'value' => function($model, $key, $index, $column) {
-				$url = Url::to(['publish', 'id'=>$model->primaryKey]);
+				$url = Url::to(['publish', 'id' => $model->primaryKey]);
 				return $this->quickAction($url, $model->publish);
 			},
 			'filter' => $this->filterYesNo(),
-			'contentOptions' => ['class'=>'text-center'],
+			'contentOptions' => ['class' => 'text-center'],
 			'format' => 'raw',
 			'visible' => !Yii::$app->request->get('trash') ? true : false,
 		];
@@ -245,7 +245,7 @@ class FaqViews extends \app\components\ActiveRecord
 		$findView = $findView->one();
 			
         if ($findView !== null) {
-            $findView->updateAttributes(['views'=>$findView->views+1, 'view_ip'=>$_SERVER['REMOTE_ADDR']]);
+            $findView->updateAttributes(['views' => $findView->views+1, 'view_ip' => $_SERVER['REMOTE_ADDR']]);
         } else {
 			$view = new FaqViews();
 			$view->faq_id = $faq_id;

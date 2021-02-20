@@ -72,10 +72,11 @@ class FaqViews extends FaqViewsModel
 			'faq.questionRltn questionRltn', 
 			'faq.category.title category', 
 			'user user',
-		])
-		->groupBy(['view_id']);
+		]);
 
-		// add conditions that should always apply here
+		$query->groupBy(['view_id']);
+
+        // add conditions that should always apply here
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,
 		]);
@@ -101,10 +102,10 @@ class FaqViews extends FaqViewsModel
 		$this->load($params);
 
         if (!$this->validate()) {
-			// uncomment the following line if you do not want to return any records when validation fails
-			// $query->where('0=1');
-			return $dataProvider;
-		}
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
 
 		// grid filtering conditions
 		$query->andFilterWhere([
@@ -125,7 +126,7 @@ class FaqViews extends FaqViewsModel
             } else {
                 $query->andFilterWhere(['t.publish' => $this->publish]);
             }
-		}
+        }
 
 		$query->andFilterWhere(['like', 't.view_ip', $this->view_ip])
 			->andFilterWhere(['like', 'questionRltn.message', $this->faq_search])

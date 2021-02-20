@@ -86,7 +86,7 @@ class SettingController extends Controller
 
 		$model = FaqSetting::findOne(1);
         if ($model === null) {
-            $model = new FaqSetting(['id'=>1]);
+            $model = new FaqSetting(['id' => 1]);
         }
 
         if (Yii::$app->request->isPost) {

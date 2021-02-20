@@ -72,10 +72,11 @@ class FaqLikeHistory extends FaqLikeHistoryModel
 			'like.faq.questionRltn questionRltn', 
 			'like.faq.category.title category', 
 			'like.user user',
-		])
-		->groupBy(['id']);
+		]);
 
-		// add conditions that should always apply here
+		$query->groupBy(['id']);
+
+        // add conditions that should always apply here
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,
 		]);
@@ -104,10 +105,10 @@ class FaqLikeHistory extends FaqLikeHistoryModel
 		$this->load($params);
 
         if (!$this->validate()) {
-			// uncomment the following line if you do not want to return any records when validation fails
-			// $query->where('0=1');
-			return $dataProvider;
-		}
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
 
 		// grid filtering conditions
 		$query->andFilterWhere([

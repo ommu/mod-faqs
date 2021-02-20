@@ -75,10 +75,11 @@ class FaqCategory extends FaqCategoryModel
 			'creation creation', 
 			'modified modified', 
 			'parent.title parent'
-		])
-		->groupBy(['cat_id']);
+		]);
 
-		// add conditions that should always apply here
+		$query->groupBy(['cat_id']);
+
+        // add conditions that should always apply here
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,
 		]);
@@ -120,10 +121,10 @@ class FaqCategory extends FaqCategoryModel
 		$this->load($params);
 
         if (!$this->validate()) {
-			// uncomment the following line if you do not want to return any records when validation fails
-			// $query->where('0=1');
-			return $dataProvider;
-		}
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
 
 		// grid filtering conditions
 		$query->andFilterWhere([
@@ -147,7 +148,7 @@ class FaqCategory extends FaqCategoryModel
             } else {
                 $query->andFilterWhere(['t.publish' => $this->publish]);
             }
-		}
+        }
 
 		$query->andFilterWhere(['like', 't.slug', $this->slug])
 			->andFilterWhere(['like', 'title.message', $this->cat_name_i])

@@ -232,7 +232,7 @@ class Faqs extends \app\components\ActiveRecord
 		$this->templateColumns['_no'] = [
 			'header' => '#',
 			'class' => 'app\components\grid\SerialColumn',
-			'contentOptions' => ['class'=>'text-center'],
+			'contentOptions' => ['class' => 'text-center'],
 		];
 		$this->templateColumns['cat_id'] = [
 			'attribute' => 'cat_id',
@@ -308,38 +308,38 @@ class Faqs extends \app\components\ActiveRecord
 		$this->templateColumns['helpful_search'] = [
 			'attribute' => 'helpful_search',
 			'value' => function($model, $key, $index, $column) {
-				return Html::a($model->view->helpfuls ? $model->view->helpfuls : 0, ['helpful/index', 'faq'=>$model->primaryKey]);
+				return Html::a($model->view->helpfuls ? $model->view->helpfuls : 0, ['helpful/index', 'faq' => $model->primaryKey]);
 			},
 			'filter' => false,
-			'contentOptions' => ['class'=>'text-center'],
+			'contentOptions' => ['class' => 'text-center'],
 			'format' => 'html',
 		];
 		$this->templateColumns['view_search'] = [
 			'attribute' => 'view_search',
 			'value' => function($model, $key, $index, $column) {
-				return Html::a($model->view->views ? $model->view->views : 0, ['views/index', 'faq'=>$model->primaryKey, 'publish' => 1]);
+				return Html::a($model->view->views ? $model->view->views : 0, ['views/index', 'faq' => $model->primaryKey, 'publish' => 1]);
 			},
 			'filter' => false,
-			'contentOptions' => ['class'=>'text-center'],
+			'contentOptions' => ['class' => 'text-center'],
 			'format' => 'html',
 		];
 		$this->templateColumns['like_search'] = [
 			'attribute' => 'like_search',
 			'value' => function($model, $key, $index, $column) {
-				return Html::a($model->view->likes ? $model->view->likes : 0, ['likes/index', 'faq'=>$model->primaryKey, 'publish' => 1]);
+				return Html::a($model->view->likes ? $model->view->likes : 0, ['likes/index', 'faq' => $model->primaryKey, 'publish' => 1]);
 			},
 			'filter' => false,
-			'contentOptions' => ['class'=>'text-center'],
+			'contentOptions' => ['class' => 'text-center'],
 			'format' => 'html',
 		];
 		$this->templateColumns['publish'] = [
 			'attribute' => 'publish',
 			'value' => function($model, $key, $index, $column) {
-				$url = Url::to(['publish', 'id'=>$model->primaryKey]);
+				$url = Url::to(['publish', 'id' => $model->primaryKey]);
 				return $this->quickAction($url, $model->publish);
 			},
 			'filter' => $this->filterYesNo(),
-			'contentOptions' => ['class'=>'text-center'],
+			'contentOptions' => ['class' => 'text-center'],
 			'format' => 'raw',
 			'visible' => !Yii::$app->request->get('trash') ? true : false,
 		];

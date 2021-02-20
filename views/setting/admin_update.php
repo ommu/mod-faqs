@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Settings'), 'url' =>
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
 $this->params['menu']['content'] = [
-	['label' => Yii::t('app', 'Add Category'), 'url' => Url::to(['category/create']), 'icon' => 'plus-square', 'htmlOptions' => ['class'=>'btn btn-success']],
+	['label' => Yii::t('app', 'Add Category'), 'url' => Url::to(['category/create']), 'icon' => 'plus-square', 'htmlOptions' => ['class' => 'btn btn-success']],
 ];
 $this->params['menu']['option'] = [
 	//['label' => Yii::t('app', 'Search'), 'url' => 'javascript:void(0);'],
@@ -58,9 +58,9 @@ $this->params['menu']['option'] = [
 		<div class="x_content">
 <?php Pjax::begin(); ?>
 
-<?php //echo $this->render('/category/_search', ['model'=>$searchModel]); ?>
+<?php //echo $this->render('/category/_search', ['model' => $searchModel]); ?>
 
-<?php echo $this->render('/category/_option_form', ['model'=>$searchModel, 'gridColumns'=>$searchModel->activeDefaultColumns($columns), 'route'=>$this->context->route]); ?>
+<?php echo $this->render('/category/_option_form', ['model' => $searchModel, 'gridColumns' => $searchModel->activeDefaultColumns($columns), 'route' => $this->context->route]); ?>
 
 <?php
 $columnData = $columns;
@@ -69,21 +69,21 @@ array_push($columnData, [
 	'header' => Yii::t('app', 'Option'),
 	'urlCreator' => function($action, $model, $key, $index) {
         if ($action == 'view') {
-            return Url::to(['category/view', 'id'=>$key]);
+            return Url::to(['category/view', 'id' => $key]);
         }
         if ($action == 'update') {
-            return Url::to(['category/update', 'id'=>$key]);
+            return Url::to(['category/update', 'id' => $key]);
         }
         if ($action == 'delete') {
-            return Url::to(['category/delete', 'id'=>$key]);
+            return Url::to(['category/delete', 'id' => $key]);
         }
 	},
 	'buttons' => [
 		'view' => function ($url, $model, $key) {
-			return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, ['title'=>Yii::t('app', 'Detail')]);
+			return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, ['title' => Yii::t('app', 'Detail')]);
 		},
 		'update' => function ($url, $model, $key) {
-			return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, ['title'=>Yii::t('app', 'Update')]);
+			return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, ['title' => Yii::t('app', 'Update')]);
 		},
 		'delete' => function ($url, $model, $key) {
 			return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
@@ -108,7 +108,7 @@ echo GridView::widget([
 </div>
 
 <div class="col-md-12 col-sm-12 col-xs-12">
-	<?php echo \app\components\widgets\Alert::widget(['closeButton'=>false]); ?>
+	<?php echo \app\components\widgets\Alert::widget(['closeButton' => false]); ?>
 
 	<div class="x_panel">
 		<div class="x_content">

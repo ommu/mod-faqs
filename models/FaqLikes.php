@@ -140,7 +140,7 @@ class FaqLikes extends \app\components\ActiveRecord
 		$this->templateColumns['_no'] = [
 			'header' => '#',
 			'class' => 'app\components\grid\SerialColumn',
-			'contentOptions' => ['class'=>'text-center'],
+			'contentOptions' => ['class' => 'text-center'],
 		];
 		$this->templateColumns['category_search'] = [
 			'attribute' => 'category_search',
@@ -187,11 +187,11 @@ class FaqLikes extends \app\components\ActiveRecord
 		$this->templateColumns['publish'] = [
 			'attribute' => 'publish',
 			'value' => function($model, $key, $index, $column) {
-				$url = Url::to(['publish', 'id'=>$model->primaryKey]);
+				$url = Url::to(['publish', 'id' => $model->primaryKey]);
 				return $this->quickAction($url, $model->publish);
 			},
 			'filter' => $this->filterYesNo(),
-			'contentOptions' => ['class'=>'text-center'],
+			'contentOptions' => ['class' => 'text-center'],
 			'format' => 'raw',
 			'visible' => !Yii::$app->request->get('trash') ? true : false,
 		];
@@ -253,7 +253,7 @@ class FaqLikes extends \app\components\ActiveRecord
 			
             if ($findLike !== null) {
 				$publish = $findLike->publish == 1 ? 0 : 1;
-				$findLike->updateAttributes(['publish'=>$publish, 'view_ip'=>$_SERVER['REMOTE_ADDR']]);
+				$findLike->updateAttributes(['publish' => $publish, 'view_ip' => $_SERVER['REMOTE_ADDR']]);
 
 			} else {
 				$view = new FaqViews();

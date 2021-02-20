@@ -75,10 +75,11 @@ class Faqs extends FaqsModel
 			'category.title category', 
 			'creation creation', 
 			'modified modified'
-		])
-		->groupBy(['faq_id']);
+		]);
 
-		// add conditions that should always apply here
+		$query->groupBy(['faq_id']);
+
+        // add conditions that should always apply here
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,
 		]);
@@ -128,10 +129,10 @@ class Faqs extends FaqsModel
 		$this->load($params);
 
         if (!$this->validate()) {
-			// uncomment the following line if you do not want to return any records when validation fails
-			// $query->where('0=1');
-			return $dataProvider;
-		}
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
 
 		// grid filtering conditions
 		$query->andFilterWhere([
@@ -155,7 +156,7 @@ class Faqs extends FaqsModel
             } else {
                 $query->andFilterWhere(['t.publish' => $this->publish]);
             }
-		}
+        }
 
 		$query->andFilterWhere(['like', 't.slug', $this->slug])
 			->andFilterWhere(['like', 'questionRltn.message', $this->question_i])

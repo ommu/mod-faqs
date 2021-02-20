@@ -108,7 +108,7 @@ class FaqSetting extends \app\components\ActiveRecord
 		$this->templateColumns['_no'] = [
 			'header' => '#',
 			'class' => 'app\components\grid\SerialColumn',
-			'contentOptions' => ['class'=>'text-center'],
+			'contentOptions' => ['class' => 'text-center'],
 		];
 		$this->templateColumns['license'] = [
 			'attribute' => 'license',
@@ -149,7 +149,7 @@ class FaqSetting extends \app\components\ActiveRecord
 				return $this->filterYesNo($model->permission);
 			},
 			'filter' => $this->filterYesNo(),
-			'contentOptions' => ['class'=>'text-center'],
+			'contentOptions' => ['class' => 'text-center'],
 		];
 	}
 

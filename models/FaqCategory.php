@@ -210,7 +210,7 @@ class FaqCategory extends \app\components\ActiveRecord
 		$this->templateColumns['_no'] = [
 			'header' => '#',
 			'class' => 'app\components\grid\SerialColumn',
-			'contentOptions' => ['class'=>'text-center'],
+			'contentOptions' => ['class' => 'text-center'],
 		];
 		$this->templateColumns['cat_name_i'] = [
 			'attribute' => 'cat_name_i',
@@ -280,34 +280,34 @@ class FaqCategory extends \app\components\ActiveRecord
 				return $model->orders;
 			},
 			'filter' => false,
-			'contentOptions' => ['class'=>'text-center'],
+			'contentOptions' => ['class' => 'text-center'],
 		];
 		$this->templateColumns['faq_search'] = [
 			'attribute' => 'faq_search',
 			'value' => function($model, $key, $index, $column) {
-				return Html::a($model->view->faqs ? $model->view->faqs : 0, ['admin/index', 'category'=>$model->primaryKey, 'publish' => 1]);
+				return Html::a($model->view->faqs ? $model->view->faqs : 0, ['admin/index', 'category' => $model->primaryKey, 'publish' => 1]);
 			},
 			'filter' => false,
-			'contentOptions' => ['class'=>'text-center'],
+			'contentOptions' => ['class' => 'text-center'],
 			'format' => 'html',
 		];
 		$this->templateColumns['faq_all_search'] = [
 			'attribute' => 'faq_all_search',
 			'value' => function($model, $key, $index, $column) {
-				return Html::a($model->view->faq_all ? $model->view->faq_all : 0, ['admin/index', 'category'=>$model->primaryKey]);
+				return Html::a($model->view->faq_all ? $model->view->faq_all : 0, ['admin/index', 'category' => $model->primaryKey]);
 			},
 			'filter' => false,
-			'contentOptions' => ['class'=>'text-center'],
+			'contentOptions' => ['class' => 'text-center'],
 			'format' => 'html',
 		];
 		$this->templateColumns['publish'] = [
 			'attribute' => 'publish',
 			'value' => function($model, $key, $index, $column) {
-				$url = Url::to(['publish', 'id'=>$model->primaryKey]);
+				$url = Url::to(['publish', 'id' => $model->primaryKey]);
 				return $this->quickAction($url, $model->publish);
 			},
 			'filter' => $this->filterYesNo(),
-			'contentOptions' => ['class'=>'text-center'],
+			'contentOptions' => ['class' => 'text-center'],
 			'format' => 'raw',
 			'visible' => !Yii::$app->request->get('trash') ? true : false,
 		];

@@ -31,7 +31,7 @@ $redactorOptions = [
 ?>
 
 <?php $form = ActiveForm::begin([
-	'options' => ['class'=>'form-horizontal form-label-left'],
+	'options' => ['class' => 'form-horizontal form-label-left'],
 	'enableClientValidation' => true,
 	'enableAjaxValidation' => false,
 	//'enableClientScript' => true,
@@ -46,7 +46,7 @@ $redactorOptions = [
 
 <?php $category = FaqCategory::getCategory(1);
 echo $form->field($model, 'parent_id')
-	->dropDownList($category, ['prompt'=>''])
+	->dropDownList($category, ['prompt' => ''])
 	->label($model->getAttributeLabel('parent_id')); ?>
 
 <?php echo $form->field($model, 'cat_name_i')
@@ -54,7 +54,7 @@ echo $form->field($model, 'parent_id')
 	->label($model->getAttributeLabel('cat_name_i')); ?>
 
 <?php echo $form->field($model, 'cat_desc_i')
-	->textarea(['rows'=>6, 'cols'=>50])
+	->textarea(['rows' => 6, 'cols' => 50])
 	->widget(Redactor::className(), ['clientOptions' => $redactorOptions])
 	->label($model->getAttributeLabel('cat_desc_i')); ?>
 
