@@ -29,38 +29,41 @@ if (!$small) {
     ];
 } ?>
 
-<?php echo DetailView::widget([
+<?php
+$attributes = [
+    'view_id',
+    [
+        'attribute' => 'publish',
+        'value' => $model->publish == 1 ? Yii::t('app', 'Yes') : Yii::t('app', 'No'),
+    ],
+    [
+        'attribute' => 'category_search',
+        'value' => isset($model->faq->category) ? $model->faq->category->title->message : '-',
+    ],
+    [
+        'attribute' => 'faq_search',
+        'value' => isset($model->faq->questionRltn) ? $model->faq->questionRltn->message : '-',
+    ],
+    [
+        'attribute' => 'userDisplayname',
+        'value' => isset($model->user) ? $model->user->displayname : '-',
+    ],
+    'views',
+    [
+        'attribute' => 'view_date',
+        'value' => Yii::$app->formatter->asDatetime($model->view_date, 'medium'),
+    ],
+    'view_ip',
+    [
+        'attribute' => 'deleted_date',
+        'value' => Yii::$app->formatter->asDatetime($model->deleted_date, 'medium'),
+    ],
+];
+
+echo DetailView::widget([
 	'model' => $model,
 	'options' => [
 		'class' => 'table table-striped detail-view',
 	],
-	'attributes' => [
-		'view_id',
-		[
-			'attribute' => 'publish',
-			'value' => $model->publish == 1 ? Yii::t('app', 'Yes') : Yii::t('app', 'No'),
-		],
-		[
-			'attribute' => 'category_search',
-			'value' => isset($model->faq->category) ? $model->faq->category->title->message : '-',
-		],
-		[
-			'attribute' => 'faq_search',
-			'value' => isset($model->faq->questionRltn) ? $model->faq->questionRltn->message : '-',
-		],
-		[
-			'attribute' => 'userDisplayname',
-			'value' => isset($model->user) ? $model->user->displayname : '-',
-		],
-		'views',
-		[
-			'attribute' => 'view_date',
-			'value' => Yii::$app->formatter->asDatetime($model->view_date, 'medium'),
-		],
-		'view_ip',
-		[
-			'attribute' => 'deleted_date',
-			'value' => Yii::$app->formatter->asDatetime($model->deleted_date, 'medium'),
-		],
-	],
+	'attributes' => $attributes,
 ]); ?>

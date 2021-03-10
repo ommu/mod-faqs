@@ -29,38 +29,41 @@ if (!$small) {
     ];
 } ?>
 
-<?php echo DetailView::widget([
+<?php
+$attributes = [
+    'like_id',
+    [
+        'attribute' => 'publish',
+        'value' => $model->publish == 1 ? Yii::t('app', 'Yes') : Yii::t('app', 'No'),
+    ],
+    [
+        'attribute' => 'category_search',
+        'value' => isset($model->faq->category) ? $model->faq->category->title->message : '-',
+    ],
+    [
+        'attribute' => 'faq_search',
+        'value' => isset($model->faq->questionRltn) ? $model->faq->questionRltn->message : '-',
+    ],
+    [
+        'attribute' => 'userDisplayname',
+        'value' => isset($model->user) ? $model->user->displayname : '-',
+    ],
+    [
+        'attribute' => 'likes_date',
+        'value' => Yii::$app->formatter->asDatetime($model->likes_date, 'medium'),
+    ],
+    'likes_ip',
+    [
+        'attribute' => 'updated_date',
+        'value' => Yii::$app->formatter->asDatetime($model->updated_date, 'medium'),
+        'visible' => !$small,
+    ],
+];
+
+echo DetailView::widget([
 	'model' => $model,
 	'options' => [
 		'class' => 'table table-striped detail-view',
 	],
-	'attributes' => [
-		'like_id',
-		[
-			'attribute' => 'publish',
-			'value' => $model->publish == 1 ? Yii::t('app', 'Yes') : Yii::t('app', 'No'),
-		],
-		[
-			'attribute' => 'category_search',
-			'value' => isset($model->faq->category) ? $model->faq->category->title->message : '-',
-		],
-		[
-			'attribute' => 'faq_search',
-			'value' => isset($model->faq->questionRltn) ? $model->faq->questionRltn->message : '-',
-		],
-		[
-			'attribute' => 'userDisplayname',
-			'value' => isset($model->user) ? $model->user->displayname : '-',
-		],
-		[
-			'attribute' => 'likes_date',
-			'value' => Yii::$app->formatter->asDatetime($model->likes_date, 'medium'),
-		],
-		'likes_ip',
-		[
-			'attribute' => 'updated_date',
-			'value' => Yii::$app->formatter->asDatetime($model->updated_date, 'medium'),
-			'visible' => !$small,
-		],
-	],
+	'attributes' => $attributes,
 ]); ?>

@@ -30,54 +30,57 @@ if (!$small) {
     ];
 } ?>
 
-<?php echo DetailView::widget([
+<?php
+$attributes = [
+    'faq_id',
+    [
+        'attribute' => 'publish',
+        'value' => $model->publish == 1 ? Yii::t('app', 'Yes') : Yii::t('app', 'No'),
+    ],
+    [
+        'attribute' => 'category_search',
+        'value' => isset($model->category) ? $model->category->title->message : '-',
+    ],
+    [
+        'attribute' => 'question_i',
+        'value' => isset($model->questionRltn) ? $model->questionRltn->message : '-',
+    ],
+    [
+        'attribute' => 'answer_i',
+        'value' => isset($model->answerRltn) ? $model->answerRltn->message : '-',
+        'format' => 'html',
+    ],
+    'orders',
+    [
+        'attribute' => 'creation_date',
+        'value' => Yii::$app->formatter->asDatetime($model->creation_date, 'medium'),
+        'visible' => !$small,
+    ],
+    [
+        'attribute' => 'creationDisplayname',
+        'value' => isset($model->creation) ? $model->creation->displayname : '-',
+    ],
+    [
+        'attribute' => 'modified_date',
+        'value' => Yii::$app->formatter->asDatetime($model->modified_date, 'medium'),
+        'visible' => !$small,
+    ],
+    [
+        'attribute' => 'modifiedDisplayname',
+        'value' => isset($model->modified) ? $model->modified->displayname : '-',
+    ],
+    [
+        'attribute' => 'updated_date',
+        'value' => Yii::$app->formatter->asDatetime($model->updated_date, 'medium'),
+        'visible' => !$small,
+    ],
+    'slug',
+];
+
+echo DetailView::widget([
 	'model' => $model,
 	'options' => [
 		'class' => 'table table-striped detail-view',
 	],
-	'attributes' => [
-		'faq_id',
-		[
-			'attribute' => 'publish',
-			'value' => $model->publish == 1 ? Yii::t('app', 'Yes') : Yii::t('app', 'No'),
-		],
-		[
-			'attribute' => 'category_search',
-			'value' => isset($model->category) ? $model->category->title->message : '-',
-		],
-		[
-			'attribute' => 'question_i',
-			'value' => isset($model->questionRltn) ? $model->questionRltn->message : '-',
-		],
-		[
-			'attribute' => 'answer_i',
-			'value' => isset($model->answerRltn) ? $model->answerRltn->message : '-',
-			'format' => 'html',
-		],
-		'orders',
-		[
-			'attribute' => 'creation_date',
-			'value' => Yii::$app->formatter->asDatetime($model->creation_date, 'medium'),
-			'visible' => !$small,
-		],
-		[
-			'attribute' => 'creationDisplayname',
-			'value' => isset($model->creation) ? $model->creation->displayname : '-',
-		],
-		[
-			'attribute' => 'modified_date',
-			'value' => Yii::$app->formatter->asDatetime($model->modified_date, 'medium'),
-			'visible' => !$small,
-		],
-		[
-			'attribute' => 'modifiedDisplayname',
-			'value' => isset($model->modified) ? $model->modified->displayname : '-',
-		],
-		[
-			'attribute' => 'updated_date',
-			'value' => Yii::$app->formatter->asDatetime($model->updated_date, 'medium'),
-			'visible' => !$small,
-		],
-		'slug',
-	],
+	'attributes' => $attributes,
 ]); ?>

@@ -27,21 +27,24 @@ if (!$small) {
     ];
 } ?>
 
-<?php echo DetailView::widget([
+<?php
+$attributes = [
+    'id',
+    [
+        'attribute' => 'view_search',
+        'value' => isset($model->view) ? $model->view->faq->category->title->message : '-',
+    ],
+    [
+        'attribute' => 'view_date',
+        'value' => Yii::$app->formatter->asDatetime($model->view_date, 'medium'),
+    ],
+    'view_ip',
+];
+
+echo DetailView::widget([
 	'model' => $model,
 	'options' => [
 		'class' => 'table table-striped detail-view',
 	],
-	'attributes' => [
-		'id',
-		[
-			'attribute' => 'view_search',
-			'value' => isset($model->view) ? $model->view->faq->category->title->message : '-',
-		],
-		[
-			'attribute' => 'view_date',
-			'value' => Yii::$app->formatter->asDatetime($model->view_date, 'medium'),
-		],
-		'view_ip',
-	],
+	'attributes' => $attributes,
 ]); ?>

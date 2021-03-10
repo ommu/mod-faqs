@@ -29,47 +29,50 @@ if (!$small) {
     ];
 } ?>
 
-<?php echo DetailView::widget([
+<?php
+$attributes = [
+    'id',
+    [
+        'attribute' => 'category_search',
+        'value' => isset($model->faq->category) ? $model->faq->category->title->message : '-',
+    ],
+    [
+        'attribute' => 'faq_search',
+        'value' => isset($model->faq->questionRltn) ? $model->faq->questionRltn->message : '-',
+    ],
+    [
+        'attribute' => 'userDisplayname',
+        'value' => isset($model->user) ? $model->user->displayname : '-',
+    ],
+    [
+        'attribute' => 'helpful',
+        'value' => $model->helpful == 1 ? Yii::t('app', 'Yes') : Yii::t('app', 'No'),
+    ],
+    [
+        'attribute' => 'message',
+        'value' => $model->message ? $model->message : '-',
+        'format' => 'html',
+    ],
+    [
+        'attribute' => 'helpful_date',
+        'value' => Yii::$app->formatter->asDatetime($model->helpful_date, 'medium'),
+    ],
+    'helpful_ip',
+    [
+        'attribute' => 'modified_date',
+        'value' => Yii::$app->formatter->asDatetime($model->modified_date, 'medium'),
+        'visible' => !$small,
+    ],
+    [
+        'attribute' => 'modifiedDisplayname',
+        'value' => isset($model->modified) ? $model->modified->displayname : '-',
+    ],
+];
+
+echo DetailView::widget([
 	'model' => $model,
 	'options' => [
 		'class' => 'table table-striped detail-view',
 	],
-	'attributes' => [
-		'id',
-		[
-			'attribute' => 'category_search',
-			'value' => isset($model->faq->category) ? $model->faq->category->title->message : '-',
-		],
-		[
-			'attribute' => 'faq_search',
-			'value' => isset($model->faq->questionRltn) ? $model->faq->questionRltn->message : '-',
-		],
-		[
-			'attribute' => 'userDisplayname',
-			'value' => isset($model->user) ? $model->user->displayname : '-',
-		],
-		[
-			'attribute' => 'helpful',
-			'value' => $model->helpful == 1 ? Yii::t('app', 'Yes') : Yii::t('app', 'No'),
-		],
-		[
-			'attribute' => 'message',
-			'value' => $model->message ? $model->message : '-',
-			'format' => 'html',
-		],
-		[
-			'attribute' => 'helpful_date',
-			'value' => Yii::$app->formatter->asDatetime($model->helpful_date, 'medium'),
-		],
-		'helpful_ip',
-		[
-			'attribute' => 'modified_date',
-			'value' => Yii::$app->formatter->asDatetime($model->modified_date, 'medium'),
-			'visible' => !$small,
-		],
-		[
-			'attribute' => 'modifiedDisplayname',
-			'value' => isset($model->modified) ? $model->modified->displayname : '-',
-		],
-	],
+	'attributes' => $attributes,
 ]); ?>

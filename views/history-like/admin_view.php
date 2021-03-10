@@ -27,25 +27,28 @@ if (!$small) {
     ];
 } ?>
 
-<?php echo DetailView::widget([
+<?php
+$attributes = [
+    'id',
+    [
+        'attribute' => 'publish',
+        'value' => $model->publish == 1 ? Yii::t('app', 'Yes') : Yii::t('app', 'No'),
+    ],
+    [
+        'attribute' => 'like_search',
+        'value' => isset($model->like) ? $model->like->faq->category->title->message : '-',
+    ],
+    [
+        'attribute' => 'likes_date',
+        'value' => Yii::$app->formatter->asDatetime($model->likes_date, 'medium'),
+    ],
+    'likes_ip',
+];
+
+echo DetailView::widget([
 	'model' => $model,
 	'options' => [
 		'class' => 'table table-striped detail-view',
 	],
-	'attributes' => [
-		'id',
-		[
-			'attribute' => 'publish',
-			'value' => $model->publish == 1 ? Yii::t('app', 'Yes') : Yii::t('app', 'No'),
-		],
-		[
-			'attribute' => 'like_search',
-			'value' => isset($model->like) ? $model->like->faq->category->title->message : '-',
-		],
-		[
-			'attribute' => 'likes_date',
-			'value' => Yii::$app->formatter->asDatetime($model->likes_date, 'medium'),
-		],
-		'likes_ip',
-	],
+	'attributes' => $attributes,
 ]); ?>
