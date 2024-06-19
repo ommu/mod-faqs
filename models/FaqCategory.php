@@ -8,7 +8,7 @@
  * @created date 4 January 2018, 16:24 WIB
  * @modified date 27 April 2018, 00:36 WIB
  * @modified by Putra Sudaryanto <putra@ommu.id>
- * @contact (+62)856-299-4114
+ * @contact (+62)811-2540-432
  * @link https://github.com/ommu/mod-faqs
  *
  * This is the model class for table "ommu_faq_category".

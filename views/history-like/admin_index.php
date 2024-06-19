@@ -11,7 +11,7 @@
  * @created date 9 January 2018, 08:22 WIB
  * @modified date 29 April 2018, 20:31 WIB
  * @modified by Putra Sudaryanto <putra@ommu.id>
- * @contact (+62)856-299-4114
+ * @contact (+62)811-2540-432
  * @link https://github.com/ommu/mod-faqs
  *
  */
