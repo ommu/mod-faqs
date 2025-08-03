@@ -6,7 +6,6 @@
 		"frequency-asked-question",
 		"faq",
 		"ommu",
-		"ommu-platform",
 		"yii"
 	],
 	"homepage": "https://github.com/ommu/mod-faqs",
@@ -24,8 +23,8 @@
 	"authors": [
 		{
 			"name": "Putra Sudaryanto",
-			"email": "putra@ommu.co",
-			"homepage": "https://ommu.co",
+			"email": "putra@ommu.id",
+			"homepage": "https://ommu.id",
 			"role": "Creator"
 		}
 	],
