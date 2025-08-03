@@ -6,8 +6,7 @@
 		"module",
 		"frequency-asked-question",
 		"faq",
-		"ommu",
-		"ommu-platform",
+		"ommu2",
 		"yii2"
 	],
 	"license": "Apache-2.0",
